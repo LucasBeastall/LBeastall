@@ -1,0 +1,1516 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/javascript-lp-solver/prod/solver.js"></script>
+    <title>LPP Solver</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="StyleSheet1.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Linear Programming Problem Solver</h1>
+        </header>
+
+        <main>
+            <section class="optimization-section">
+                <h2>Optimization Goal</h2>
+                <div class="form-group">
+                    <select id="goal" class="select-css">
+                        <option value="min">Minimize</option>
+                        <option value="max">Maximize</option>
+                    </select>
+                    <select id="metric" class="select-css">
+                        <option id="minimizeCalories">Calories</option>
+                        <option id="minimizeWeight">Weight</option>
+                        <option id="minimizeCost">Cost</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="boundaries-section">
+                <h2>Boundaries</h2>
+                <div class="grid-container">
+                    <div class="form-group">
+                        <label for="caloriesMin">Calories Min:</label>
+                        <input type="number" id="caloriesMin" value="2000">
+                        <label for="caloriesMax">Max:</label>
+                        <input type="number" id="caloriesMax" value="4000">
+                    </div>
+                    <div class="form-group">
+                        <label for="weightMin">Weight Min (kg):</label>
+                        <input type="number" id="weightMin" value="0.1">
+                        <label for="weightMax">Max:</label>
+                        <input type="number" id="weightMax" value="25">
+                    </div>
+                    <div class="form-group">
+                        <label for="costMin">Cost Min (£):</label>
+                        <input type="number" id="costMin" value="0.1">
+                        <label for="costMax">Max:</label>
+                        <input type="number" id="costMax" value="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="proteinMin">Protein Min (g):</label>
+                        <input type="number" id="proteinMin" value="100">
+                        <label for="proteinMax">Max:</label>
+                        <input type="number" id="proteinMax" value="200">
+                    </div>
+                    <div class="form-group">
+                        <label for="fatMin">Fat Min (g):</label>
+                        <input type="number" id="fatMin" value="1">
+                        <label for="fatMax">Max:</label>
+                        <input type="number" id="fatMax" value="300">
+                    </div>
+                    <div class="form-group">
+                        <label for="carbohydrateMin">Carbohydrate Min (g):</label>
+                        <input type="number" id="carbohydrateMin" value="1">
+                        <label for="carbohydrateMax">Max:</label>
+                        <input type="number" id="carbohydrateMax" value="300">
+                    </div>
+                </div>
+            </section>
+
+            <button id="solve" class="btn-solve">Solve LPP</button>
+
+            <section class="results-section">
+                <h2>Results</h2>
+                <div id="result" class="result-box">
+                    <!-- Results will be displayed here -->
+                </div>
+            </section>
+
+            <section class="food-data-section">
+                <h2>Food Data</h2>
+                <div class="table-container">
+                    <table id="foodData">
+                        <thead>
+                            <tr>
+                                <th>Food (100g)</th>
+                                <th>Cost</th>
+                                <th>Calories</th>
+                                <th>Protein</th>
+                                <th>Fat</th>
+                                <th>Carbohydrate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>carrot</td>
+                                <td>0.06</td>
+                                <td>41</td>
+                                <td>0.9</td>
+                                <td>0.2</td>
+                                <td>9.6</td>
+                            </tr>
+                            <tr>
+                                <td>chicken</td>
+                                <td>0.6</td>
+                                <td>165</td>
+                                <td>31</td>
+                                <td>3.6</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>20% beef mince</td>
+                                <td>0.5</td>
+                                <td>254</td>
+                                <td>17</td>
+                                <td>20</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>potato</td>
+                                <td>0.15</td>
+                                <td>77</td>
+                                <td>2</td>
+                                <td>0.1</td>
+                                <td>17</td>
+                            </tr>
+                            <tr>
+                                <td>sweet potato</td>
+                                <td>0.2</td>
+                                <td>86</td>
+                                <td>1.6</td>
+                                <td>0.1</td>
+                                <td>20</td>
+                            </tr>
+                            <tr>
+                                <td>broccoli</td>
+                                <td>0.2</td>
+                                <td>34</td>
+                                <td>2.8</td>
+                                <td>0.4</td>
+                                <td>6.6</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="algorythm-section">
+                <h2>Simplex</h2>
+                <div id="Algorythm" class="algorythm-box">  This Linear Programming Problem solver was coded from scratch, without external libraries (see script at the bottom of the page). It demonstrates my ability to implement complex algorithms from what i learned on my maths course. This page is useful to me. I use it frequently. If you want any additional features or food items adding Email, Text or Call.
+    
+    Not here to offer me a job? That's okay, I forgive you. But how the !#*@ did you get here?
+    
+    There is a bug currently with my code so i will be using the libary solver until it is resolved, as such i have moved this to the bottom of the page and removed the script code.
+                </div>
+            </section>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const metricSelect = document.getElementById('metric');
+            const boundariesSection = document.querySelector('.boundaries-section');
+
+            function greyOutSelectedMetric() {
+                const selectedMetric = metricSelect.value.toLowerCase();
+                const allInputs = boundariesSection.querySelectorAll('input[type="number"]');
+
+                allInputs.forEach(input => {
+                    input.disabled = false;
+                    input.classList.remove('greyed-out');
+                });
+
+                const selectedInputs = boundariesSection.querySelectorAll(`#${selectedMetric}Min, #${selectedMetric}Max`);
+                selectedInputs.forEach(input => {
+                    input.disabled = true;
+                    input.classList.add('greyed-out');
+                });
+            }
+
+            metricSelect.addEventListener('change', greyOutSelectedMetric);
+
+            // Initial call to set the initial state
+            greyOutSelectedMetric();
+        });
+    </script>
+    <script>
+        document.getElementById('solve').addEventListener('click', function () {
+            const goal = document.getElementById('goal').value;
+            const metric = document.getElementById('metric').value;
+
+            const allConstraints = [
+                'Calories',
+                'Protein',
+                'Fat',
+                'Carbohydrate',
+                'Cost',
+                'Weight'
+            ];
+
+            // Create LPP problem
+            const problem = {
+                optimize: metric,
+                opType: goal,
+                constraints: {},
+                variables: {}
+            };
+
+            allConstraints.forEach(constraint => {
+                if (constraint !== metric) {
+                    const minElement = document.getElementById(`${constraint.toLowerCase() }Min`);
+                    const maxElement = document.getElementById(`${constraint.toLowerCase()}Max`);
+
+                    if (minElement && maxElement) {
+                        problem.constraints[constraint] = {
+                            min: parseInt(minElement.value) || 0,
+                            max: parseInt(maxElement.value) || Infinity
+                        };
+                    } else {
+                        console.warn(`Missing input elements for ${constraint}. Skipping this constraint.`);
+                    }
+                }
+            });
+
+            // Add food variables from table
+            const rows = document.querySelectorAll('#foodData tbody tr');
+            rows.forEach(row => {
+                const cells = row.cells;
+                const foodName = cells[0].textContent;
+                problem.variables[foodName] = {
+                    'Cost': parseFloat(cells[1].textContent),
+                    'Calories': parseFloat(cells[2].textContent),
+                    'Protein': parseFloat(cells[3].textContent),
+                    'Fat': parseFloat(cells[4].textContent),
+                    'Carbohydrate': parseFloat(cells[5].textContent),
+                    'Weight': 0.1
+                };
+            });
+
+
+
+
+
+
+            console.log('Problem object:', problem);
+            console.log('Problem object (stringified):', JSON.stringify(problem, null, 2));
+
+            //let standardForm = convertToStandardForm(problem);
+            //console.log('Standard Form:', standardForm);
+            try {
+                // i will run your function here
+                //the library function
+                //const result = solver.Solve(problem);
+                const result = LPPsolver(problem);
+                //const result = simplifiedSolve(problem);
+                //const result = simplexSolver(standardForm);
+                //const result = simplexSolverBridge(problem);
+
+
+                console.log(result)
+
+
+                // Display results
+                let output = `Optimization Goal: ${goal} ${metric}\r\n\r\n`;
+
+                if (result.feasible) {
+                    output += `Optimal Value: ${result.result.toFixed(2)}\r\n\r\n`;
+                    output += 'Optimal Food Selection:\r\n';
+                    // Initialize totals
+                    let totalWeight = 0;
+                    let totalCalories = 0;
+                    let totalProtein = 0;
+                    let totalFat = 0;
+                    let totalCarb = 0;
+                    let totalCost = 0;
+
+                    for (let food in result) {
+                        if (food !== 'result' && food !== 'feasible' && food !== 'bounded') {
+                            const amount = result[food];
+                            output += `${food}: ${amount.toFixed(2)} (100g units)\r\n`;
+
+                            // Update totals
+                            totalWeight += amount;
+                            totalCalories += amount * problem.variables[food].Calories;
+                            totalProtein += amount * problem.variables[food].Protein;
+                            totalFat += amount * problem.variables[food].Fat;
+                            totalCarb += amount * problem.variables[food].Carbohydrate;
+                            totalCost += amount * problem.variables[food].Cost;
+                        }
+                    }
+
+                    // Add total breakdown to output
+                    output += '\r\nTotal Breakdown:\r\n';
+                    output += `Total Weight: ${(totalWeight / 10).toFixed(2)} kg\r\n`;
+                    output += `Total Calories: ${totalCalories.toFixed(2)} kcal\r\n`;
+                    output += `Total Protein: ${totalProtein.toFixed(2)} g\r\n`;
+                    output += `Total Fat: ${totalFat.toFixed(2)} g\r\n`;
+                    output += `Total Carbohydrates: ${totalCarb.toFixed(2)} g\r\n`;
+                    output += `Total Cost: £${totalCost.toFixed(2)}\r\n`;
+                } else {
+                    output += "No feasible solution found. Please check your constraints and try again.";
+                }
+
+                document.getElementById('result').innerText = output;
+            } catch (error) {
+                console.error('An error occurred:', error);
+                document.getElementById('result').innerText = `An error occurred: ${error.message}\r\nPlease check your inputs and try again.`;
+            }
+        });
+        
+
+        function LPPsolver(problem) {
+            //step 1: create tableau,
+            tableau = createTwoPhaseTableau(problem);
+            console.log('Tableau:', tableau);
+            console.log('Tableau (stringified):', JSON.stringify(tableau, null, 2));
+
+            //step 2: normalise and attempt to solve auxilary problem
+
+            //step 3: solve new tableau
+            solverResult = solveTwoPhaseSimplexTableau(tableau);
+            console.log('solverResult:', solverResult);
+            console.log('solverResult (stringified):', JSON.stringify(solverResult, null, 2));
+            //step 4: use result as initial to solve
+            //step 5: convert to format for output
+            return formatSolutionOutput(solverResult, Object.keys(problem.variables));
+
+        };
+
+        function createTwoPhaseTableau(problem) {
+            const variables = Object.keys(problem.variables);
+            const constraints = Object.keys(problem.constraints);
+            const objective = problem.optimize;
+            const opType = problem.opType;
+
+            // Count the number of actual constraints (could be up to 2 per constraint if both min and max are specified)
+            let constraintCount = 0;
+            let artCount = 0; // counts min therefore number of artificial variables
+            constraints.forEach(constraint => {
+                if (problem.constraints[constraint].min !== undefined && problem.constraints[constraint].min > 0) { constraintCount++; artCount++; }
+                if (problem.constraints[constraint].max !== undefined) constraintCount++;
+            });
+
+            console.log('constraintCount:', constraintCount)
+
+            const tableau = [];
+
+            // Objective function row (Phase 2)
+            const objRow = new Array(variables.length + constraintCount + artCount + 1).fill(0);
+            variables.forEach((variable, i) => {
+                objRow[i] = problem.variables[variable][objective] * (opType === 'max' ? -1 : 1);
+            });
+            tableau.push(objRow);
+
+            // Artificial objective function row (Phase 1)
+            const artObjRow = new Array(variables.length + constraintCount + artCount + 1).fill(0);
+            for (let i = variables.length + constraintCount; i < variables.length + constraintCount + artCount; i++) {
+                artObjRow[i] = 1;
+            }
+            tableau.push(artObjRow);
+
+            // Constraint rows
+            let slackIndex = variables.length;
+            let artIndex = variables.length + constraintCount;
+            constraints.forEach(constraint => {
+                const minValue = problem.constraints[constraint].min;
+                const maxValue = problem.constraints[constraint].max;
+
+                if (minValue !== undefined && minValue > 0) { //LOOK AT THE >0 REQUIREMENT
+                    const row = new Array(variables.length + constraintCount + artCount + 1).fill(0);
+                    variables.forEach((variable, j) => {
+                        row[j] = problem.variables[variable][constraint];
+                    });
+                    row[slackIndex] = -1;  // For >= constraints, we subtract the slack variable
+                    row[artIndex] = 1;  // For >= constraints, we add artificial variable
+                    row[row.length - 1] = minValue;  // RHS
+                    tableau.push(row);
+                    tableau[1] = tableau[1].map((value, index) => value - row[index]); //normalise table
+                    console.log('row',row)
+                    slackIndex++;
+                    artIndex++;
+                }
+
+                if (maxValue !== undefined) {
+                    const row = new Array(variables.length + constraintCount + artCount + 1).fill(0);
+                    variables.forEach((variable, j) => {
+                        row[j] = problem.variables[variable][constraint];
+                    });
+                    row[slackIndex] = 1;  // For <= constraints, we add the slack variable
+                    row[row.length - 1] = maxValue;  // RHS
+                    tableau.push(row);
+                    slackIndex++;
+                }
+            });
+
+            /* Non-negativity constraints for variables
+            for (let i = 0; i < variables.length; i++) {
+                const row = new Array(variables.length + constraintCount + artCount + 1).fill(0);
+                row[i] = 1;
+                row[row.length - 1] = 0;  // RHS
+                tableau.push(row);
+            }*/
+
+            
+            console.log('look at this one:', JSON.stringify(tableau, null, 2));
+
+            return tableau;
+        }
+
+        function solveTwoPhaseSimplexTableau(tableau) {
+            // Helper function to find the pivot column
+            function findPivotColumn(row) {
+                let mostNegativeIndex = -1;
+                let mostNegativeValue = 0;
+                for (let i = 0; i < row.length - 1; i++) {
+                    if (row[i] < mostNegativeValue) {
+                        mostNegativeValue = row[i];
+                        mostNegativeIndex = i;
+                    }
+                }
+                return mostNegativeIndex;
+            }
+
+            // Helper function to find the pivot row
+            function findPivotRow(tableau, pivotColumn) {
+                let minRatio = Infinity;
+                let pivotRow = -1;
+                for (let i = 2; i < tableau.length; i++) {
+                    if (tableau[i][pivotColumn] > 0) {
+                        const ratio = tableau[i][tableau[i].length - 1] / tableau[i][pivotColumn];
+                        if (ratio < minRatio) {
+                            minRatio = ratio;
+                            pivotRow = i;
+                        }
+                    }
+                }
+                return pivotRow;
+            }
+
+            // Helper function to perform a pivot operation
+            function pivot(tableau, pivotRow, pivotColumn) {
+                const pivotValue = tableau[pivotRow][pivotColumn];
+                for (let i = 0; i < tableau.length; i++) {
+                    if (i !== pivotRow) {
+                        const factor = tableau[i][pivotColumn] / pivotValue;
+                        for (let j = 0; j < tableau[i].length; j++) {
+                            tableau[i][j] -= factor * tableau[pivotRow][j];
+                        }
+                    }
+                }
+                // Normalize pivot row
+                for (let j = 0; j < tableau[pivotRow].length; j++) {
+                    tableau[pivotRow][j] /= pivotValue;
+                }
+            }
+
+            // Helper function to check if Phase 1 is complete
+            function isPhase1Complete(tableau) {
+                return tableau[1].every(value => value >= 0);
+            }
+
+            // Helper function to remove artificial variables
+            function removeArtificialVariables(tableau, artCount) {
+                // Remove artificial objective row
+                console.log('pre removeArtificialVariables art Count:', artCount)
+                console.log('pre removeArtificialVariables:', JSON.stringify(tableau, null, 2));
+                tableau.splice(1, 1);
+                // Remove artificial variable columns (assuming they're the last columns before RHS)
+                for (let i = 0; i < tableau.length; i++) {
+                    tableau[i].splice(tableau[i].length - artCount-1, artCount);
+                }
+                console.log('post removeArtificialVariables:', JSON.stringify(tableau, null, 2));
+            }
+
+            // Helper function to check if optimal solution is reached
+            function isOptimal(tableau) {
+                return tableau[0].every(value => value >= 0);
+            }
+
+            function countNegativeOnes(tableau) {
+                let count = 0;
+                // Start from row 2 to skip rows 0 and 1
+                for (let i = 2; i < tableau.length; i++) {
+                    for (let j = 0; j < tableau[i].length - 1; j++) {
+                        if (tableau[i][j] === -1) {
+                            count++;
+                        }
+                    }
+                }
+                return count;
+            }
+
+
+
+
+
+            const artCount = countNegativeOnes(tableau);
+            console.log("Number of artificial variables:", artCount);
+            // Main solving loop
+            let phase = 1;
+            while (true) {
+
+                console.log('Tableau (stringified):', JSON.stringify(tableau, null, 2));
+
+                let pivotColumn = findPivotColumn(tableau[phase]);
+                console.log('pivotColumn:', pivotColumn)
+                if (pivotColumn === -1) {
+                    if (phase === 1) {
+                        if (isPhase1Complete(tableau)) {
+                            removeArtificialVariables(tableau, artCount);
+                            phase = 0; //phase 2
+                            continue;
+                        } else {
+                            return "No feasible solution exists.";
+                        }
+                    } else {
+                        break; // Optimal solution reached
+                    }
+                }
+
+                const pivotRow = findPivotRow(tableau, pivotColumn);
+                console.log('pivotRow:', pivotRow)
+                if (pivotRow === -1) {
+                    return "The problem is unbounded.";
+                }
+
+                pivot(tableau, pivotRow, pivotColumn);
+            }
+
+            // Extract solution
+            const solution = new Array(tableau[0].length - 1).fill(0);
+            for (let i = 2; i < tableau.length; i++) {
+                const basicVar = tableau[i].findIndex(value => value === 1);
+                if (basicVar !== -1 && basicVar < solution.length) {
+                    solution[basicVar] = tableau[i][tableau[i].length - 1];
+                }
+            }
+
+            return {
+                tableau: tableau,
+                solution: solution.slice(0, 6), // Assuming the first 6 variables are the original variables
+                objectiveValue: -tableau[0][tableau[0].length - 1] // Negative because we minimized
+            };
+        }
+
+
+
+        function formatSolutionOutput(solverResult, variableNames) {
+            const output = {
+                feasible: true,
+                result: 0,
+                bounded: true
+            };
+
+            if (typeof solverResult === 'string') {
+                // Handle infeasible or unbounded cases
+                output.feasible = false;
+                output.bounded = !solverResult.includes('unbounded');
+                return output;
+            }
+
+            output.result = Number(solverResult.objectiveValue.toFixed(8));
+
+            // Add non-zero variables to the output
+            solverResult.solution.forEach((value, index) => {
+                if (value > 1e-8) {  // Consider values greater than 1e-8 as non-zero
+                    output[variableNames[index]] = Number(value.toFixed(8));
+                }
+            });
+
+            return output;
+        }
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function convertToStandardForm(problem) {
+            // Initialize components
+            let objective = [];
+            let constraints = []; problem.optimize
+            let b = [];  // Right-hand side of constraints
+            let varNames = Object.keys(problem.variables);
+            let constraintNames = Object.keys(problem.constraints);
+
+            // Create objective function
+            for (let varName of varNames) {
+                objective.push(problem.variables[varName][problem.optimize]);
+            } // appens variables with their coeffs EG var(carrot, cost)
+
+            // *-1 for minimization problems
+            if (problem.opType === 'min') {
+                objective = objective.map(x => -x);
+            }
+
+            // Set up constraints
+            for (let constraint of constraintNames) {
+                let row = new Array(varNames.length).fill(0);
+                for (let i = 0; i < varNames.length; i++) {
+                    row[i] = problem.variables[varNames[i]][constraint];
+                }
+
+                // Handle min constraint
+                if ('min' in problem.constraints[constraint]) {
+                    constraints.push(row);
+                    b.push(problem.constraints[constraint].min);
+                }
+
+                // Handle max constraint
+                if ('max' in problem.constraints[constraint]) {
+                    constraints.push(row);
+                    b.push(problem.constraints[constraint].max);
+                }
+            }
+
+            // Add slack variables
+            for (let i = 0; i < constraints.length; i++) {
+                let slack = new Array(constraints.length).fill(0);
+                slack[i] = b[i]/b[i];//(+-1 same as b[i])
+                constraints[i] = constraints[i].concat(slack);
+                objective.push(0);
+            } // create new column, fill w/ 0s then give 1 and add to constraint and (0*s) to obj function
+
+            // Ensure all variables are non-negative
+            
+
+            return {
+                c: objective,
+                A: constraints,
+                b: b,
+                varNames: varNames.concat([...Array(constraints.length)].map((_, i) => `s${i + 1}`)),
+                constraintNames: constraintNames,
+                optimize: problem.optimize,
+                opType: problem.opType,
+                rhsC: 0
+            }
+        };
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        class SimpleSolver {
+            constructor(precision = 1e-6) {
+                this.precision = precision;
+            }
+
+            solve(problem) {
+                const { objective, constraints, variables } = this.prepareProblem(problem);
+                const tableau = this.createTableau(objective, constraints, variables);
+
+                while (this.canImprove(tableau)) {
+                    const pivotColumn = this.findPivotColumn(tableau);
+                    const pivotRow = this.findPivotRow(tableau, pivotColumn);
+
+                    if (pivotRow === -1) {
+                        return { feasible: true, bounded: false, result: Infinity };
+                    }
+
+                    this.pivot(tableau, pivotRow, pivotColumn);
+                }
+
+                return this.extractSolution(tableau, variables);
+            }
+
+            prepareProblem(problem) {
+                const objective = problem.optimize || {};
+                const constraints = problem.constraints || {};
+                const variables = new Set(Object.keys(objective).concat(
+                    ...Object.values(constraints).map(Object.keys)
+                ));
+                return { objective, constraints, variables: Array.from(variables) };
+            }
+
+            createTableau(objective, constraints, variables) {
+                const tableau = [Array(variables.length + 1).fill(0)];
+                variables.forEach((variable, index) => {
+                    tableau[0][index] = -(objective[variable] || 0);
+                });
+
+                Object.entries(constraints).forEach(([_, constraint]) => {
+                    const row = Array(variables.length + 1).fill(0);
+                    variables.forEach((variable, index) => {
+                        row[index] = constraint[variable] || 0;
+                    });
+                    row[row.length - 1] = constraint.rhs || 0;
+                    tableau.push(row);
+                });
+
+                return tableau;
+            }
+
+            canImprove(tableau) {
+                return tableau[0].slice(0, -1).some(coef => coef < -this.precision);
+            }
+
+            findPivotColumn(tableau) {
+                return tableau[0].slice(0, -1).findIndex(coef => coef < -this.precision);
+            }
+
+            findPivotRow(tableau, pivotColumn) {
+                let pivotRow = -1;
+                let minRatio = Infinity;
+
+                for (let i = 1; i < tableau.length; i++) {
+                    if (tableau[i][pivotColumn] > this.precision) {
+                        const ratio = tableau[i][tableau[i].length - 1] / tableau[i][pivotColumn];
+                        if (ratio < minRatio) {
+                            minRatio = ratio;
+                            pivotRow = i;
+                        }
+                    }
+                }
+
+                return pivotRow;
+            }
+
+            pivot(tableau, pivotRow, pivotColumn) {
+                const pivotValue = tableau[pivotRow][pivotColumn];
+                tableau[pivotRow] = tableau[pivotRow].map(value => value / pivotValue);
+
+                for (let i = 0; i < tableau.length; i++) {
+                    if (i !== pivotRow) {
+                        const factor = tableau[i][pivotColumn];
+                        tableau[i] = tableau[i].map((value, j) => value - factor * tableau[pivotRow][j]);
+                    }
+                }
+            }
+
+            extractSolution(tableau, variables) {
+                const solution = {
+                    feasible: true,
+                    bounded: true,
+                    result: -tableau[0][tableau[0].length - 1],
+                    variables: {}
+                };
+
+                variables.forEach((variable, index) => {
+                    const columnValues = tableau.map(row => row[index]);
+                    const basicRowIndex = columnValues.findIndex((value, rowIndex) =>
+                        rowIndex > 0 && Math.abs(value - 1) < this.precision &&
+                        columnValues.every((otherValue, otherRowIndex) =>
+                            otherRowIndex === rowIndex || Math.abs(otherValue) < this.precision
+                        )
+                    );
+
+                    if (basicRowIndex !== -1) {
+                        solution.variables[variable] = tableau[basicRowIndex][tableau[basicRowIndex].length - 1];
+                    } else {
+                        solution.variables[variable] = 0;
+                    }
+                });
+
+                return solution;
+            }
+        }
+
+        function simplifiedSolve(problem) {
+            const solver = new SimpleSolver();
+            return solver.solve(problem);
+        }
+
+        // Usage example:
+        // const problem = {
+        //   optimize: { x: 1, y: 2 },
+        //   constraints: {
+        //     constraint1: { x: 1, y: 1, rhs: 5 },
+        //     constraint2: { x: 1, y: -1, rhs: 1 },
+        //   }
+        // };
+        // const solution = simplifiedSolve(problem);
+        // console.log(solution);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        function simplexSolverBridge(problem) {
+            let objective = [];
+            let constraints = [];
+            let b = [];  // Right-hand side of constraints
+            let varNames = Object.keys(problem.variables);
+            let constraintNames = Object.keys(problem.constraints);
+
+            // Create objective function
+            for (let varName of varNames) {
+                objective.push(problem.variables[varName][problem.optimize]);
+            } // appens variables with their coeffs EG var(carrot, cost)
+            // *-1 for minimization problems
+            if (problem.opType === 'min') {
+                objective = objective.map(x => -x);
+            }
+            console.log(objective)
+
+            // Set up constraints
+            for (let constraint of constraintNames) {
+                let row = new Array(varNames.length).fill(0);
+                for (let i = 0; i < varNames.length; i++) {
+                    row[i] = problem.variables[varNames[i]][constraint];
+                }
+                // Handle min constraint
+                if ('min' in problem.constraints[constraint]) {
+                    constraints.push(row);
+                    b.push(problem.constraints[constraint].min);
+                }
+                // Handle max constraint
+                if ('max' in problem.constraints[constraint]) {
+                    constraints.push(row.map(x => -x));
+                    b.push(-problem.constraints[constraint].max);
+                }
+            }
+            console.log(constraints)
+
+            // Add slack variables
+            for (let i = 0; i < constraints.length; i++) {
+                let slack = new Array(constraints.length).fill(0);
+                slack[i] = 1;
+                constraints[i] = constraints[i].concat(slack);
+                objective.push(0);
+                if (b[i] < 0) {
+                    b[i] = -b[i]
+                    for (let j = 0; j < constraints[i].length; j++) {
+                        if (constraints[i][j] != 0) {
+                            constraints[i][j] = -constraints[i][j];
+                        }
+                    }
+                }
+            } // create new column, fill w/ 0s then give 1 and add to constraint and (0*s) to obj function
+         
+            console.log(constraints)
+            console.log(b)
+            console.log(objective)
+
+            result = twoPhaseSimplexMethod(objective, constraints, b);
+            return result;
+        }
+        /**
+ * Function to solve a linear programming problem using the two-phase simplex method.
+ *
+ * @param {number[]} objectiveFunction - Coefficients of the objective function.
+ * @param {number[][]} constraints - Coefficients of the constraints.
+ * @param {number[]} rhs - Right-hand side values of the constraints.
+ * @returns {number[]} The optimal solution for the LP problem.
+ */
+        function twoPhaseSimplexMethod(objectiveFunction, constraints, rhs) {
+            // Phase 1: Add artificial variables and solve the auxiliary LP problem
+            const numVariables = objectiveFunction.length;
+            const numConstraints = constraints.length;
+            const numArtificialVariables = numConstraints;
+
+            // Create the initial tableau
+            const tableau = createInitialTableau(objectiveFunction, constraints, rhs, numArtificialVariables);
+
+            // Solve the auxiliary LP problem using the simplex method
+            const phase1Solution = simplexMethod(tableau);
+
+            // Check if the auxiliary LP problem is infeasible
+            if (phase1Solution[0] !== 0) {
+                throw new Error("The LP problem is infeasible.");
+            }
+
+            // Check if any artificial variables are still in the basis
+            for (let i = 0; i < numArtificialVariables; i++) {
+                if (tableau[i][numVariables + numConstraints] !== 0) {
+                    throw new Error("The LP problem is unbounded.");
+                }
+            }
+
+            // Phase 2: Remove artificial variables and solve the original LP problem
+            const reducedTableau = removeArtificialVariables(tableau, numArtificialVariables);
+            const optimalSolution = simplexMethod(reducedTableau);
+
+            // Extract the optimal solution for the original LP problem
+            const solution = [];
+            for (let i = 0; i < numVariables; i++) {
+                solution[i] = reducedTableau[i][numVariables + numConstraints];
+            }
+
+            return solution;
+        }
+
+        /**
+         * Function to create the initial tableau for the two-phase simplex method.
+         *
+         * @param {number[]} objectiveFunction - Coefficients of the objective function.
+         * @param {number[][]} constraints - Coefficients of the constraints.
+         * @param {number[]} rhs - Right-hand side values of the constraints.
+         * @param {number} numArtificialVariables - Number of artificial variables.
+         * @returns {number[][]} The initial tableau.
+         */
+        function createInitialTableau(objectiveFunction, constraints, rhs, numArtificialVariables) {
+            const numVariables = objectiveFunction.length;
+            const numConstraints = constraints.length;
+
+            // Create an empty tableau with the appropriate dimensions
+            const tableau = [];
+            for (let i = 0; i < numConstraints + 1; i++) {
+                tableau[i] = [];
+                for (let j = 0; j < numVariables + numConstraints + numArtificialVariables + 1; j++) {
+                    tableau[i][j] = 0;
+                }
+            }
+
+            // Set the objective function coefficients
+            for (let i = 0; i < numVariables; i++) {
+                tableau[0][i] = objectiveFunction[i];
+            }
+
+            // Set the constraint coefficients and right-hand side values
+            for (let i = 0; i < numConstraints; i++) {
+                for (let j = 0; j < numVariables; j++) {
+                    tableau[i + 1][j] = constraints[i][j];
+                }
+                tableau[i + 1][numVariables + i] = 1;
+                tableau[i + 1][numVariables + numConstraints + numArtificialVariables] = rhs[i];
+            }
+
+            // Set the artificial variable coefficients
+            for (let i = 0; i < numArtificialVariables; i++) {
+                tableau[i + 1][numVariables + numConstraints + i] = 1;
+            }
+
+            return tableau;
+        }
+
+        /**
+         * Function to remove the artificial variables from the tableau.
+         *
+         * @param {number[][]} tableau - The initial tableau.
+         * @param {number} numArtificialVariables - Number of artificial variables.
+         * @returns {number[][]} The reduced tableau.
+         */
+        function removeArtificialVariables(tableau, numArtificialVariables) {
+            const numVariables = tableau[0].length - numArtificialVariables - 1;
+            const numConstraints = tableau.length - 1;
+
+            // Create a new tableau without the artificial variables
+            const reducedTableau = [];
+            for (let i = 0; i < numConstraints + 1; i++) {
+                reducedTableau[i] = [];
+                for (let j = 0; j < numVariables + numConstraints + 1; j++) {
+                    reducedTableau[i][j] = tableau[i][j];
+                }
+            }
+
+            return reducedTableau;
+        }
+
+        /**
+         * Function to perform the simplex method on a given tableau.
+         *
+         * @param {number[][]} tableau - The tableau.
+         * @returns {number[]} The optimal solution for the LP problem.
+         */
+        function simplexMethod(tableau) {
+            const numVariables = tableau[0].length - 1;
+            const numConstraints = tableau.length - 1;
+
+            while (true) {
+                // Find the pivot column (the most negative coefficient in the objective row)
+                let pivotColumn = 0;
+                for (let i = 1; i < numVariables + numConstraints + 1; i++) {
+                    if (tableau[0][i] < tableau[0][pivotColumn]) {
+                        pivotColumn = i;
+                    }
+                }
+
+                // Check if the LP problem is solved
+                if (tableau[0][pivotColumn] >= 0) {
+                    break;
+                }
+
+                // Find the pivot row (the minimum ratio of the right-hand side to the pivot column coefficient)
+                let pivotRow = 1;
+                for (let i = 2; i < numConstraints + 1; i++) {
+                    if (tableau[i][pivotColumn] > 0) {
+                        if (tableau[i][numVariables + numConstraints] / tableau[i][pivotColumn] < tableau[pivotRow][numVariables + numConstraints] / tableau[pivotRow][pivotColumn]) {
+                            pivotRow = i;
+                        }
+                    }
+                }
+
+                // Perform the pivot operation
+                pivot(tableau, pivotRow, pivotColumn);
+            }
+
+            // Extract the optimal solution from the tableau
+            const solution = [];
+            for (let i = 0; i < numVariables; i++) {
+                solution[i] = tableau[0][i + 1];
+            }
+
+            return solution;
+        }
+
+        /**
+         * Function to perform the pivot operation on a given tableau.
+         *
+         * @param {number[][]} tableau - The tableau.
+         * @param {number} pivotRow - The pivot row.
+         * @param {number} pivotColumn - The pivot column.
+         */
+        function pivot(tableau, pivotRow, pivotColumn) {
+            const numVariables = tableau[0].length - 1;
+            const numConstraints = tableau.length - 1;
+
+            // Divide the pivot row by the pivot element
+            const pivotElement = tableau[pivotRow][pivotColumn];
+            for (let i = 0; i < numVariables + numConstraints + 1; i++) {
+                tableau[pivotRow][i] /= pivotElement;
+            }
+
+            // Perform the pivot operation on the other rows
+            for (let i = 0; i < numConstraints + 1; i++) {
+                if (i !== pivotRow) {
+                    const pivotRatio = tableau[i][pivotColumn];
+                    for (let j = 0; j < numVariables + numConstraints + 1; j++) {
+                        tableau[i][j] -= pivotRatio * tableau[pivotRow][j];
+                    }
+                }
+            }
+        }
+
+/*
+        function convertToStandardForm(problem) {
+            // Initialize components
+            let objective = [];
+            let constraints = []; problem.optimize
+            let b = [];  // Right-hand side of constraints
+            let varNames = Object.keys(problem.variables);
+            let constraintNames = Object.keys(problem.constraints);
+
+            // Create objective function
+            for (let varName of varNames) {
+                objective.push(problem.variables[varName][problem.optimize]);
+            } // appens variables with their coeffs EG var(carrot, cost)
+
+            // *-1 for minimization problems
+            if (problem.opType === 'min') {
+                objective = objective.map(x => -x);
+            }
+
+            // Set up constraints
+            for (let constraint of constraintNames) {
+                let row = new Array(varNames.length).fill(0);
+                for (let i = 0; i < varNames.length; i++) {
+                    row[i] = problem.variables[varNames[i]][constraint];
+                }
+
+                // Handle min constraint
+                if ('min' in problem.constraints[constraint]) {
+                    constraints.push(row);
+                    b.push(problem.constraints[constraint].min);
+                }
+
+                // Handle max constraint
+                if ('max' in problem.constraints[constraint]) {
+                    constraints.push(row.map(x => -x));
+                    b.push(-problem.constraints[constraint].max);
+                }
+            }
+
+            // Add slack variables
+            for (let i = 0; i < constraints.length; i++) {
+                let slack = new Array(constraints.length).fill(0);
+                slack[i] = 1;
+                constraints[i] = constraints[i].concat(slack);
+                objective.push(0);
+            } // create new column, fill w/ 0s then give 1 and add to constraint and (0*s) to obj function
+
+            // Ensure all variables are non-negative
+            /*
+            for (let i = 0; i < varNames.length; i++) {
+                let nonNegConstraint = new Array(varNames.length + constraints.length - i).fill(0);
+                nonNegConstraint[i] = 1;  // variable >= 0
+                constraints.push(nonNegConstraint);
+                b.push(0);
+            }
+            */
+           /*
+            return {
+                c: objective,
+                A: constraints,
+                b: b,
+                varNames: varNames.concat([...Array(constraints.length)].map((_, i) => `s${i + 1}`)),
+                constraintNames: constraintNames,
+                optimize: problem.optimize,
+                opType: problem.opType,
+                rhsC: 0
+            };
+        }
+
+            // Step 1: Convert to standard form (already done)
+        function simplexSolver(standardForm) {
+            // Step 2: Find initial basic feasible solution
+            let basicSolution = findInitialSolution(standardForm);
+            console.log('Initial Basic Solution:', basicSolution);
+            if (basicSolution == "Infeasible") {
+                return "Infeasible";
+            }
+
+            while (true) {
+
+                // Step 4: Select entering variable
+                let entering = selectEnteringVariable(basicSolution);
+                console.log('Entering Variable:', entering);
+
+                if (entering === null) {
+                    // Optimal solution found
+                    return basicSolution;
+                }
+
+                // Step 5: Perform ratio test
+                let leaving = performRatioTest(basicSolution, entering);
+                console.log('Leaving Variable:', leaving);
+
+                if (leaving === null) {
+                    // Problem is unbounded
+                    return "Unbounded";
+                }
+
+                // Step 6: Update basic feasible solution
+                basicSolution = updateSolution(basicSolution, entering, leaving);
+
+                if (basicSolution.rhsC >= 0) {//maybe need an AND no artificial var
+                    // Problem is feasible
+                    return basicSolution;
+                }
+            }
+        }
+        
+        function findInitialSolution(standardForm) {
+            const { A, b, c, varNames, opType, rhsC, basis } = standardForm;
+            const m = A.length;  // number of constraints
+            const n = c.length;  // number of variables
+
+            // Check if we have a readily available initial solution
+            if (b.every(val => val >= 0)) {
+                // Initial solution is available: set slack variables to b, other variables to 0
+                let basisVarNames = [];
+                const usedColumns = new Set();
+                let unitVectorFound = 0;
+                for (let i = m-1; i >= 0; i--) {                    
+                    for (let j = n-1; j >= 0; j--) {
+                        if (A[i][j] == 1 && !usedColumns.has(j)) {
+                            // Check if this column is a unit vector because bugggs :(
+                            let isUnitVector = true;
+                            for (let k = 0; k < m; k++) {
+                                if (k !== i && A[k][j] != 0) {
+                                    isUnitVector = false;
+                                    break;
+                                }
+                            }
+                            if (isUnitVector) {
+                                console.log('i,j,A[i][j],varNames[j]:', i, j, A[i][j],varNames[j]);
+                                basisVarNames.unshift(varNames[j]);
+                                console.log('basisVarNames:', basisVarNames);
+                                usedColumns.add(j);
+                                unitVectorFound++;
+                                break;
+                            }
+                        }
+                    }                    
+                }
+                if (unitVectorFound != m) {
+                    throw new Error("Not enough slack/artificial variables to form a basis");
+                }
+                console.log('basisVarNames1:', basisVarNames);
+                 return {
+                    basis: basisVarNames,
+                    x: b.concat(new Array(n - m).fill(0)),
+                    A: A,
+                    b: b,
+                    c: c,
+                    varNames: varNames,
+                    opType: standardForm.opType,
+                    rhsC: rhsC
+                };
+            }
+            // two-phase method
+            // Phase 1: Solve auxiliary problem
+
+            console.log('Error: S2');
+            let artificialCount = 0;
+            let auxA = A.map(row => [...row]); // Start with original A
+            let auxC = new Array(n).fill(0);   // Original variables have 0 coefficient in auxiliary objective
+            let auxRhsC = rhsC;
+
+            // Determine which constraints need artificial variables
+            for (let i = 0; i < auxA.length; i++) {
+                console.log('Error: S2.1');
+                if (b[i] < 0) {
+                    console.log('Error: S2.2');
+                    artificialCount++;
+                    b[i] = -b[i]
+                    for (let j = 0; j < auxA[i].length; j++) {
+                        if (auxA[i][j] != 0) {
+                            auxA[i][j] = -auxA[i][j];
+                        }
+                    }
+                    let artificial = new Array(auxA.length).fill(0);
+                    artificial[i] = 1;
+                    for (let j = 0; j < auxA.length; j++) {
+                        auxA[j] = auxA[j].concat(artificial[j]);
+                        console.log('Error: S2.3');
+                    }
+                    auxC.push(1);
+                    //subtract current row (i) from auxA
+                    for (let j = 0; j < auxC.length; j++) {
+                        auxC[j] -= auxA[i][j];    
+                    }
+                    auxRhsC -= b[i];
+                }
+            }
+
+            let auxVarNames = [...varNames, ...Array(artificialCount).fill(0).map((_, i) => `a${i + 1}`)];
+            console.log('Aux Variable Names:', auxVarNames);
+            console.log('Aux A:', auxA);
+            console.log('Aux C:', auxC);
+            console.log('b:', b);
+            console.log('auxRhsC:', auxRhsC);
+
+            const auxStandardForm = {
+                A: auxA,
+                b: b,
+                c: auxC,
+                varNames: auxVarNames,
+                opType: "max",
+                rhsC: auxRhsC,
+                basis: []
+            }
+
+            // Step 2: Solve the auxiliary problem method****
+            let auxSolution = simplexSolver(auxStandardForm);
+
+            console.log('auxSolution:', auxSolution);
+
+            // Check if the auxiliary problem has a feasible solution
+            if (auxSolution === "Unbounded") {
+                return "Infeasible";
+            }
+            auxSolution.c.length = auxSolution.c.length - artificialCount;
+            for (let i = 0; i < auxA.length; i++) {
+                auxSolution.A[i].length = auxSolution.A[i].length - artificialCount;
+            }
+
+            let newC = c;
+            for (let i = 0; i <= m; i++) {
+                column = auxSolution.varNames.indexOf(auxSolution.basis[i])
+                result = checkUnitVectorAndGetOneIndex(auxSolution.A, column);
+                row = result.oneIndex;
+
+                // Add error checking
+                if (row === undefined || row < 0 || row >= auxSolution.A.length) {
+                    console.error(`Invalid row index: ${row}`);
+                    continue; // Skip this iteration
+                }
+
+                let factor = newC[column];
+
+                if (!Array.isArray(auxSolution.A[row])) {
+                    console.error(`auxSolution.A[${row}] is not an array`);
+                    continue; // Skip this iteration
+                }
+
+                for (let j = 0; j <= n; j++) {
+                    newC[j] -= factor * auxSolution.A[row][j];
+                }
+            }
+
+            return {
+                basis: auxSolution.basis,
+                A: auxSolution.A,
+                b: auxSolution.b,
+                c: newC,
+                varNames: varNames,
+                opType: standardForm.opType,
+                rhsC: 0
+            };
+        }
+
+        function selectEnteringVariable(basicSolution) {
+            const {c, opType, varNames } = basicSolution;
+            let enteringIndex = -1;
+            let bestReducedCost = 0;
+            logBasicSolutionSnapshot(basicSolution);
+
+            for (let i = 0; i < c.length; i++) {
+                if ((opType === 'max' && c[i] < bestReducedCost) ||
+                    (opType === 'min' && c[i] > bestReducedCost)) 
+                {
+                    bestReducedCost = c[i];
+                    enteringIndex = i;
+                }
+            }
+
+            if (enteringIndex === -1) {
+                return null;  // No entering variable, optimal solution reached
+            }
+
+            return varNames[enteringIndex];
+        }
+
+        /*function solveLinearSystem(A, b) {
+            // Check if A is square and b has the correct length
+            if (A.length !== A[0].length || A.length !== b.length) {
+                throw new Error("Invalid dimensions: A must be square and b must have the same length as A's rows");
+            }
+
+            const n = A.length;
+
+            // Create an augmented matrix [A|b]
+            let augmentedMatrix = A.map((row, i) => [...row, b[i]]);
+
+            // Gaussian elimination with partial pivoting
+            for (let i = 0; i < n; i++) {
+                // Find pivot
+                let maxElement = Math.abs(augmentedMatrix[i][i]);
+                let maxRow = i;
+                for (let k = i + 1; k < n; k++) {
+                    if (Math.abs(augmentedMatrix[k][i]) > maxElement) {
+                        maxElement = Math.abs(augmentedMatrix[k][i]);
+                        maxRow = k;
+                    }
+                }
+
+                // Swap maximum row with current row
+                [augmentedMatrix[i], augmentedMatrix[maxRow]] = [augmentedMatrix[maxRow], augmentedMatrix[i]];
+
+                // Make all rows below this one 0 in current column
+                for (let k = i + 1; k < n; k++) {
+                    let c = -augmentedMatrix[k][i] / augmentedMatrix[i][i];
+                    for (let j = i; j < n + 1; j++) {
+                        if (i === j) {
+                            augmentedMatrix[k][j] = 0;
+                        } else {
+                            augmentedMatrix[k][j] += c * augmentedMatrix[i][j];
+                        }
+                    }
+                }
+                
+        
+            // Solve equation Ax=b using back substitution
+            let x = new Array(n).fill(0);
+            for (let i = n - 1; i >= 0; i--) {
+                x[i] = augmentedMatrix[i][n] / augmentedMatrix[i][i];
+                for (let k = i - 1; k >= 0; k--) {
+                    augmentedMatrix[k][n] -= augmentedMatrix[k][i] * x[i];
+                }
+            }
+
+            return x;
+        }*/
+
+        /* Helper function for dot product of two vectors
+        function dotProduct(a, b) {
+            return a.reduce((sum, val, i) => sum + val * b[i], 0);
+        }*/
+
+        /*
+        function performRatioTest(basicSolution, entering) {
+            const { A, b, varNames } = basicSolution;
+            const enteringIndex = varNames.indexOf(entering);
+            let minRatio = Infinity;
+            let leavingIndex = -1;
+
+            console.log('Ratio Test Basic Solution:', basicSolution);
+
+
+            for (let i = 0; i < A.length; i++) {
+                if (A[i][enteringIndex] > 1e-10) {  // Avoid division by zero
+                    let ratio = b[i] / A[i][enteringIndex];
+                    if (ratio < minRatio && ratio > 0) {
+                        minRatio = ratio;
+                        leavingIndex = i;
+                    }
+                }
+            }
+
+            if (leavingIndex === -1) {
+                return null;  // Problem is unbounded
+            }
+
+            return basicSolution.basis[leavingIndex];
+        }
+
+        function updateSolution(basicSolution, entering, leaving) {
+            let { A, b, c, basis, varNames, opType, rhsC } = basicSolution;
+            const m = A.length;  // number of constraints
+            const n = c.length;  // number of variables
+
+            const enteringIndex = varNames.indexOf(entering);
+            const leavingIndex = basis.indexOf(leaving);
+
+            // Create the tableau
+            let tableau = [c.concat(rhsC)];
+            for (let i = 0; i < m; i++) {
+                tableau.push(A[i].concat([b[i]]));
+            }
+
+            // Perform pivot operation
+            let pivotRow = leavingIndex + 1;  // +1 because row 0 is the objective function
+            let pivotCol = enteringIndex;
+            let pivotElement = tableau[pivotRow][pivotCol];
+
+            // Scale the pivot row
+            for (let j = 0; j <= n; j++) {
+                tableau[pivotRow][j] /= pivotElement;
+            }
+
+            // Update other rows
+            for (let i = 0; i <= m; i++) {
+                if (i !== pivotRow) {
+                    let factor = tableau[i][pivotCol];
+                    for (let j = 0; j <= n; j++) {
+                        tableau[i][j] -= factor * tableau[pivotRow][j];
+                    }
+                }
+            }
+
+            // Update the basis
+            basis[leavingIndex] = entering;
+
+            // Extract updated A, b, and c from the tableau
+            c = tableau[0].slice(0, -1);
+            A = tableau.slice(1).map(row => row.slice(0, -1));
+            b = tableau.slice(1).map(row => row[n]);
+            rhsC = tableau[0][n];
+
+            return {
+                A, b, c, basis, varNames, opType, rhsC };
+        }
+        function logBasicSolutionSnapshot(basicSolution) {
+            const snapshot = {
+                A: basicSolution.A.map(row => [...row]),  // Deep copy of 2D array
+                b: [...basicSolution.b],
+                c: [...basicSolution.c],
+                basis: basicSolution.basis,
+                varNames: [...basicSolution.varNames],
+                opType: basicSolution.opType,
+                rhsC: basicSolution.rhsC
+            };
+
+            console.log('Ratio Test Basic Solution Snapshot:', JSON.stringify(snapshot, (key, value) =>
+                typeof value === 'number' ? Number(value.toPrecision(6)) : value
+                , 2));
+        }
+        function checkUnitVectorAndGetOneIndex(matrix, columnIndex) {
+            let oneCount = 0;
+            let oneIndex = -1;
+
+            for (let i = 0; i < matrix.length; i++) {
+                if (matrix[i][columnIndex] === 1) {
+                    oneCount++;
+                    oneIndex = i;
+                } else if (matrix[i][columnIndex] !== 0) {
+                    // If we find any non-zero value that's not 1, it's not a unit vector
+                    return { isUnitVector: false, oneIndex: -1 };
+                }
+            }
+            // It's a unit vector if we found exactly one '1'
+            return { isUnitVector: oneCount === 1, oneIndex };
+        }*/
+    </script>
+</body>
+</html>
