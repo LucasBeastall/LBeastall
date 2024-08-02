@@ -1,0 +1,578 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/javascript-lp-solver/prod/solver.js"></script>
+    <title>LPP Solver</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="StyleSheet1.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Linear Programming Problem Solver</h1>
+        </header>
+
+        <main>
+            <section class="optimization-section">
+                <h2>Optimization Goal</h2>
+                <div class="form-group">
+                    <select id="goal" class="select-css">
+                        <option value="min">Minimize</option>
+                        <option value="max">Maximize</option>
+                    </select>
+                    <select id="metric" class="select-css">
+                        <option id="minimizeCalories">Calories</option>
+                        <option id="minimizeWeight">Weight</option>
+                        <option id="minimizeCost">Cost</option>
+                    </select>
+                </div>
+            </section>
+
+            <section class="boundaries-section">
+                <h2>Boundaries</h2>
+                <div class="grid-container">
+                    <div class="form-group">
+                        <label for="caloriesMin">Calories Min:</label>
+                        <input type="number" id="caloriesMin" value="2000">
+                        <label for="caloriesMax">Max:</label>
+                        <input type="number" id="caloriesMax" value="4000">
+                    </div>
+                    <div class="form-group">
+                        <label for="weightMin">Weight Min (kg):</label>
+                        <input type="number" id="weightMin" value="0.1">
+                        <label for="weightMax">Max:</label>
+                        <input type="number" id="weightMax" value="25">
+                    </div>
+                    <div class="form-group">
+                        <label for="costMin">Cost Min (£):</label>
+                        <input type="number" id="costMin" value="0.1">
+                        <label for="costMax">Max:</label>
+                        <input type="number" id="costMax" value="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="proteinMin">Protein Min (g):</label>
+                        <input type="number" id="proteinMin" value="100">
+                        <label for="proteinMax">Max:</label>
+                        <input type="number" id="proteinMax" value="200">
+                    </div>
+                    <div class="form-group">
+                        <label for="fatMin">Fat Min (g):</label>
+                        <input type="number" id="fatMin" value="1">
+                        <label for="fatMax">Max:</label>
+                        <input type="number" id="fatMax" value="300">
+                    </div>
+                    <div class="form-group">
+                        <label for="carbohydrateMin">Carbohydrate Min (g):</label>
+                        <input type="number" id="carbohydrateMin" value="1">
+                        <label for="carbohydrateMax">Max:</label>
+                        <input type="number" id="carbohydrateMax" value="300">
+                    </div>
+                </div>
+            </section>
+
+            <button id="solve" class="btn-solve">Solve LPP</button>
+
+            <section class="results-section">
+                <h2>Results</h2>
+                <div id="result" class="result-box">
+                    <!-- Results will be displayed here -->
+                </div>
+            </section>
+
+            <section class="food-data-section">
+                <h2>Food Data</h2>
+                <div class="table-container">
+                    <table id="foodData">
+                        <thead>
+                            <tr>
+                                <th>Food (100g)</th>
+                                <th>Cost</th>
+                                <th>Calories</th>
+                                <th>Protein</th>
+                                <th>Fat</th>
+                                <th>Carbohydrate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>carrot</td>
+                                <td>0.06</td>
+                                <td>41</td>
+                                <td>0.9</td>
+                                <td>0.2</td>
+                                <td>9.6</td>
+                            </tr>
+                            <tr>
+                                <td>chicken</td>
+                                <td>0.6</td>
+                                <td>165</td>
+                                <td>31</td>
+                                <td>3.6</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>20% beef mince</td>
+                                <td>0.5</td>
+                                <td>254</td>
+                                <td>17</td>
+                                <td>20</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>potato</td>
+                                <td>0.15</td>
+                                <td>77</td>
+                                <td>2</td>
+                                <td>0.1</td>
+                                <td>17</td>
+                            </tr>
+                            <tr>
+                                <td>sweet potato</td>
+                                <td>0.2</td>
+                                <td>86</td>
+                                <td>1.6</td>
+                                <td>0.1</td>
+                                <td>20</td>
+                            </tr>
+                            <tr>
+                                <td>broccoli</td>
+                                <td>0.2</td>
+                                <td>34</td>
+                                <td>2.8</td>
+                                <td>0.4</td>
+                                <td>6.6</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <section class="algorythm-section">
+                <h2>Simplex</h2>
+                <div id="Algorythm" class="algorythm-box">  This Linear Programming Problem solver was coded from scratch, without external libraries (see script at the bottom of the page). It demonstrates my ability to implement complex algorithms from what i learned on my maths course. This page is useful to me. I use it frequently. If you want any additional features or food items adding Email, Text or Call.
+    
+    Not here to offer me a job? That's okay, I forgive you. But how the !#*@ did you get here?
+    
+    There is a bug currently with my code so i will be using the libary solver until it is resolved, as such i have moved this to the bottom of the page and removed the script code.
+                </div>
+            </section>
+        </main>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const metricSelect = document.getElementById('metric');
+            const boundariesSection = document.querySelector('.boundaries-section');
+
+            function greyOutSelectedMetric() {
+                const selectedMetric = metricSelect.value.toLowerCase();
+                const allInputs = boundariesSection.querySelectorAll('input[type="number"]');
+
+                allInputs.forEach(input => {
+                    input.disabled = false;
+                    input.classList.remove('greyed-out');
+                });
+
+                const selectedInputs = boundariesSection.querySelectorAll(`#${selectedMetric}Min, #${selectedMetric}Max`);
+                selectedInputs.forEach(input => {
+                    input.disabled = true;
+                    input.classList.add('greyed-out');
+                });
+            }
+
+            metricSelect.addEventListener('change', greyOutSelectedMetric);
+
+            // Initial call to set the initial state
+            greyOutSelectedMetric();
+        });
+    </script>
+    <script>
+        document.getElementById('solve').addEventListener('click', function () {
+            const goal = document.getElementById('goal').value;
+            const metric = document.getElementById('metric').value;
+
+            const allConstraints = [
+                'Calories',
+                'Protein',
+                'Fat',
+                'Carbohydrate',
+                'Cost',
+                'Weight'
+            ];
+
+            // Create LPP problem
+            const problem = {
+                optimize: metric,
+                opType: goal,
+                constraints: {},
+                variables: {}
+            };
+
+            allConstraints.forEach(constraint => {
+                if (constraint !== metric) {
+                    const minElement = document.getElementById(`${constraint.toLowerCase() }Min`);
+                    const maxElement = document.getElementById(`${constraint.toLowerCase()}Max`);
+
+                    if (minElement && maxElement) {
+                        problem.constraints[constraint] = {
+                            min: parseInt(minElement.value) || 0,
+                            max: parseInt(maxElement.value) || Infinity
+                        };
+                    } else {
+                        console.warn(`Missing input elements for ${constraint}. Skipping this constraint.`);
+                    }
+                }
+            });
+
+            // Add food variables from table
+            const rows = document.querySelectorAll('#foodData tbody tr');
+            rows.forEach(row => {
+                const cells = row.cells;
+                const foodName = cells[0].textContent;
+                problem.variables[foodName] = {
+                    'Cost': parseFloat(cells[1].textContent),
+                    'Calories': parseFloat(cells[2].textContent),
+                    'Protein': parseFloat(cells[3].textContent),
+                    'Fat': parseFloat(cells[4].textContent),
+                    'Carbohydrate': parseFloat(cells[5].textContent),
+                    'Weight': 0.1
+                };
+            });
+
+
+
+
+
+
+            console.log('Problem object:', problem);
+            console.log('Problem object (stringified):', JSON.stringify(problem, null, 2));
+
+            //let standardForm = convertToStandardForm(problem);
+            //console.log('Standard Form:', standardForm);
+            try {
+                // i will run your function here
+                //the library function
+                //const result = solver.Solve(problem);
+                const result = LPPsolver(problem);
+                //const result = simplifiedSolve(problem);
+                //const result = simplexSolver(standardForm);
+                //const result = simplexSolverBridge(problem);
+
+
+                console.log(result)
+
+
+                // Display results
+                let output = `Optimization Goal: ${goal} ${metric}\r\n\r\n`;
+
+                if (result.feasible) {
+                    output += `Optimal Value: ${result.result.toFixed(2)}\r\n\r\n`;
+                    output += 'Optimal Food Selection:\r\n';
+                    // Initialize totals
+                    let totalWeight = 0;
+                    let totalCalories = 0;
+                    let totalProtein = 0;
+                    let totalFat = 0;
+                    let totalCarb = 0;
+                    let totalCost = 0;
+
+                    for (let food in result) {
+                        if (food !== 'result' && food !== 'feasible' && food !== 'bounded') {
+                            const amount = result[food];
+                            output += `${food}: ${amount.toFixed(2)} (100g units)\r\n`;
+
+                            // Update totals
+                            totalWeight += amount;
+                            totalCalories += amount * problem.variables[food].Calories;
+                            totalProtein += amount * problem.variables[food].Protein;
+                            totalFat += amount * problem.variables[food].Fat;
+                            totalCarb += amount * problem.variables[food].Carbohydrate;
+                            totalCost += amount * problem.variables[food].Cost;
+                        }
+                    }
+
+                    // Add total breakdown to output
+                    output += '\r\nTotal Breakdown:\r\n';
+                    output += `Total Weight: ${(totalWeight / 10).toFixed(2)} kg\r\n`;
+                    output += `Total Calories: ${totalCalories.toFixed(2)} kcal\r\n`;
+                    output += `Total Protein: ${totalProtein.toFixed(2)} g\r\n`;
+                    output += `Total Fat: ${totalFat.toFixed(2)} g\r\n`;
+                    output += `Total Carbohydrates: ${totalCarb.toFixed(2)} g\r\n`;
+                    output += `Total Cost: £${totalCost.toFixed(2)}\r\n`;
+                } else {
+                    output += "No feasible solution found. Please check your constraints and try again.";
+                }
+
+                document.getElementById('result').innerText = output;
+            } catch (error) {
+                console.error('An error occurred:', error);
+                document.getElementById('result').innerText = `An error occurred: ${error.message}\r\nPlease check your inputs and try again.`;
+            }
+        });
+        
+
+        function LPPsolver(problem) {
+            //step 1: create tableau,
+            tableau = createTwoPhaseTableau(problem);
+            console.log('Tableau:', tableau);
+            console.log('Tableau (stringified):', JSON.stringify(tableau, null, 2));
+
+            //step 2: normalise and attempt to solve auxilary problem
+
+            //step 3: solve new tableau
+            solverResult = solveTwoPhaseSimplexTableau(tableau);
+            console.log('solverResult:', solverResult);
+            console.log('solverResult (stringified):', JSON.stringify(solverResult, null, 2));
+            //step 4: use result as initial to solve
+            //step 5: convert to format for output
+            return formatSolutionOutput(solverResult, Object.keys(problem.variables));
+
+        };
+
+        function createTwoPhaseTableau(problem) {
+            const variables = Object.keys(problem.variables);
+            const constraints = Object.keys(problem.constraints);
+            const objective = problem.optimize;
+            const opType = problem.opType;
+
+            // Count the number of actual constraints (could be up to 2 per constraint if both min and max are specified)
+            let constraintCount = 0;
+            let artCount = 0; // counts min therefore number of artificial variables
+            constraints.forEach(constraint => {
+                if (problem.constraints[constraint].min !== undefined && problem.constraints[constraint].min > 0) { constraintCount++; artCount++; }
+                if (problem.constraints[constraint].max !== undefined) constraintCount++;
+            });
+
+            console.log('constraintCount:', constraintCount)
+
+            const tableau = [];
+
+            // Objective function row (Phase 2)
+            const objRow = new Array(variables.length + constraintCount + artCount + 1).fill(0);
+            variables.forEach((variable, i) => {
+                objRow[i] = problem.variables[variable][objective] * (opType === 'max' ? -1 : 1);
+            });
+            tableau.push(objRow);
+
+            // Artificial objective function row (Phase 1)
+            const artObjRow = new Array(variables.length + constraintCount + artCount + 1).fill(0);
+            for (let i = variables.length + constraintCount; i < variables.length + constraintCount + artCount; i++) {
+                artObjRow[i] = 1;
+            }
+            tableau.push(artObjRow);
+
+            // Constraint rows
+            let slackIndex = variables.length;
+            let artIndex = variables.length + constraintCount;
+            constraints.forEach(constraint => {
+                const minValue = problem.constraints[constraint].min;
+                const maxValue = problem.constraints[constraint].max;
+
+                if (minValue !== undefined && minValue > 0) { //LOOK AT THE >0 REQUIREMENT
+                    const row = new Array(variables.length + constraintCount + artCount + 1).fill(0);
+                    variables.forEach((variable, j) => {
+                        row[j] = problem.variables[variable][constraint];
+                    });
+                    row[slackIndex] = -1;  // For >= constraints, we subtract the slack variable
+                    row[artIndex] = 1;  // For >= constraints, we add artificial variable
+                    row[row.length - 1] = minValue;  // RHS
+                    tableau.push(row);
+                    tableau[1] = tableau[1].map((value, index) => value - row[index]); //normalise table
+                    console.log('row',row)
+                    slackIndex++;
+                    artIndex++;
+                }
+
+                if (maxValue !== undefined) {
+                    const row = new Array(variables.length + constraintCount + artCount + 1).fill(0);
+                    variables.forEach((variable, j) => {
+                        row[j] = problem.variables[variable][constraint];
+                    });
+                    row[slackIndex] = 1;  // For <= constraints, we add the slack variable
+                    row[row.length - 1] = maxValue;  // RHS
+                    tableau.push(row);
+                    slackIndex++;
+                }
+            });
+
+            /* Non-negativity constraints for variables
+            for (let i = 0; i < variables.length; i++) {
+                const row = new Array(variables.length + constraintCount + artCount + 1).fill(0);
+                row[i] = 1;
+                row[row.length - 1] = 0;  // RHS
+                tableau.push(row);
+            }*/
+
+            
+            console.log('look at this one:', JSON.stringify(tableau, null, 2));
+
+            return tableau;
+        }
+
+        function solveTwoPhaseSimplexTableau(tableau) {
+            // Helper function to find the pivot column
+            function findPivotColumn(row) {
+                let mostNegativeIndex = -1;
+                let mostNegativeValue = 0;
+                for (let i = 0; i < row.length - 1; i++) {
+                    if (row[i] < mostNegativeValue) {
+                        mostNegativeValue = row[i];
+                        mostNegativeIndex = i;
+                    }
+                }
+                return mostNegativeIndex;
+            }
+
+            // Helper function to find the pivot row
+            function findPivotRow(tableau, pivotColumn) {
+                let minRatio = Infinity;
+                let pivotRow = -1;
+                for (let i = 2; i < tableau.length; i++) {
+                    if (tableau[i][pivotColumn] > 0) {
+                        const ratio = tableau[i][tableau[i].length - 1] / tableau[i][pivotColumn];
+                        if (ratio < minRatio) {
+                            minRatio = ratio;
+                            pivotRow = i;
+                        }
+                    }
+                }
+                return pivotRow;
+            }
+
+            // Helper function to perform a pivot operation
+            function pivot(tableau, pivotRow, pivotColumn) {
+                const pivotValue = tableau[pivotRow][pivotColumn];
+                for (let i = 0; i < tableau.length; i++) {
+                    if (i !== pivotRow) {
+                        const factor = tableau[i][pivotColumn] / pivotValue;
+                        for (let j = 0; j < tableau[i].length; j++) {
+                            tableau[i][j] -= factor * tableau[pivotRow][j];
+                        }
+                    }
+                }
+                // Normalize pivot row
+                for (let j = 0; j < tableau[pivotRow].length; j++) {
+                    tableau[pivotRow][j] /= pivotValue;
+                }
+            }
+
+            // Helper function to check if Phase 1 is complete
+            function isPhase1Complete(tableau) {
+                return tableau[1].every(value => value >= 0);
+            }
+
+            // Helper function to remove artificial variables
+            function removeArtificialVariables(tableau, artCount) {
+                // Remove artificial objective row
+                console.log('pre removeArtificialVariables art Count:', artCount)
+                console.log('pre removeArtificialVariables:', JSON.stringify(tableau, null, 2));
+                tableau.splice(1, 1);
+                // Remove artificial variable columns (assuming they're the last columns before RHS)
+                for (let i = 0; i < tableau.length; i++) {
+                    tableau[i].splice(tableau[i].length - artCount-1, artCount);
+                }
+                console.log('post removeArtificialVariables:', JSON.stringify(tableau, null, 2));
+            }
+
+            // Helper function to check if optimal solution is reached
+            function isOptimal(tableau) {
+                return tableau[0].every(value => value >= 0);
+            }
+
+            function countNegativeOnes(tableau) {
+                let count = 0;
+                // Start from row 2 to skip rows 0 and 1
+                for (let i = 2; i < tableau.length; i++) {
+                    for (let j = 0; j < tableau[i].length - 1; j++) {
+                        if (tableau[i][j] === -1) {
+                            count++;
+                        }
+                    }
+                }
+                return count;
+            }
+
+
+
+
+
+            const artCount = countNegativeOnes(tableau);
+            console.log("Number of artificial variables:", artCount);
+            // Main solving loop
+            let phase = 1;
+            while (true) {
+
+                console.log('Tableau (stringified):', JSON.stringify(tableau, null, 2));
+
+                let pivotColumn = findPivotColumn(tableau[phase]);
+                console.log('pivotColumn:', pivotColumn)
+                if (pivotColumn === -1) {
+                    if (phase === 1) {
+                        if (isPhase1Complete(tableau)) {
+                            removeArtificialVariables(tableau, artCount);
+                            phase = 0; //phase 2
+                            continue;
+                        } else {
+                            return "No feasible solution exists.";
+                        }
+                    } else {
+                        break; // Optimal solution reached
+                    }
+                }
+
+                const pivotRow = findPivotRow(tableau, pivotColumn);
+                console.log('pivotRow:', pivotRow)
+                if (pivotRow === -1) {
+                    return "The problem is unbounded.";
+                }
+
+                pivot(tableau, pivotRow, pivotColumn);
+            }
+
+            // Extract solution
+            const solution = new Array(tableau[0].length - 1).fill(0);
+            for (let i = 2; i < tableau.length; i++) {
+                const basicVar = tableau[i].findIndex(value => value === 1);
+                if (basicVar !== -1 && basicVar < solution.length) {
+                    solution[basicVar] = tableau[i][tableau[i].length - 1];
+                }
+            }
+
+            return {
+                tableau: tableau,
+                solution: solution.slice(0, 6), // Assuming the first 6 variables are the original variables
+                objectiveValue: -tableau[0][tableau[0].length - 1] // Negative because we minimized
+            };
+        }
+
+
+
+        function formatSolutionOutput(solverResult, variableNames) {
+            const output = {
+                feasible: true,
+                result: 0,
+                bounded: true
+            };
+
+            if (typeof solverResult === 'string') {
+                // Handle infeasible or unbounded cases
+                output.feasible = false;
+                output.bounded = !solverResult.includes('unbounded');
+                return output;
+            }
+
+            output.result = Number(solverResult.objectiveValue.toFixed(8));
+
+            // Add non-zero variables to the output
+            solverResult.solution.forEach((value, index) => {
+                if (value > 1e-8) {  // Consider values greater than 1e-8 as non-zero
+                    output[variableNames[index]] = Number(value.toFixed(8));
+                }
+            });
+
+            return output;
+        }
+    </script>
+</body>
+</html>
