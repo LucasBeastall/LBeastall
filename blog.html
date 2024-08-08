@@ -1,0 +1,153 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="blankStyle.css">
+    <link rel="stylesheet" href="blogStyle.css">
+    <title>Blog</title>
+    <link rel="icon" href="logoImg.png" type="image/png">
+</head>
+<body>
+    <header class="header">
+        <img src="blogImg.JPEG" alt="Background image">
+        <div class="header-content">
+            <h1>Blog</h1>
+            <p>Blog about things</p>
+        </div>
+    </header>
+    <div class="content">
+        <div class="blog-container">
+            <a href="/post1.html" class="blog-post">
+                <img src="/api/placeholder/400/400" alt="Blog post image">
+                <div class="blog-content">
+                    <h2 class="blog-title">Trump Fires Arrows Missing the Target Badly</h2>
+                    <p class="blog-date">August 8, 2024</p>
+                    <p class="blog-description">An analysis of recent political events and their potential impact on the upcoming election cycle.</p>
+                </div>
+            </a>
+            <a href="/post2.html" class="blog-post">
+                <img src="/api/placeholder/400/400" alt="Blog post image">
+                <div class="blog-content">
+                    <h2 class="blog-title">Chip Sector Hit Again as Stock Market Rally Attempt Fails</h2>
+                    <p class="blog-date">August 7, 2024</p>
+                    <p class="blog-description">Exploring the recent downturn in the chip sector and its effects on the broader stock market.</p>
+                </div>
+            </a>
+            <a href="/post3.html" class="blog-post">
+                <img src="/api/placeholder/400/400" alt="Blog post image">
+                <div class="blog-content">
+                    <h2 class="blog-title">Will Fed Officials Push Back on a Half-Point Interest Rate Cut?</h2>
+                    <p class="blog-date">August 7, 2024</p>
+                    <p class="blog-description">Examining the potential for changes in interest rates and the Federal Reserve's stance on monetary policy.</p>
+                </div>
+            </a>
+        </div>
+    </div>
+    <input id="page-nav-toggle" class="main-navigation-toggle" type="checkbox" />
+    <label for="page-nav-toggle" class="menu-icon-wrapper">
+        <svg class="icon--menu-toggle" viewBox="0 0 60 30">
+            <g class="icon-group">
+                <g class="icon--menu">
+                    <path d="M 6 0 L 54 0" />
+                    <path d="M 6 15 L 54 15" />
+                    <path d="M 6 30 L 54 30" />
+                </g>
+                <g class="icon--close">
+                    <path d="M 15 0 L 45 30" />
+                    <path d="M 15 30 L 45 0" />
+                </g>
+            </g>
+        </svg>
+    </label>
+
+    <nav class="main-navigation">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <!-- <li><a href="#0">Timeline</a></li>-->
+            <li><a href="Lucas Beastall ~ CV.pdf" target="_blank" rel="noopener noreferrer">CV</a></li>       <!-- change for a Now page -->
+            <li><a href="" id="menuContactBtn">Contact</a></li>
+        </ul>
+    </nav>
+
+    <script>
+        const body = document.body;
+        const hero = document.querySelector('.hero');
+        const menuIcon = document.querySelector('.menu-icon-wrapper');
+
+        function checkHeroVisibility() {
+            const heroBottom = hero.offsetTop + hero.offsetHeight;
+            if (window.pageYOffset > heroBottom - menuIcon.offsetHeight) {
+                body.classList.add('past-hero');
+            } else {
+                body.classList.remove('past-hero');
+            }
+        }
+
+        window.addEventListener('scroll', checkHeroVisibility);
+        window.addEventListener('resize', checkHeroVisibility);
+        checkHeroVisibility(); // Initial check
+    </script>
+    <div id="contactOverlay" class="contact-overlay">
+        <div class="contact-overlay-content">
+            <div class="image-container">
+                <img src="contactImg.JPEG" alt="Contact Image">
+            </div>
+            <div class="text-container">
+                <div class="contact-info">
+                    <p>Email: lucasmarcbeastall@gmail.com</p>
+                    <p>Address: Your Address Here</p>
+                    <p>LinkedIn: <a href="https://www.linkedin.com/in/yourprofile">Your Profile</a></p>
+                    <p>Phone: Your Phone Number</p>
+                </div>
+                <h1 id="getInTouch">GET IN<br>TOUCH</h1>
+            </div>
+            <button id="closeBtn" class="close-btn">&times;</button>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            ;
+            const menuContactBtn = document.getElementById('menuContactBtn');
+            const footerContactBtn = document.getElementById('footerContactBtn');
+            const contactOverlay = document.getElementById('contactOverlay');
+            const closeBtn = document.getElementById('closeBtn');
+            const getInTouch = document.getElementById('getInTouch');
+
+            function showContactOverlay() {
+                contactOverlay.classList.add('active');
+            }
+
+            menuContactBtn.addEventListener('click', showContactOverlay);
+            footerContactBtn.addEventListener('click', showContactOverlay);
+
+            closeBtn.addEventListener('click', () => {
+                contactOverlay.classList.remove('active');
+            });
+
+            getInTouch.addEventListener('click', () => {
+                window.location.href = 'mailto:lucasmarcbeastall@gmail.com';
+            });
+
+            // Animated close button
+            closeBtn.addEventListener('mouseover', () => {
+                closeBtn.style.transform = 'rotate(90deg)';
+                closeBtn.style.transition = 'transform 0.3s ease-in-out';
+            });
+
+            closeBtn.addEventListener('mouseout', () => {
+                closeBtn.style.transform = 'rotate(0deg)';
+            });
+        });
+    </script>
+    <footer class="slim-footer">
+        <div class="footer-content">
+            <span class="footer-name">Lucas Beastall</span>
+            <a href="#" class="footer-contact" id="footerContactBtn">Contact Me</a>
+        </div>
+    </footer>
+</body>
+</html>

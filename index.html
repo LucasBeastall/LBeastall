@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lucas Beastall - Aspiring Data Scientist</title>
+    <link rel="icon" href="logoImg.png" type="image/png">
     <link rel="stylesheet" href="indexStyle.css">
 </head>
 <body>
     <section class="hero">
         <div class="hero">
-            <button class="menu-button">☰</button>
             <div class="hero-content">
                 <h1>Aspiring Data Scientist</h1>
                 <h2>Lucas Beastall</h2>
@@ -17,51 +17,163 @@
             </div>
         </div>
     </section>
-    <div class="two-column">
-        <div class="column">
+    <div class="responsive-two-column">
+        <div class="column video-column">
             <div class="video-container">
                 <iframe src="https://www.youtube.com/watch?v=ScMzIvxBSi4" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
             </div>
         </div>
-        <div class="column content">
+        <div class="column content-column">
             <h3>Title Goes Here</h3>
             <p class="large">This is a larger paragraph that provides more detailed information about the topic. It can be used to introduce the main concepts or ideas that you want to convey to your audience.</p>
             <p class="small">This is a smaller paragraph that can be used to provide additional details or supporting information. It helps to break up the content and make it more readable.</p>
             <p class="small">Here's another small paragraph that can be used to conclude the section or provide a call-to-action for the reader.</p>
         </div>
     </div>
-    <div class="scrolling-blocks">
-        <div class="block">
-            <img src="/api/placeholder/300/200" alt="Block 1 Image">
-            <h3>Block 1 Title</h3>
-            <p>Some text for Block 1. Click to learn more.</p>
-            <a href="#" class="block-link"></a>
-        </div>
-        <div class="block">
-            <img src="/api/placeholder/300/200" alt="Block 2 Image">
-            <h3>Block 2 Title</h3>
-            <p>Some text for Block 2. Click to learn more.</p>
-            <a href="#" class="block-link"></a>
-        </div>
-        <div class="block">
-            <img src="/api/placeholder/300/200" alt="Block 3 Image">
-            <h3>Block 3 Title</h3>
-            <p>Some text for Block 3. Click to learn more.</p>
-            <a href="#" class="block-link"></a>
-        </div>
-        <div class="block">
-            <img src="/api/placeholder/300/200" alt="Block 4 Image">
-            <h3>Block 4 Title</h3>
-            <p>Some text for Block 4. Click to learn more.</p>
-            <a href="#" class="block-link"></a>
-        </div>
-        <div class="block">
-            <img src="/api/placeholder/300/200" alt="Block 5 Image">
-            <h3>Block 5 Title</h3>
-            <p>Some text for Block 5. Click to learn more.</p>
-            <a href="#" class="block-link"></a>
+    <div class="scrolling-blocks-container">
+        <div class="scrolling-blocks">
+            <div class="block">
+                <img src="LPPImg.jpg" alt="Block 1 Image">
+                <h3>Optimise Your Nutrition</h3>
+                <p>I built a LPP solver from scratch to sort out both your, and my diet.</p>
+                <a href="LPP.html" class="block-link"></a>
+            </div>
+            <div class="block">
+                <img src="/api/placeholder/300/200" alt="Block 2 Image">
+                <h3>Block 2 Title</h3>
+                <p>Some text for Block 2. Click to learn more.</p>
+                <a href="#" class="block-link"></a>
+            </div>
+            <div class="block">
+                <img src="/api/placeholder/300/200" alt="Block 3 Image">
+                <h3>Block 3 Title</h3>
+                <p>Some text for Block 3. Click to learn more.</p>
+                <a href="#" class="block-link"></a>
+            </div>
+            <div class="block">
+                <img src="/api/placeholder/300/200" alt="Block 4 Image">
+                <h3>Block 4 Title</h3>
+                <p>Some text for Block 4. Click to learn more.</p>
+                <a href="#" class="block-link"></a>
+            </div>
+            <div class="block">
+                <img src="/api/placeholder/300/200" alt="Block 5 Image">
+                <h3>Block 5 Title</h3>
+                <p>Some text for Block 5. Click to learn more.</p>
+                <a href="#" class="block-link"></a>
+            </div>
         </div>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const container = document.querySelector('.scrolling-blocks-container');
+            const scrollingBlocks = document.querySelector('.scrolling-blocks');
+            const customScrollbar = document.createElement('div');
+            const customScrollbarThumb = document.createElement('div');
+            const scrollLeftButton = document.createElement('button');
+            const scrollRightButton = document.createElement('button');
+
+            // Create custom scrollbar
+            customScrollbar.className = 'custom-scrollbar';
+            customScrollbarThumb.className = 'custom-scrollbar-thumb';
+            customScrollbar.appendChild(customScrollbarThumb);
+            container.appendChild(customScrollbar);
+
+            // Create scroll buttons
+            scrollLeftButton.className = 'scroll-button scroll-left';
+            scrollLeftButton.innerHTML = '&#8249;';
+            scrollRightButton.className = 'scroll-button scroll-right';
+            scrollRightButton.innerHTML = '&#8250;';
+            container.appendChild(scrollLeftButton);
+            container.appendChild(scrollRightButton);
+
+            // Update scrollbar thumb position and width
+            function updateScrollbarThumb() {
+                const scrollPercentage = scrollingBlocks.scrollLeft / (scrollingBlocks.scrollWidth - scrollingBlocks.clientWidth);
+                const thumbWidth = (scrollingBlocks.clientWidth / scrollingBlocks.scrollWidth) * 100;
+                const thumbPosition = scrollPercentage * (customScrollbar.clientWidth - (customScrollbar.clientWidth * thumbWidth / 100));
+
+                customScrollbarThumb.style.width = `${thumbWidth}%`;
+                customScrollbarThumb.style.transform = `translateX(${thumbPosition}px)`;
+
+                // Update button visibility
+                updateButtonVisibility();
+            }
+
+            // Update button visibility
+            function updateButtonVisibility() {
+                const isAtStart = scrollingBlocks.scrollLeft === 0;
+                const isAtEnd = scrollingBlocks.scrollLeft === scrollingBlocks.scrollWidth - scrollingBlocks.clientWidth;
+
+                scrollLeftButton.style.opacity = isAtStart ? '0' : '1';
+                scrollLeftButton.style.pointerEvents = isAtStart ? 'none' : 'auto';
+
+                scrollRightButton.style.opacity = isAtEnd ? '0' : '1';
+                scrollRightButton.style.pointerEvents = isAtEnd ? 'none' : 'auto';
+            }
+
+            // Scroll function
+            function scroll(direction) {
+                const scrollAmount = scrollingBlocks.clientWidth / 2;
+                scrollingBlocks.scrollBy({
+                    left: direction * scrollAmount,
+                    behavior: 'smooth'
+                });
+            }
+
+            // Event listeners
+            scrollingBlocks.addEventListener('scroll', updateScrollbarThumb);
+            scrollLeftButton.addEventListener('click', () => scroll(-1));
+            scrollRightButton.addEventListener('click', () => scroll(1));
+
+            // Drag scrollbar functionality
+            let isDragging = false;
+            let startX, startScrollLeft;
+
+            function onDragStart(e) {
+                isDragging = true;
+                startX = e.clientX - customScrollbarThumb.getBoundingClientRect().left;
+                startScrollLeft = scrollingBlocks.scrollLeft;
+                customScrollbarThumb.style.transition = 'none';
+                document.body.style.userSelect = 'none';
+                document.addEventListener('mousemove', onDragMove);
+                document.addEventListener('mouseup', onDragEnd);
+            }
+
+            function onDragMove(e) {
+                if (!isDragging) return;
+                e.preventDefault();
+                const x = e.clientX - customScrollbar.getBoundingClientRect().left;
+                const walk = (x - startX) / (customScrollbar.clientWidth - customScrollbarThumb.clientWidth) *
+                    (scrollingBlocks.scrollWidth - scrollingBlocks.clientWidth);
+                scrollingBlocks.scrollLeft = startScrollLeft + walk;
+            }
+
+            function onDragEnd() {
+                isDragging = false;
+                customScrollbarThumb.style.transition = '';
+                document.body.style.userSelect = '';
+                document.removeEventListener('mousemove', onDragMove);
+                document.removeEventListener('mouseup', onDragEnd);
+            }
+
+            customScrollbarThumb.addEventListener('mousedown', onDragStart);
+
+            // Click on scrollbar track
+            customScrollbar.addEventListener('click', (e) => {
+                if (e.target === customScrollbarThumb) return;
+                const clickPosition = e.clientX - customScrollbar.getBoundingClientRect().left;
+                const scrollPercentage = clickPosition / customScrollbar.clientWidth;
+                scrollingBlocks.scrollLeft = scrollPercentage * (scrollingBlocks.scrollWidth - scrollingBlocks.clientWidth);
+            });
+
+            // Initial update
+            updateScrollbarThumb();
+
+            // Update on window resize
+            window.addEventListener('resize', updateScrollbarThumb);
+        });
+    </script>
     <section class="references">
         <h2>References</h2>
         <div class="references-grid">
@@ -91,6 +203,28 @@
             </div>
         </div>
     </section>
+    <div class="bonus-features-container">
+        <section class="bonus-features">
+            <h2 class="bonus-features__title">Bonus Features</h2>
+            <div class="feature-list">
+                <div class="feature-item">24/7 customer support</div>
+                <div class="feature-item">Free shipping on orders over $50</div>
+                <div class="feature-item">30-day money-back guarantee</div>
+                <div class="feature-item">Exclusive member discounts</div>
+                <div class="feature-item">Personalized product recommendations</div>
+                <div class="feature-item">Easy returns and exchanges</div>
+                <div class="feature-item">Loyalty rewards program</div>
+                <div class="feature-item">Regular software updates</div>
+                <div class="feature-item">Cross-platform compatibility</div>
+                <div class="feature-item">Cloud storage integration</div>
+                <div class="feature-item">Customizable user interface</div>
+                <div class="feature-item">Advanced security features</div>
+                <div class="feature-item">Offline mode functionality</div>
+                <div class="feature-item">Multi-language support</div>
+                <div class="feature-item">Priority access to new features</div>
+            </div>
+        </section>
+    </div>
     <section class="faqs">
         <h2>Frequently Asked Questions</h2>
         <div class="faq-container">
@@ -141,64 +275,115 @@
         });
     </script>
 
-    <div id="contact-trigger" class="contact-trigger">Contact</div>
+    <input id="page-nav-toggle" class="main-navigation-toggle" type="checkbox" />
+    <label for="page-nav-toggle" class="menu-icon-wrapper">
+        <svg class="icon--menu-toggle" viewBox="0 0 60 30">
+            <g class="icon-group">
+                <g class="icon--menu">
+                    <path d="M 6 0 L 54 0" />
+                    <path d="M 6 15 L 54 15" />
+                    <path d="M 6 30 L 54 30" />
+                </g>
+                <g class="icon--close">
+                    <path d="M 15 0 L 45 30" />
+                    <path d="M 15 30 L 45 0" />
+                </g>
+            </g>
+        </svg>
+    </label>
+    
+    <nav class="main-navigation">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <!-- <li><a href="#0">Timeline</a></li>-->
+    <li><a href="Lucas Beastall ~ CV.pdf" target="_blank" rel="noopener noreferrer">CV</a></li>       <!-- change for a Now page -->
+            <li><a href="" id="menuContactBtn">Contact</a></li>
+        </ul>
+        </nav>
 
-    <div id="contact-overlay" class="contact-overlay">
-        <div class="contact-content">
-            <div class="contact-image">
-                <img src="/api/placeholder/600/800" alt="Lucas Beastall">
-            </div>
-            <div class="contact-details">
-                <button id="close-contact" class="close-contact">
-                    <span></span>
-                    <span></span>
-                </button>
-                <p>Address: [Your Address Here]</p>
-                <p>Email: lucasmarcbeastall@gmail.com</p>
-                <p>Phone: +44 07725715638 (Text or Call)</p>
-                <p>LinkedIn: <a href="https://www.linkedin.com/in/[your-profile]" target="_blank">linkedin.com/in/[your-profile]</a></p>
-                <a href="mailto:lucasmarcbeastall@gmail.com" class="get-in-touch">GET IN TOUCH</a>
-            </div>
-        </div>
-    </div>
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const contactTrigger = document.getElementById('contact-trigger');
-            const contactOverlay = document.getElementById('contact-overlay');
-            const closeContact = document.getElementById('close-contact');
+        <script>
+            const body = document.body;
             const hero = document.querySelector('.hero');
-            const footer = document.querySelector('.footer');
+            const menuIcon = document.querySelector('.menu-icon-wrapper');
 
-            function showContactTrigger() {
-                const heroRect = hero.getBoundingClientRect();
-                const footerRect = footer.getBoundingClientRect();
-
-                if (heroRect.bottom <= 0 && footerRect.top > window.innerHeight) {
-                    contactTrigger.style.opacity = '1';
+            function checkHeroVisibility() {
+                const heroBottom = hero.offsetTop + hero.offsetHeight;
+                if (window.pageYOffset > heroBottom - menuIcon.offsetHeight) {
+                    body.classList.add('past-hero');
                 } else {
-                    contactTrigger.style.opacity = '0';
+                    body.classList.remove('past-hero');
                 }
             }
 
-            function toggleContactOverlay() {
-                contactOverlay.style.display = contactOverlay.style.display === 'none' ? 'block' : 'none';
-            }
+            window.addEventListener('scroll', checkHeroVisibility);
+            window.addEventListener('resize', checkHeroVisibility);
+            checkHeroVisibility(); // Initial check
+        </script>
 
-            window.addEventListener('scroll', showContactTrigger);
-            contactTrigger.addEventListener('click', toggleContactOverlay);
-            closeContact.addEventListener('click', toggleContactOverlay);
+        <button id="contactBtn">Contact</button>
 
-            // Initial check for contact trigger visibility
-            showContactTrigger();
-        });
-    </script>
-
-
-    <footer class="slim-footer">
-        <div class="footer-content">
-            <span class="footer-name">Lucas Beastall</span>
-            <a href="contact.html" class="footer-contact">Contact Me</a>
+        <div id="contactOverlay" class="contact-overlay">
+            <div class="contact-overlay-content">
+                <div class="image-container">
+                    <img src="contactImg.JPEG" alt="Contact Image">
+                </div>
+                <div class="text-container">
+                    <div class="contact-info">
+                        <p>Email: lucasmarcbeastall@gmail.com</p>
+                        <p>Address: Your Address Here</p>
+                        <p>LinkedIn: <a href="https://www.linkedin.com/in/yourprofile">Your Profile</a></p>
+                        <p>Phone: Your Phone Number</p>
+                    </div>
+                    <h1 id="getInTouch">GET IN<br>TOUCH</h1>
+                </div>
+                <button id="closeBtn" class="close-btn">&times;</button>
+            </div>
         </div>
-    </footer>
-</body>
-</html>
+
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const contactBtn = document.getElementById('contactBtn'); 
+                const menuContactBtn = document.getElementById('menuContactBtn');
+                const footerContactBtn = document.getElementById('footerContactBtn');
+                const contactOverlay = document.getElementById('contactOverlay');
+                const closeBtn = document.getElementById('closeBtn');
+                const getInTouch = document.getElementById('getInTouch');
+
+                function showContactOverlay() {
+                    contactOverlay.classList.add('active');
+                }
+
+                contactBtn.addEventListener('click', showContactOverlay);
+                menuContactBtn.addEventListener('click', showContactOverlay);
+                footerContactBtn.addEventListener('click', showContactOverlay);
+
+                closeBtn.addEventListener('click', () => {
+                    contactOverlay.classList.remove('active');
+                });
+
+                getInTouch.addEventListener('click', () => {
+                    window.location.href = 'mailto:lucasmarcbeastall@gmail.com';
+                });
+
+                // Animated close button
+                closeBtn.addEventListener('mouseover', () => {
+                    closeBtn.style.transform = 'rotate(90deg)';
+                    closeBtn.style.transition = 'transform 0.3s ease-in-out';
+                });
+
+                closeBtn.addEventListener('mouseout', () => {
+                    closeBtn.style.transform = 'rotate(0deg)';
+                });
+            });
+        </script>
+
+        <footer class="slim-footer">
+            <div class="footer-content">
+                <span class="footer-name">Lucas Beastall</span>
+                <a href="#" class="footer-contact" id="footerContactBtn">Contact Me</a>
+            </div>
+        </footer>
+    </body>
+    </html>
