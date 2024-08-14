@@ -8,13 +8,21 @@
     <link rel="icon" href="logoImg.png" type="image/png">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="LPPStyle.css">
+    <link rel="stylesheet" href="blankStyle.css">
 </head>
 <body>
     <div class="container">
         <header>
             <h1>Linear Programming Problem Solver</h1>
         </header>
-
+        <section class="about-section">
+            <h2>About This Page</h2>
+            <p>
+                This Linear Programming Problem solver was coded from scratch, without external libraries (see script at the bottom of the page). It demonstrates my ability to implement complex algorithms from what I learned on my maths course. This page is useful to me. I use it frequently. If you want any additional features or food items adding Email, Text or Call.
+                <br><br>
+                There is a bug currently with my code (when a min of 0 is used or objective functions that arent calories) so there is the option of using the libary solver. Feel free to compare and put mine to the test. :)
+            </p>
+        </section>
         <main>
             <section class="optimization-section">
                 <h2>Optimization Goal</h2>
@@ -27,6 +35,10 @@
                         <option id="minimizeCalories">Calories</option>
                         <option id="minimizeWeight">Weight</option>
                         <option id="minimizeCost">Cost</option>
+                    </select>
+                    <select id="method" class="select-css">
+                        <option value="MA">My algorythm</option>
+                        <option value="LIB">Library solver</option>
                     </select>
                 </div>
             </section>
@@ -152,13 +164,376 @@
 
             <section class="algorythm-section">
                 <h2>Simplex</h2>
-                <div id="Algorythm" class="algorythm-box">  This Linear Programming Problem solver was coded from scratch, without external libraries (see script at the bottom of the page). It demonstrates my ability to implement complex algorithms from what i learned on my maths course. This page is useful to me. I use it frequently. If you want any additional features or food items adding Email, Text or Call.
-    
-    Not here to offer me a job? That's okay, I forgive you. But how the !#*@ did you get here?
-    
-    There is a bug currently with my code so i will be using the libary solver until it is resolved, as such i have moved this to the bottom of the page and removed the script code.
+                <div id="Algorythm" class="algorythm-box">
+                    function LPPsolver(problem) {
+                    //step 1: create tableau,
+                    tableau = createTwoPhaseTableau(problem);
+                    console.log('Tableau:', tableau);
+                    console.log('Tableau (stringified):', JSON.stringify(tableau, null, 2));
+
+                    //step 2: normalise and attempt to solve auxilary problem
+
+                    //step 3: solve new tableau
+                    solverResult = solveTwoPhaseSimplexTableau(tableau);
+                    console.log('solverResult:', solverResult);
+                    console.log('solverResult (stringified):', JSON.stringify(solverResult, null, 2));
+                    //step 4: use result as initial to solve
+                    //step 5: convert to format for output
+                    return formatSolutionOutput(solverResult, Object.keys(problem.variables));
+
+                    };
+
+                    function createTwoPhaseTableau(problem) {
+                    const variables = Object.keys(problem.variables);
+                    const constraints = Object.keys(problem.constraints);
+                    const objective = problem.optimize;
+                    const opType = problem.opType;
+
+                    // Count the number of actual constraints (could be up to 2 per constraint if both min and max are specified)
+                    let constraintCount = 0;
+                    let artCount = 0; // counts min therefore number of artificial variables
+                    constraints.forEach(constraint => {
+                    if (problem.constraints[constraint].min !== undefined && problem.constraints[constraint].min > 0) { constraintCount++; artCount++; }
+                    if (problem.constraints[constraint].max !== undefined) constraintCount++;
+                    });
+
+                    console.log('constraintCount:', constraintCount)
+
+                    const tableau = [];
+
+                    // Objective function row (Phase 2)
+                    const objRow = new Array(variables.length + constraintCount + artCount + 1).fill(0);
+                    variables.forEach((variable, i) => {
+                    objRow[i] = problem.variables[variable][objective] * (opType === 'max' ? -1 : 1);
+                    });
+                    tableau.push(objRow);
+
+                    // Artificial objective function row (Phase 1)
+                    const artObjRow = new Array(variables.length + constraintCount + artCount + 1).fill(0);
+                    for (let i = variables.length + constraintCount; i < variables.length + constraintCount + artCount; i++) {
+                    artObjRow[i] = 1;
+                    }
+                    tableau.push(artObjRow);
+
+                    // Constraint rows
+                    let slackIndex = variables.length;
+                    let artIndex = variables.length + constraintCount;
+                    constraints.forEach(constraint => {
+                    const minValue = problem.constraints[constraint].min;
+                    const maxValue = problem.constraints[constraint].max;
+
+                    if (minValue !== undefined && minValue > 0) { //LOOK AT THE >0 REQUIREMENT
+                    const row = new Array(variables.length + constraintCount + artCount + 1).fill(0);
+                    variables.forEach((variable, j) => {
+                    row[j] = problem.variables[variable][constraint];
+                    });
+                    row[slackIndex] = -1;  // For >= constraints, we subtract the slack variable
+                    row[artIndex] = 1;  // For >= constraints, we add artificial variable
+                    row[row.length - 1] = minValue;  // RHS
+                    tableau.push(row);
+                    tableau[1] = tableau[1].map((value, index) => value - row[index]); //normalise table
+                    console.log('row',row)
+                    slackIndex++;
+                    artIndex++;
+                    }
+
+                    if (maxValue !== undefined) {
+                    const row = new Array(variables.length + constraintCount + artCount + 1).fill(0);
+                    variables.forEach((variable, j) => {
+                    row[j] = problem.variables[variable][constraint];
+                    });
+                    row[slackIndex] = 1;  // For <= constraints, we add the slack variable
+                    row[row.length - 1] = maxValue;  // RHS
+                    tableau.push(row);
+                    slackIndex++;
+                    }
+                    });
+
+                    /* Non-negativity constraints for variables
+                    for (let i = 0; i < variables.length; i++) {
+                    const row = new Array(variables.length + constraintCount + artCount + 1).fill(0);
+                    row[i] = 1;
+                    row[row.length - 1] = 0;  // RHS
+                    tableau.push(row);
+                    }*/
+
+
+                    console.log('look at this one:', JSON.stringify(tableau, null, 2));
+
+                    return tableau;
+                    }
+
+                    function solveTwoPhaseSimplexTableau(tableau) {
+                    // Helper function to find the pivot column
+                    function findPivotColumn(row) {
+                    let mostNegativeIndex = -1;
+                    let mostNegativeValue = 0;
+                    for (let i = 0; i < row.length - 1; i++) {
+                    if (row[i] < mostNegativeValue) {
+                    mostNegativeValue = row[i];
+                    mostNegativeIndex = i;
+                    }
+                    }
+                    return mostNegativeIndex;
+                    }
+
+                    // Helper function to find the pivot row
+                    function findPivotRow(tableau, pivotColumn) {
+                    let minRatio = Infinity;
+                    let pivotRow = -1;
+                    for (let i = 2; i < tableau.length; i++) {
+                    if (tableau[i][pivotColumn] > 0) {
+                    const ratio = tableau[i][tableau[i].length - 1] / tableau[i][pivotColumn];
+                    if (ratio < minRatio) {
+                    minRatio = ratio;
+                    pivotRow = i;
+                    }
+                    }
+                    }
+                    return pivotRow;
+                    }
+
+                    // Helper function to perform a pivot operation
+                    function pivot(tableau, pivotRow, pivotColumn) {
+                    const pivotValue = tableau[pivotRow][pivotColumn];
+                    for (let i = 0; i < tableau.length; i++) {
+                    if (i !== pivotRow) {
+                    const factor = tableau[i][pivotColumn] / pivotValue;
+                    for (let j = 0; j < tableau[i].length; j++) {
+                    tableau[i][j] -= factor * tableau[pivotRow][j];
+                    }
+                    }
+                    }
+                    // Normalize pivot row
+                    for (let j = 0; j < tableau[pivotRow].length; j++) {
+                    tableau[pivotRow][j] /= pivotValue;
+                    }
+                    }
+
+                    // Helper function to check if Phase 1 is complete
+                    function isPhase1Complete(tableau) {
+                    return tableau[1].every(value => value >= 0);
+                    }
+
+                    // Helper function to remove artificial variables
+                    function removeArtificialVariables(tableau, artCount) {
+                    // Remove artificial objective row
+                    console.log('pre removeArtificialVariables art Count:', artCount)
+                    console.log('pre removeArtificialVariables:', JSON.stringify(tableau, null, 2));
+                    tableau.splice(1, 1);
+                    // Remove artificial variable columns (assuming they're the last columns before RHS)
+                    for (let i = 0; i < tableau.length; i++) {
+                    tableau[i].splice(tableau[i].length - artCount-1, artCount);
+                    }
+                    console.log('post removeArtificialVariables:', JSON.stringify(tableau, null, 2));
+                    }
+
+                    // Helper function to check if optimal solution is reached
+                    function isOptimal(tableau) {
+                    return tableau[0].every(value => value >= 0);
+                    }
+
+                    function countNegativeOnes(tableau) {
+                    let count = 0;
+                    // Start from row 2 to skip rows 0 and 1
+                    for (let i = 2; i < tableau.length; i++) {
+                    for (let j = 0; j < tableau[i].length - 1; j++) {
+                    if (tableau[i][j] === -1) {
+                    count++;
+                    }
+                    }
+                    }
+                    return count;
+                    }
+
+
+
+
+
+                    const artCount = countNegativeOnes(tableau);
+                    console.log("Number of artificial variables:", artCount);
+                    // Main solving loop
+                    let phase = 1;
+                    while (true) {
+
+                    console.log('Tableau (stringified):', JSON.stringify(tableau, null, 2));
+
+                    let pivotColumn = findPivotColumn(tableau[phase]);
+                    console.log('pivotColumn:', pivotColumn)
+                    if (pivotColumn === -1) {
+                    if (phase === 1) {
+                    if (isPhase1Complete(tableau)) {
+                    removeArtificialVariables(tableau, artCount);
+                    phase = 0; //phase 2
+                    continue;
+                    } else {
+                    return "No feasible solution exists.";
+                    }
+                    } else {
+                    break; // Optimal solution reached
+                    }
+                    }
+
+                    const pivotRow = findPivotRow(tableau, pivotColumn);
+                    console.log('pivotRow:', pivotRow)
+                    if (pivotRow === -1) {
+                    return "The problem is unbounded.";
+                    }
+
+                    pivot(tableau, pivotRow, pivotColumn);
+                    }
+
+                    // Extract solution
+                    const solution = new Array(tableau[0].length - 1).fill(0);
+                    for (let i = 2; i < tableau.length; i++) {
+                    const basicVar = tableau[i].findIndex(value => value === 1);
+                    if (basicVar !== -1 && basicVar < solution.length) {
+                    solution[basicVar] = tableau[i][tableau[i].length - 1];
+                    }
+                    }
+
+                    return {
+                    tableau: tableau,
+                    solution: solution.slice(0, 6), // Assuming the first 6 variables are the original variables
+                    objectiveValue: -tableau[0][tableau[0].length - 1] // Negative because we minimized
+                    };
+                    }
+
+
+
+                    function formatSolutionOutput(solverResult, variableNames) {
+                    const output = {
+                    feasible: true,
+                    result: 0,
+                    bounded: true
+                    };
+
+                    if (typeof solverResult === 'string') {
+                    // Handle infeasible or unbounded cases
+                    output.feasible = false;
+                    output.bounded = !solverResult.includes('unbounded');
+                    return output;
+                    }
+
+                    output.result = Number(solverResult.objectiveValue.toFixed(8));
+
+                    // Add non-zero variables to the output
+                    solverResult.solution.forEach((value, index) => {
+                    if (value > 1e-8) {  // Consider values greater than 1e-8 as non-zero
+                    output[variableNames[index]] = Number(value.toFixed(8));
+                    }
+                    });
+
+                    return output;
+                    }
                 </div>
             </section>
+
+            <input id="page-nav-toggle" class="main-navigation-toggle" type="checkbox" />
+            <label for="page-nav-toggle" class="menu-icon-wrapper">
+                <svg class="icon--menu-toggle" viewBox="0 0 60 30">
+                    <g class="icon-group">
+                        <g class="icon--menu">
+                            <path d="M 6 0 L 54 0" />
+                            <path d="M 6 15 L 54 15" />
+                            <path d="M 6 30 L 54 30" />
+                        </g>
+                        <g class="icon--close">
+                            <path d="M 15 0 L 45 30" />
+                            <path d="M 15 30 L 45 0" />
+                        </g>
+                    </g>
+                </svg>
+            </label>
+
+            <nav class="main-navigation">
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="projects.html">Projects</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                    <!-- <li><a href="#0">Timeline</a></li>-->
+                    <li><a href="Lucas Beastall ~ CV.pdf" target="_blank" rel="noopener noreferrer">CV</a></li>       <!-- change for a Now page -->
+                    <li><a href="#" id="menuContactBtn">Contact</a></li>
+                </ul>
+            </nav>
+
+            <script>
+                const body = document.body;
+                const hero = document.querySelector('.hero');
+                const menuIcon = document.querySelector('.menu-icon-wrapper');
+
+                function checkHeroVisibility() {
+                    const heroBottom = hero.offsetTop + hero.offsetHeight;
+                    if (window.pageYOffset > heroBottom - menuIcon.offsetHeight) {
+                        body.classList.add('past-hero');
+                    } else {
+                        body.classList.remove('past-hero');
+                    }
+                }
+
+                window.addEventListener('scroll', checkHeroVisibility);
+                window.addEventListener('resize', checkHeroVisibility);
+                checkHeroVisibility(); // Initial check
+            </script>
+            <div id="contactOverlay" class="contact-overlay">
+                <div class="contact-overlay-content">
+                    <div class="image-container">
+                        <img src="contactImg.JPEG" alt="Contact Image">
+                    </div>
+                    <div class="text-container">
+                        <div class="contact-info">
+                            <p>Email: lucasmarcbeastall@gmail.com</p>
+                            <p>Address: Your Address Here</p>
+                            <p>LinkedIn: <a href="https://www.linkedin.com/in/yourprofile">Your Profile</a></p>
+                            <p>Phone: Your Phone Number</p>
+                        </div>
+                        <h1 id="getInTouch">GET IN<br>TOUCH</h1>
+                    </div>
+                    <button id="closeBtn" class="close-btn">&times;</button>
+                </div>
+            </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', () => {
+                    ;
+                    const menuContactBtn = document.getElementById('menuContactBtn');
+                    const footerContactBtn = document.getElementById('footerContactBtn');
+                    const contactOverlay = document.getElementById('contactOverlay');
+                    const closeBtn = document.getElementById('closeBtn');
+                    const getInTouch = document.getElementById('getInTouch');
+
+                    function showContactOverlay() {
+                        contactOverlay.classList.add('active');
+                    }
+
+                    menuContactBtn.addEventListener('click', showContactOverlay);
+                    footerContactBtn.addEventListener('click', showContactOverlay);
+
+                    closeBtn.addEventListener('click', () => {
+                        contactOverlay.classList.remove('active');
+                    });
+
+                    getInTouch.addEventListener('click', () => {
+                        window.location.href = 'mailto:lucasmarcbeastall@gmail.com';
+                    });
+
+                    // Animated close button
+                    closeBtn.addEventListener('mouseover', () => {
+                        closeBtn.style.transform = 'rotate(90deg)';
+                        closeBtn.style.transition = 'transform 0.3s ease-in-out';
+                    });
+
+                    closeBtn.addEventListener('mouseout', () => {
+                        closeBtn.style.transform = 'rotate(0deg)';
+                    });
+                });
+            </script>
+            <footer class="slim-footer">
+                <div class="footer-content">
+                    <span class="footer-name">Lucas Beastall</span>
+                    <a href="#" class="footer-contact" id="footerContactBtn">Contact Me</a>
+                </div>
+            </footer>
         </main>
     </div>
     <script>
@@ -248,20 +623,21 @@
 
             console.log('Problem object:', problem);
             console.log('Problem object (stringified):', JSON.stringify(problem, null, 2));
-
-            //let standardForm = convertToStandardForm(problem);
-            //console.log('Standard Form:', standardForm);
             try {
-                // i will run your function here
-                //the library function
-                //const result = solver.Solve(problem);
-                const result = LPPsolver(problem);
-                //const result = simplifiedSolve(problem);
-                //const result = simplexSolver(standardForm);
-                //const result = simplexSolverBridge(problem);
+                // i will run function here
 
-
-                console.log(result)
+                // i will run function here
+                if (document.getElementById('method').value == "MA") {
+                    result = LPPsolver(problem);
+                } else if (document.getElementById('method').value == "LIB") {
+                    //the library function
+                    result = solver.Solve(problem);
+                } else {
+                    console.log("Error: line 257: method");
+                    throw new Error("Invalid method"); // Throw an error to skip the console.log(result)
+                }
+                
+                console.log(result,"Result: ")
 
 
                 // Display results
