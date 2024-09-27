@@ -4,46 +4,34 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="blankStyle.css">
-    <link rel="stylesheet" href="blogStyle.css">
-    <title>Blog</title>
+    <link rel="stylesheet" href="postXStyle.css">
+    <title>Building a GPT</title>
     <link rel="icon" href="logoImg.png" type="image/png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <header class="header">
-        <img src="blogImg.JPEG" alt="Background image">
+        <img src="GPTImg1.PNG" alt="Background image">
         <div class="header-content">
-            <h1>Blog</h1>
-            <p>Blog about things</p>
+            <h1>Building a Character-Level GPT: Curiosity to Implementation</h1>
+            <p>A Deep Dive into Language Model Architecture and Training</p>
         </div>
     </header>
     <div class="content">
-        <div class="blog-container">
-            <a href="postWeb.html" class="blog-post">
-                <img src="websiteImg.PNG" alt="Blog post image">
-                <div class="blog-content">
-                    <h2 class="blog-title">Making This Website</h2>
-                    <p class="blog-date">Aeptember 9, 2024</p>
-                    <p class="blog-description">My journey into web development and learning HTML, CSS and Java Script on the fly.</p>
-                </div>
-            </a>
-            <a href="/post2.html" class="blog-post">
-                <img src="/api/placeholder/400/400" alt="Blog post image">
-                <div class="blog-content">
-                    <h2 class="blog-title">Chip Sector Hit Again as Stock Market Rally Attempt Fails</h2>
-                    <p class="blog-date">August 7, 2024</p>
-                    <p class="blog-description">Exploring the recent downturn in the chip sector and its effects on the broader stock market.</p>
-                </div>
-            </a>
-            <a href="/post3.html" class="blog-post">
-                <img src="/api/placeholder/400/400" alt="Blog post image">
-                <div class="blog-content">
-                    <h2 class="blog-title">Will Fed Officials Push Back on a Half-Point Interest Rate Cut?</h2>
-                    <p class="blog-date">August 7, 2024</p>
-                    <p class="blog-description">Examining the potential for changes in interest rates and the Federal Reserve's stance on monetary policy.</p>
-                </div>
-            </a>
+        <p><strong>Motivation:</strong> After using large language models like Claude daily, I became curious about their inner workings. To deepen my understanding, I decided to create a small-scale GPT model from scratch.</p>
+        <p><strong>Objective:</strong> Develop a character-level GPT model capable of generating text that resembles English, even if not fully coherent. The primary goal was to achieve correct spelling as a first milestone, with an expected loss of around 1.3 based on initial research. I chose this goal due to my nearly decade old computer limiting my compute. </p>
+        <div class="image-wrap">
+            <img src="GPTImg.PNG" alt="image">
         </div>
+        <p><strong>Technical Approach:</strong> Implemented a character-level tokenization for computational efficiency. Utilized PyTorch to build the transformer (GPT) architecture. Developed data loading and processing pipelines. Implemented training and evaluation loops. Experimented with hyperparameters to optimize model performance. Created the two diagrams shown during to help with the design.</p>
+        <p><strong>Key Learnings:</strong> Gained hands-on experience with Anaconda, Jupyter Notebook, and argparse. Deepened understanding of the transformer architecture and GPT model. Improved skills in PyTorch usage, code optimisation and efficiency testing. Learned to handle large text datasets efficiently using memory mapping.</p>
+        <p><strong>Results:</strong> Achieved a validation loss of 1.223, surpassing the initial target of 1.3 and demonstrating the model's ability to generate text with correct spelling. Here is some example output with the Prompt "Once upon a time," before and after training.</p>
+        <p><strong>Impact and Insights:</strong> While not intended for practical use, this project provided valuable insights into the workings of language models, the challenges of training them, and the factors contributing to their performance. It significantly enhanced my understanding of NLP and deep learning concepts.</p>
+        <div class="image-wrap left">
+            <img src="GPTImg2.PNG" alt="image">
+        </div>
+        <p><strong>Future Directions:</strong> Experiment with different tokenization methods. Implement more automated hyperparameter optimization. Implement fine-tuning techniques. Implement more advanced optimization techniques such as Quantization. Introduce an end token so it can stop on its own. Create a GPT-like model train solely on artificial Mathematical equations that can easily be checked to see if this architexture is appropriate for a logical math bot. Use a open source LLM for a practical application.</p>
+        <p><strong>Final Thoughts:</strong> This project demonstrates my passion for understanding cutting-edge AI technologies and my ability to tackle complex problems through hands-on implementation and experimentation.</p>
     </div>
     <input id="page-nav-toggle" class="main-navigation-toggle" type="checkbox" />
     <label for="page-nav-toggle" class="menu-icon-wrapper">
@@ -69,28 +57,9 @@
             <li><a href="blog.html">Blog</a></li>
             <!-- <li><a href="#0">Timeline</a></li>-->
             <li><a href="Lucas Beastall ~ CV.pdf" target="_blank" rel="noopener noreferrer">CV</a></li>       <!-- change for a Now page -->
-            <li><a href="" id="menuContactBtn"  class="contact-trigger">Contact</a></li>
+            <li><a href="" id="menuContactBtn" class="contact-trigger">Contact</a></li>
         </ul>
     </nav>
-
-    <script>
-        const body = document.body;
-        const hero = document.querySelector('.hero');
-        const menuIcon = document.querySelector('.menu-icon-wrapper');
-
-        function checkHeroVisibility() {
-            const heroBottom = hero.offsetTop + hero.offsetHeight;
-            if (window.pageYOffset > heroBottom - menuIcon.offsetHeight) {
-                body.classList.add('past-hero');
-            } else {
-                body.classList.remove('past-hero');
-            }
-        }
-
-        window.addEventListener('scroll', checkHeroVisibility);
-        window.addEventListener('resize', checkHeroVisibility);
-        checkHeroVisibility(); // Initial check
-    </script>
 
     <button class="btn btn-primary fixed-button contact-trigger">Contact</button>
 

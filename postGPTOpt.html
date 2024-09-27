@@ -4,46 +4,31 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="blankStyle.css">
-    <link rel="stylesheet" href="blogStyle.css">
-    <title>Blog</title>
+    <link rel="stylesheet" href="postXStyle.css">
+    <title>PostX</title>
     <link rel="icon" href="logoImg.png" type="image/png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <header class="header">
-        <img src="blogImg.JPEG" alt="Background image">
+        <img src="postXImg.JPEG" alt="Background image">
         <div class="header-content">
-            <h1>Blog</h1>
-            <p>Blog about things</p>
+            <h1>PostX</h1>
+            <p>About the PostX.</p>
         </div>
     </header>
     <div class="content">
-        <div class="blog-container">
-            <a href="postWeb.html" class="blog-post">
-                <img src="websiteImg.PNG" alt="Blog post image">
-                <div class="blog-content">
-                    <h2 class="blog-title">Making This Website</h2>
-                    <p class="blog-date">Aeptember 9, 2024</p>
-                    <p class="blog-description">My journey into web development and learning HTML, CSS and Java Script on the fly.</p>
-                </div>
-            </a>
-            <a href="/post2.html" class="blog-post">
-                <img src="/api/placeholder/400/400" alt="Blog post image">
-                <div class="blog-content">
-                    <h2 class="blog-title">Chip Sector Hit Again as Stock Market Rally Attempt Fails</h2>
-                    <p class="blog-date">August 7, 2024</p>
-                    <p class="blog-description">Exploring the recent downturn in the chip sector and its effects on the broader stock market.</p>
-                </div>
-            </a>
-            <a href="/post3.html" class="blog-post">
-                <img src="/api/placeholder/400/400" alt="Blog post image">
-                <div class="blog-content">
-                    <h2 class="blog-title">Will Fed Officials Push Back on a Half-Point Interest Rate Cut?</h2>
-                    <p class="blog-date">August 7, 2024</p>
-                    <p class="blog-description">Examining the potential for changes in interest rates and the Federal Reserve's stance on monetary policy.</p>
-                </div>
-            </a>
-        </div>
+        <p>summary</p>
+        <p>the challenge / problem (in context) (SM)</p>
+        <p>the execution / approach (technical description and method) (E)</p>
+        <p>the tools / methods used (EG: Python, scikit-learn, pandas, matplotlib)</p>
+        <p>the result (Achieved 85% accuracy in predicting potential churners)</p>
+        <p>the send off / (potential) impact, (offer targetted discounts to reduce churn by X%)  (AC)</p>
+        <!--Problem: High customer churn rate in a subscription-based service
+        Approach: Developed a machine learning model using historical customer data
+        Tools: Python, scikit-learn, pandas, matplotlib
+        Results: Achieved 85% accuracy in predicting potential churners
+        Impact: Enabled targeted retention strategies, reducing churn by 20%-->
     </div>
     <input id="page-nav-toggle" class="main-navigation-toggle" type="checkbox" />
     <label for="page-nav-toggle" class="menu-icon-wrapper">
@@ -69,28 +54,9 @@
             <li><a href="blog.html">Blog</a></li>
             <!-- <li><a href="#0">Timeline</a></li>-->
             <li><a href="Lucas Beastall ~ CV.pdf" target="_blank" rel="noopener noreferrer">CV</a></li>       <!-- change for a Now page -->
-            <li><a href="" id="menuContactBtn"  class="contact-trigger">Contact</a></li>
+            <li><a href="" id="menuContactBtn" class="contact-trigger">Contact</a></li>
         </ul>
     </nav>
-
-    <script>
-        const body = document.body;
-        const hero = document.querySelector('.hero');
-        const menuIcon = document.querySelector('.menu-icon-wrapper');
-
-        function checkHeroVisibility() {
-            const heroBottom = hero.offsetTop + hero.offsetHeight;
-            if (window.pageYOffset > heroBottom - menuIcon.offsetHeight) {
-                body.classList.add('past-hero');
-            } else {
-                body.classList.remove('past-hero');
-            }
-        }
-
-        window.addEventListener('scroll', checkHeroVisibility);
-        window.addEventListener('resize', checkHeroVisibility);
-        checkHeroVisibility(); // Initial check
-    </script>
 
     <button class="btn btn-primary fixed-button contact-trigger">Contact</button>
 

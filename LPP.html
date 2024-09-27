@@ -9,6 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="LPPStyle.css">
     <link rel="stylesheet" href="blankStyle.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -20,7 +21,7 @@
             <p>
                 This Linear Programming Problem solver was coded from scratch, without external libraries (see script at the bottom of the page). It demonstrates my ability to implement complex algorithms from what I learned on my maths course. This page is useful to me. I use it frequently. If you want any additional features or food items adding Email, Text or Call.
                 <br><br>
-                There is a bug currently with my code (when a min of 0 is used or objective functions that arent calories) so there is the option of using the libary solver. Feel free to compare and put mine to the test. :)
+                There is a bug currently with my code (when a min of 0 or close to 0 is used) so there is the option of using the libary solver. Feel free to compare and put mine to the test. :)
             </p>
         </section>
         <main>
@@ -36,6 +37,17 @@
                         <option id="minimizeWeight">Weight</option>
                         <option id="minimizeCost">Cost</option>
                     </select>
+                    <select id="preset" class="select-css">
+                        <option value="default">default</option>
+                        <option value="M19-50yrs">M19-50yrs</option>
+                        <option value="F19-50yrs">F19-50yrs</option>
+                        <option value="F50+yrs">F50+yrs</option>
+                        <option value="M50+yrs">M50+yrs</option>
+                        <option value="My Food Data RNI">My Food Data RNI</option>
+                        <option value="My Food Data DV">My Food Data DV</option>
+                        <option value="strict">strict</option>
+
+                    </select>
                     <select id="method" class="select-css">
                         <option value="MA">My algorythm</option>
                         <option value="LIB">Library solver</option>
@@ -46,44 +58,1018 @@
             <section class="boundaries-section">
                 <h2>Boundaries</h2>
                 <div class="grid-container">
+
                     <div class="form-group">
-                        <label for="caloriesMin">Calories Min:</label>
-                        <input type="number" id="caloriesMin" value="2000">
-                        <label for="caloriesMax">Max:</label>
-                        <input type="number" id="caloriesMax" value="4000">
+                        <label for="CostMin">Cost Min:</label>
+                        <input type="number" id="CostMin" value="1">
+                        <label for="CostMax">Max:</label>
+                        <input type="number" id="CostMax" value="100">
                     </div>
+
                     <div class="form-group">
-                        <label for="weightMin">Weight Min (kg):</label>
-                        <input type="number" id="weightMin" value="0.1">
-                        <label for="weightMax">Max:</label>
-                        <input type="number" id="weightMax" value="25">
+                        <label for="CaloriesMin">Calories Min:</label>
+                        <input type="number" id="CaloriesMin" value="2000">
+                        <label for="CaloriesMax">Max:</label>
+                        <input type="number" id="CaloriesMax" value="4000">
                     </div>
+
                     <div class="form-group">
-                        <label for="costMin">Cost Min (£):</label>
-                        <input type="number" id="costMin" value="0.1">
-                        <label for="costMax">Max:</label>
-                        <input type="number" id="costMax" value="100">
+                        <label for="FatsMin">Fats Min:</label>
+                        <input type="number" id="FatsMin" value="50">
+                        <label for="FatsMax">Max:</label>
+                        <input type="number" id="FatsMax" value="300">
                     </div>
+
                     <div class="form-group">
-                        <label for="proteinMin">Protein Min (g):</label>
-                        <input type="number" id="proteinMin" value="100">
-                        <label for="proteinMax">Max:</label>
-                        <input type="number" id="proteinMax" value="200">
+                        <label for="MonounsaturatedMin">Monounsaturated Min:</label>
+                        <input type="number" id="MonounsaturatedMin" value="1">
+                        <label for="MonounsaturatedMax">Max:</label>
+                        <input type="number" id="MonounsaturatedMax" value="9999">
                     </div>
+
                     <div class="form-group">
-                        <label for="fatMin">Fat Min (g):</label>
-                        <input type="number" id="fatMin" value="1">
-                        <label for="fatMax">Max:</label>
-                        <input type="number" id="fatMax" value="300">
+                        <label for="PolyunsaturatedMin">Polyunsaturated Min:</label>
+                        <input type="number" id="PolyunsaturatedMin" value="1">
+                        <label for="PolyunsaturatedMax">Max:</label>
+                        <input type="number" id="PolyunsaturatedMax" value="9999">
                     </div>
+
                     <div class="form-group">
-                        <label for="carbohydrateMin">Carbohydrate Min (g):</label>
-                        <input type="number" id="carbohydrateMin" value="1">
-                        <label for="carbohydrateMax">Max:</label>
-                        <input type="number" id="carbohydrateMax" value="300">
+                        <label for="SaturatedMin">Saturated Min:</label>
+                        <input type="number" id="SaturatedMin" value="1">
+                        <label for="SaturatedMax">Max:</label>
+                        <input type="number" id="SaturatedMax" value="9999">
                     </div>
+
+                    <div class="form-group">
+                        <label for="CarbohydratesMin">Carbohydrates Min:</label>
+                        <input type="number" id="CarbohydratesMin" value="50">
+                        <label for="CarbohydratesMax">Max:</label>
+                        <input type="number" id="CarbohydratesMax" value="300">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="FibreMin">Fibre Min:</label>
+                        <input type="number" id="FibreMin" value="25">
+                        <label for="FibreMax">Max:</label>
+                        <input type="number" id="FibreMax" value="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="SugarMin">Sugar Min:</label>
+                        <input type="number" id="SugarMin" value="1">
+                        <label for="SugarMax">Max:</label>
+                        <input type="number" id="SugarMax" value="35">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ProteinMin">Protein Min:</label>
+                        <input type="number" id="ProteinMin" value="120">
+                        <label for="ProteinMax">Max:</label>
+                        <input type="number" id="ProteinMax" value="300">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="CalciumMin">Calcium Min:</label>
+                        <input type="number" id="CalciumMin" value="700">
+                        <label for="CalciumMax">Max:</label>
+                        <input type="number" id="CalciumMax" value="2500">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="PhosphorusMin">Phosphorus Min:</label>
+                        <input type="number" id="PhosphorusMin" value="500">
+                        <label for="PhosphorusMax">Max:</label>
+                        <input type="number" id="PhosphorusMax" value="4000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MagnesiumMin">Magnesium Min:</label>
+                        <input type="number" id="MagnesiumMin" value="250">
+                        <label for="MagnesiumMax">Max:</label>
+                        <input type="number" id="MagnesiumMax" value="9999">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="SodiumMin">Sodium Min:</label>
+                        <input type="number" id="SodiumMin" value="1500">
+                        <label for="SodiumMax">Max:</label>
+                        <input type="number" id="SodiumMax" value="99999">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="PotassiumMin">Potassium Min:</label>
+                        <input type="number" id="PotassiumMin" value="3500">
+                        <label for="PotassiumMax">Max:</label>
+                        <input type="number" id="PotassiumMax" value="99999">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="IronMin">Iron Min:</label>
+                        <input type="number" id="IronMin" value="8">
+                        <label for="IronMax">Max:</label>
+                        <input type="number" id="IronMax" value="45">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ZincMin">Zinc Min:</label>
+                        <input type="number" id="ZincMin" value="7">
+                        <label for="ZincMax">Max:</label>
+                        <input type="number" id="ZincMax" value="40">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="CopperMin">Copper Min:</label>
+                        <input type="number" id="CopperMin" value="0.9">
+                        <label for="CopperMax">Max:</label>
+                        <input type="number" id="CopperMax" value="10">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="SeleniumMin">Selenium Min:</label>
+                        <input type="number" id="SeleniumMin" value="55">
+                        <label for="SeleniumMax">Max:</label>
+                        <input type="number" id="SeleniumMax" value="400">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="IodineMin">Iodine Min:</label>
+                        <input type="number" id="IodineMin" value="140">
+                        <label for="IodineMax">Max:</label>
+                        <input type="number" id="IodineMax" value="1100">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Thiamin_B1Min">Thiamin_B1 Min:</label>
+                        <input type="number" id="Thiamin_B1Min" value="0.8">
+                        <label for="Thiamin_B1Max">Max:</label>
+                        <input type="number" id="Thiamin_B1Max" value="999">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Riboflavin_B2Min">Riboflavin_B2 Min:</label>
+                        <input type="number" id="Riboflavin_B2Min" value="1.1">
+                        <label for="Riboflavin_B2Max">Max:</label>
+                        <input type="number" id="Riboflavin_B2Max" value="999">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Niacin_B3Min">Niacin_B3 Min:</label>
+                        <input type="number" id="Niacin_B3Min" value="12">
+                        <label for="Niacin_B3Max">Max:</label>
+                        <input type="number" id="Niacin_B3Max" value="35">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Pantothenic_acid_B5Min">Pantothenic_acid_B5 Min:</label>
+                        <input type="number" id="Pantothenic_acid_B5Min" value="5">
+                        <label for="Pantothenic_acid_B5Max">Max:</label>
+                        <input type="number" id="Pantothenic_acid_B5Max" value="9999">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Vitamin_B6Min">Vitamin_B6 Min:</label>
+                        <input type="number" id="Vitamin_B6Min" value="1.2">
+                        <label for="Vitamin_B6Max">Max:</label>
+                        <input type="number" id="Vitamin_B6Max" value="100">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Biotin_B7Min">Biotin_B7 Min:</label>
+                        <input type="number" id="Biotin_B7Min" value="30">
+                        <label for="Biotin_B7Max">Max:</label>
+                        <input type="number" id="Biotin_B7Max" value="9999">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Folate_B9Min">Folate_B9 Min:</label>
+                        <input type="number" id="Folate_B9Min" value="200">
+                        <label for="Folate_B9Max">Max:</label>
+                        <input type="number" id="Folate_B9Max" value="1000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Vitamin_B12Min">Vitamin_B12 Min:</label>
+                        <input type="number" id="Vitamin_B12Min" value="1.5">
+                        <label for="Vitamin_B12Max">Max:</label>
+                        <input type="number" id="Vitamin_B12Max" value="999">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Vitamin_AMin">Vitamin_A Min:</label>
+                        <input type="number" id="Vitamin_AMin" value="600">
+                        <label for="Vitamin_AMax">Max:</label>
+                        <input type="number" id="Vitamin_AMax" value="3000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Vitamin_CMin">Vitamin_C Min:</label>
+                        <input type="number" id="Vitamin_CMin" value="40">
+                        <label for="Vitamin_CMax">Max:</label>
+                        <input type="number" id="Vitamin_CMax" value="2000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Vitamin_DMin">Vitamin_D Min:</label>
+                        <input type="number" id="Vitamin_DMin" value="10">
+                        <label for="Vitamin_DMax">Max:</label>
+                        <input type="number" id="Vitamin_DMax" value="9999">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Vitamin_EMin">Vitamin_E Min:</label>
+                        <input type="number" id="Vitamin_EMin" value="15">
+                        <label for="Vitamin_EMax">Max:</label>
+                        <input type="number" id="Vitamin_EMax" value="1000">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Vitamin_KMin">Vitamin_K Min:</label>
+                        <input type="number" id="Vitamin_KMin" value="90">
+                        <label for="Vitamin_KMax">Max:</label>
+                        <input type="number" id="Vitamin_KMax" value="9999">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ManganeseMin">Manganese Min:</label>
+                        <input type="number" id="ManganeseMin" value="1.8">
+                        <label for="ManganeseMax">Max:</label>
+                        <input type="number" id="ManganeseMax" value="11">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="MolybdenumMin">Molybdenum Min:</label>
+                        <input type="number" id="MolybdenumMin" value="45">
+                        <label for="MolybdenumMax">Max:</label>
+                        <input type="number" id="MolybdenumMax" value="9999">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ChromiumMin">Chromium Min:</label>
+                        <input type="number" id="ChromiumMin" value="25">
+                        <label for="ChromiumMax">Max:</label>
+                        <input type="number" id="ChromiumMax" value="9999">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="CholineMin">Choline Min:</label>
+                        <input type="number" id="CholineMin" value="450">
+                        <label for="CholineMax">Max:</label>
+                        <input type="number" id="CholineMax" value="3500">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="CreatineMin">Creatine Min:</label>
+                        <input type="number" id="CreatineMin" value="1">
+                        <label for="CreatineMax">Max:</label>
+                        <input type="number" id="CreatineMax" value="35">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="WeightMin">Weight Min:</label>
+                        <input type="number" id="WeightMin" value="1">
+                        <label for="WeightMax">Max:</label>
+                        <input type="number" id="WeightMax" value="100">
+                    </div>
+
                 </div>
             </section>
+
+            <script>
+                const presetValues = {
+                    'units': {
+                        CostMin: '£ per 100g',
+                        CostMax: '£ per 100g',
+                        CaloriesMin: 'kcal',
+                        CaloriesMax: 'kcal',
+                        FatsMin: 'g',
+                        FatsMax: 'g',
+                        MonounsaturatedMin: 'g',
+                        MonounsaturatedMax: 'g',
+                        PolyunsaturatedMin: 'g',
+                        PolyunsaturatedMax: 'g',
+                        SaturatedMin: 'g',
+                        SaturatedMax: 'g',
+                        CarbohydratesMin: 'g',
+                        CarbohydratesMax: 'g',
+                        FibreMin: 'g',
+                        FibreMax: 'g',
+                        SugarMin: 'g',
+                        SugarMax: 'g',
+                        ProteinMin: 'g',
+                        ProteinMax: 'g',
+                        CalciumMin: 'mg',
+                        CalciumMax: 'mg',
+                        PhosphorusMin: 'mg',
+                        PhosphorusMax: 'mg',
+                        MagnesiumMin: 'mg',
+                        MagnesiumMax: 'mg',
+                        SodiumMin: 'mg',
+                        SodiumMax: 'mg',
+                        PotassiumMin: 'mg',
+                        PotassiumMax: 'mg',
+                        IronMin: 'mg',
+                        IronMax: 'mg',
+                        ZincMin: 'mg',
+                        ZincMax: 'mg',
+                        CopperMin: 'mg',
+                        CopperMax: 'mg',
+                        SeleniumMin: 'Î¼g',
+                        SeleniumMax: 'Î¼g',
+                        IodineMin: 'Î¼g',
+                        IodineMax: 'Î¼g',
+                        Thiamin_B1Min: 'mg',
+                        Thiamin_B1Max: 'mg',
+                        Riboflavin_B2Min: 'mg',
+                        Riboflavin_B2Max: 'mg',
+                        Niacin_B3Min: 'mg',
+                        Niacin_B3Max: 'mg',
+                        Pantothenic_acid_B5Min: 'mg',
+                        Pantothenic_acid_B5Max: 'mg',
+                        Vitamin_B6Min: 'mg',
+                        Vitamin_B6Max: 'mg',
+                        Biotin_B7Min: 'Î¼g',
+                        Biotin_B7Max: 'Î¼g',
+                        Folate_B9Min: 'Î¼g',
+                        Folate_B9Max: 'Î¼g',
+                        Vitamin_B12Min: 'Î¼g',
+                        Vitamin_B12Max: 'Î¼g',
+                        Vitamin_AMin: 'Î¼g',
+                        Vitamin_AMax: 'Î¼g',
+                        Vitamin_CMin: 'mg',
+                        Vitamin_CMax: 'mg',
+                        Vitamin_DMin: 'Î¼g',
+                        Vitamin_DMax: 'Î¼g',
+                        Vitamin_EMin: 'mg',
+                        Vitamin_EMax: 'mg',
+                        Vitamin_KMin: 'Î¼g',
+                        Vitamin_KMax: 'Î¼g',
+                        ManganeseMin: 'mg',
+                        ManganeseMax: 'mg',
+                        MolybdenumMin: 'Î¼g',
+                        MolybdenumMax: 'Î¼g',
+                        ChromiumMin: 'Î¼g',
+                        ChromiumMax: 'Î¼g',
+                        CholineMin: 'mg',
+                        CholineMax: 'mg',
+                        CreatineMin: 'g',
+                        CreatineMax: 'g',
+                        WeightMin: 'kg',
+                        WeightMax: 'kg',
+                    },
+                    'default': {
+                        CostMin: '1',
+                        CaloriesMin: '2000',
+                        FatsMin: '50',
+                        MonounsaturatedMin: '1',
+                        PolyunsaturatedMin: '1',
+                        SaturatedMin: '1',
+                        CarbohydratesMin: '50',
+                        FibreMin: '25',
+                        SugarMin: '1',
+                        ProteinMin: '120',
+                        CalciumMin: '700',
+                        PhosphorusMin: '500',
+                        MagnesiumMin: '250',
+                        SodiumMin: '1500',
+                        PotassiumMin: '3500',
+                        IronMin: '8',
+                        ZincMin: '7',
+                        CopperMin: '0.9',
+                        SeleniumMin: '55',
+                        IodineMin: '140',
+                        Thiamin_B1Min: '0.8',
+                        Riboflavin_B2Min: '1.1',
+                        Niacin_B3Min: '12',
+                        Pantothenic_acid_B5Min: '5',
+                        Vitamin_B6Min: '1.2',
+                        Biotin_B7Min: '30',
+                        Folate_B9Min: '200',
+                        Vitamin_B12Min: '1.5',
+                        Vitamin_AMin: '600',
+                        Vitamin_CMin: '40',
+                        Vitamin_DMin: '10',
+                        Vitamin_EMin: '15',
+                        Vitamin_KMin: '90',
+                        ManganeseMin: '1.8',
+                        MolybdenumMin: '45',
+                        ChromiumMin: '25',
+                        CholineMin: '450',
+                        CreatineMin: '1',
+                        WeightMin: '1',
+                        CostMax: '100',
+                        CaloriesMax: '4000',
+                        FatsMax: '300',
+                        MonounsaturatedMax: '9999',
+                        PolyunsaturatedMax: '9999',
+                        SaturatedMax: '9999',
+                        CarbohydratesMax: '300',
+                        FibreMax: '100',
+                        SugarMax: '35',
+                        ProteinMax: '300',
+                        CalciumMax: '2500',
+                        PhosphorusMax: '4000',
+                        MagnesiumMax: '9999',
+                        SodiumMax: '99999',
+                        PotassiumMax: '99999',
+                        IronMax: '45',
+                        ZincMax: '40',
+                        CopperMax: '10',
+                        SeleniumMax: '400',
+                        IodineMax: '1100',
+                        Thiamin_B1Max: '999',
+                        Riboflavin_B2Max: '999',
+                        Niacin_B3Max: '35',
+                        Pantothenic_acid_B5Max: '9999',
+                        Vitamin_B6Max: '100',
+                        Biotin_B7Max: '9999',
+                        Folate_B9Max: '1000',
+                        Vitamin_B12Max: '999',
+                        Vitamin_AMax: '3000',
+                        Vitamin_CMax: '2000',
+                        Vitamin_DMax: '9999',
+                        Vitamin_EMax: '1000',
+                        Vitamin_KMax: '9999',
+                        ManganeseMax: '11',
+                        MolybdenumMax: '9999',
+                        ChromiumMax: '9999',
+                        CholineMax: '3500',
+                        CreatineMax: '35',
+                        WeightMax: '100',
+                    },
+                    'M19-50yrs': {
+                        CostMin: '1',
+                        CaloriesMin: '2500',
+                        FatsMin: '78',
+                        MonounsaturatedMin: '1',
+                        PolyunsaturatedMin: '1',
+                        SaturatedMin: '20',
+                        CarbohydratesMin: '130',
+                        FibreMin: '30',
+                        SugarMin: '1',
+                        ProteinMin: '70',
+                        CalciumMin: '700',
+                        PhosphorusMin: '550',
+                        MagnesiumMin: '300',
+                        SodiumMin: '1600',
+                        PotassiumMin: '3500',
+                        IronMin: '8.7',
+                        ZincMin: '9.5',
+                        CopperMin: '1.2',
+                        SeleniumMin: '75',
+                        IodineMin: '140',
+                        Thiamin_B1Min: '1',
+                        Riboflavin_B2Min: '1.3',
+                        Niacin_B3Min: '17',
+                        Pantothenic_acid_B5Min: '5',
+                        Vitamin_B6Min: '1.4',
+                        Biotin_B7Min: '30',
+                        Folate_B9Min: '200',
+                        Vitamin_B12Min: '1.5',
+                        Vitamin_AMin: '700',
+                        Vitamin_CMin: '40',
+                        Vitamin_DMin: '10',
+                        Vitamin_EMin: '15',
+                        Vitamin_KMin: '120',
+                        ManganeseMin: '2.3',
+                        MolybdenumMin: '45',
+                        ChromiumMin: '35',
+                        CholineMin: '550',
+                        CreatineMin: '1',
+                        WeightMin: '1',
+                        CostMax: '100',
+                        CaloriesMax: '3200',
+                        FatsMax: '300',
+                        MonounsaturatedMax: '9999',
+                        PolyunsaturatedMax: '9999',
+                        SaturatedMax: '9999',
+                        CarbohydratesMax: '300',
+                        FibreMax: '100',
+                        SugarMax: '37',
+                        ProteinMax: '300',
+                        CalciumMax: '2500',
+                        PhosphorusMax: '4000',
+                        MagnesiumMax: '9999',
+                        SodiumMax: '99999',
+                        PotassiumMax: '99999',
+                        IronMax: '45',
+                        ZincMax: '40',
+                        CopperMax: '10',
+                        SeleniumMax: '400',
+                        IodineMax: '1100',
+                        Thiamin_B1Max: '999',
+                        Riboflavin_B2Max: '999',
+                        Niacin_B3Max: '35',
+                        Pantothenic_acid_B5Max: '9999',
+                        Vitamin_B6Max: '100',
+                        Biotin_B7Max: '9999',
+                        Folate_B9Max: '1000',
+                        Vitamin_B12Max: '999',
+                        Vitamin_AMax: '3000',
+                        Vitamin_CMax: '2000',
+                        Vitamin_DMax: '9999',
+                        Vitamin_EMax: '1000',
+                        Vitamin_KMax: '9999',
+                        ManganeseMax: '11',
+                        MolybdenumMax: '9999',
+                        ChromiumMax: '9999',
+                        CholineMax: '3500',
+                        CreatineMax: '35',
+                        WeightMax: '100',
+                    },
+                    'F19-50yrs': {
+                        CostMin: '1',
+                        CaloriesMin: '2100',
+                        FatsMin: '60',
+                        MonounsaturatedMin: '1',
+                        PolyunsaturatedMin: '1',
+                        SaturatedMin: '20',
+                        CarbohydratesMin: '100',
+                        FibreMin: '30',
+                        SugarMin: '1',
+                        ProteinMin: '55',
+                        CalciumMin: '700',
+                        PhosphorusMin: '550',
+                        MagnesiumMin: '270',
+                        SodiumMin: '1600',
+                        PotassiumMin: '2900',
+                        IronMin: '14.85',
+                        ZincMin: '7',
+                        CopperMin: '1.2',
+                        SeleniumMin: '60',
+                        IodineMin: '140',
+                        Thiamin_B1Min: '0.8',
+                        Riboflavin_B2Min: '1.1',
+                        Niacin_B3Min: '13',
+                        Pantothenic_acid_B5Min: '5',
+                        Vitamin_B6Min: '1.2',
+                        Biotin_B7Min: '30',
+                        Folate_B9Min: '200',
+                        Vitamin_B12Min: '1.5',
+                        Vitamin_AMin: '600',
+                        Vitamin_CMin: '40',
+                        Vitamin_DMin: '10',
+                        Vitamin_EMin: '15',
+                        Vitamin_KMin: '90',
+                        ManganeseMin: '1.8',
+                        MolybdenumMin: '45',
+                        ChromiumMin: '25',
+                        CholineMin: '450',
+                        CreatineMin: '1',
+                        WeightMin: '1',
+                        CostMax: '100',
+                        CaloriesMax: '2500',
+                        FatsMax: '300',
+                        MonounsaturatedMax: '9999',
+                        PolyunsaturatedMax: '9999',
+                        SaturatedMax: '9999',
+                        CarbohydratesMax: '300',
+                        FibreMax: '80',
+                        SugarMax: '25',
+                        ProteinMax: '300',
+                        CalciumMax: '2500',
+                        PhosphorusMax: '4000',
+                        MagnesiumMax: '9999',
+                        SodiumMax: '99999',
+                        PotassiumMax: '99999',
+                        IronMax: '45',
+                        ZincMax: '40',
+                        CopperMax: '10',
+                        SeleniumMax: '400',
+                        IodineMax: '1100',
+                        Thiamin_B1Max: '999',
+                        Riboflavin_B2Max: '999',
+                        Niacin_B3Max: '35',
+                        Pantothenic_acid_B5Max: '9999',
+                        Vitamin_B6Max: '100',
+                        Biotin_B7Max: '9999',
+                        Folate_B9Max: '1000',
+                        Vitamin_B12Max: '999',
+                        Vitamin_AMax: '3000',
+                        Vitamin_CMax: '2000',
+                        Vitamin_DMax: '9999',
+                        Vitamin_EMax: '1000',
+                        Vitamin_KMax: '9999',
+                        ManganeseMax: '11',
+                        MolybdenumMax: '9999',
+                        ChromiumMax: '9999',
+                        CholineMax: '3500',
+                        CreatineMax: '35',
+                        WeightMax: '100',
+                    },
+                    'F50+yrs': {
+                        CostMin: '1',
+                        CaloriesMin: '1700',
+                        FatsMin: '55',
+                        MonounsaturatedMin: '1',
+                        PolyunsaturatedMin: '1',
+                        SaturatedMin: '20',
+                        CarbohydratesMin: '75',
+                        FibreMin: '30',
+                        SugarMin: '1',
+                        ProteinMin: '55',
+                        CalciumMin: '700',
+                        PhosphorusMin: '550',
+                        MagnesiumMin: '270',
+                        SodiumMin: '1600',
+                        PotassiumMin: '2600',
+                        IronMin: '8.7',
+                        ZincMin: '7',
+                        CopperMin: '1.2',
+                        SeleniumMin: '60',
+                        IodineMin: '140',
+                        Thiamin_B1Min: '0.8',
+                        Riboflavin_B2Min: '1.1',
+                        Niacin_B3Min: '12',
+                        Pantothenic_acid_B5Min: '5',
+                        Vitamin_B6Min: '1.2',
+                        Biotin_B7Min: '30',
+                        Folate_B9Min: '200',
+                        Vitamin_B12Min: '1.5',
+                        Vitamin_AMin: '600',
+                        Vitamin_CMin: '40',
+                        Vitamin_DMin: '10',
+                        Vitamin_EMin: '15',
+                        Vitamin_KMin: '90',
+                        ManganeseMin: '1.8',
+                        MolybdenumMin: '45',
+                        ChromiumMin: '25',
+                        CholineMin: '450',
+                        CreatineMin: '1',
+                        WeightMin: '1',
+                        CostMax: '100',
+                        CaloriesMax: '2200',
+                        FatsMax: '300',
+                        MonounsaturatedMax: '9999',
+                        PolyunsaturatedMax: '9999',
+                        SaturatedMax: '9999',
+                        CarbohydratesMax: '300',
+                        FibreMax: '70',
+                        SugarMax: '25',
+                        ProteinMax: '300',
+                        CalciumMax: '2500',
+                        PhosphorusMax: '4000',
+                        MagnesiumMax: '9999',
+                        SodiumMax: '99999',
+                        PotassiumMax: '99999',
+                        IronMax: '45',
+                        ZincMax: '40',
+                        CopperMax: '10',
+                        SeleniumMax: '400',
+                        IodineMax: '1100',
+                        Thiamin_B1Max: '999',
+                        Riboflavin_B2Max: '999',
+                        Niacin_B3Max: '35',
+                        Pantothenic_acid_B5Max: '9999',
+                        Vitamin_B6Max: '100',
+                        Biotin_B7Max: '9999',
+                        Folate_B9Max: '1000',
+                        Vitamin_B12Max: '999',
+                        Vitamin_AMax: '3000',
+                        Vitamin_CMax: '2000',
+                        Vitamin_DMax: '9999',
+                        Vitamin_EMax: '1000',
+                        Vitamin_KMax: '9999',
+                        ManganeseMax: '11',
+                        MolybdenumMax: '9999',
+                        ChromiumMax: '9999',
+                        CholineMax: '3500',
+                        CreatineMax: '35',
+                        WeightMax: '100',
+                    },
+                    'M50+yrs': {
+                        CostMin: '1',
+                        CaloriesMin: '2200',
+                        FatsMin: '60',
+                        MonounsaturatedMin: '1',
+                        PolyunsaturatedMin: '1',
+                        SaturatedMin: '20',
+                        CarbohydratesMin: '75',
+                        FibreMin: '30',
+                        SugarMin: '1',
+                        ProteinMin: '70',
+                        CalciumMin: '700',
+                        PhosphorusMin: '550',
+                        MagnesiumMin: '300',
+                        SodiumMin: '1600',
+                        PotassiumMin: '3500',
+                        IronMin: '8.7',
+                        ZincMin: '9.5',
+                        CopperMin: '1.2',
+                        SeleniumMin: '75',
+                        IodineMin: '140',
+                        Thiamin_B1Min: '0.9',
+                        Riboflavin_B2Min: '1.3',
+                        Niacin_B3Min: '16',
+                        Pantothenic_acid_B5Min: '5',
+                        Vitamin_B6Min: '1.4',
+                        Biotin_B7Min: '30',
+                        Folate_B9Min: '200',
+                        Vitamin_B12Min: '1.5',
+                        Vitamin_AMin: '700',
+                        Vitamin_CMin: '40',
+                        Vitamin_DMin: '10',
+                        Vitamin_EMin: '15',
+                        Vitamin_KMin: '120',
+                        ManganeseMin: '2.3',
+                        MolybdenumMin: '45',
+                        ChromiumMin: '35',
+                        CholineMin: '550',
+                        CreatineMin: '1',
+                        WeightMin: '1',
+                        CostMax: '100',
+                        CaloriesMax: '2700',
+                        FatsMax: '300',
+                        MonounsaturatedMax: '9999',
+                        PolyunsaturatedMax: '9999',
+                        SaturatedMax: '9999',
+                        CarbohydratesMax: '300',
+                        FibreMax: '80',
+                        SugarMax: '37',
+                        ProteinMax: '300',
+                        CalciumMax: '2500',
+                        PhosphorusMax: '4000',
+                        MagnesiumMax: '9999',
+                        SodiumMax: '99999',
+                        PotassiumMax: '99999',
+                        IronMax: '45',
+                        ZincMax: '40',
+                        CopperMax: '10',
+                        SeleniumMax: '400',
+                        IodineMax: '1100',
+                        Thiamin_B1Max: '999',
+                        Riboflavin_B2Max: '999',
+                        Niacin_B3Max: '35',
+                        Pantothenic_acid_B5Max: '9999',
+                        Vitamin_B6Max: '100',
+                        Biotin_B7Max: '9999',
+                        Folate_B9Max: '1000',
+                        Vitamin_B12Max: '999',
+                        Vitamin_AMax: '3000',
+                        Vitamin_CMax: '2000',
+                        Vitamin_DMax: '9999',
+                        Vitamin_EMax: '1000',
+                        Vitamin_KMax: '9999',
+                        ManganeseMax: '11',
+                        MolybdenumMax: '9999',
+                        ChromiumMax: '9999',
+                        CholineMax: '3500',
+                        CreatineMax: '35',
+                        WeightMax: '100',
+                    },
+                    'My Food Data RNI': {
+                        CostMin: '1',
+                        CaloriesMin: '2000',
+                        FatsMin: '1',
+                        MonounsaturatedMin: '1',
+                        PolyunsaturatedMin: '1',
+                        SaturatedMin: '1',
+                        CarbohydratesMin: '130',
+                        FibreMin: '38',
+                        SugarMin: '1',
+                        ProteinMin: '56',
+                        CalciumMin: '700',
+                        PhosphorusMin: '700',
+                        MagnesiumMin: '400',
+                        SodiumMin: '1500',
+                        PotassiumMin: '3500',
+                        IronMin: '8',
+                        ZincMin: '11',
+                        CopperMin: '0.9',
+                        SeleniumMin: '55',
+                        IodineMin: '150',
+                        Thiamin_B1Min: '1.2',
+                        Riboflavin_B2Min: '1.3',
+                        Niacin_B3Min: '16',
+                        Pantothenic_acid_B5Min: '5',
+                        Vitamin_B6Min: '1.3',
+                        Biotin_B7Min: '30',
+                        Folate_B9Min: '400',
+                        Vitamin_B12Min: '2.4',
+                        Vitamin_AMin: '900',
+                        Vitamin_CMin: '90',
+                        Vitamin_DMin: '10',
+                        Vitamin_EMin: '15',
+                        Vitamin_KMin: '100',
+                        ManganeseMin: '1.8',
+                        MolybdenumMin: '45',
+                        ChromiumMin: '25',
+                        CholineMin: '500',
+                        CreatineMin: '1',
+                        WeightMin: '1',
+                        CostMax: '100',
+                        CaloriesMax: '3200',
+                        FatsMax: '9999',
+                        MonounsaturatedMax: '9999',
+                        PolyunsaturatedMax: '9999',
+                        SaturatedMax: '9999',
+                        CarbohydratesMax: '300',
+                        FibreMax: '100',
+                        SugarMax: '50',
+                        ProteinMax: '300',
+                        CalciumMax: '2500',
+                        PhosphorusMax: '4000',
+                        MagnesiumMax: '9999',
+                        SodiumMax: '99999',
+                        PotassiumMax: '99999',
+                        IronMax: '45',
+                        ZincMax: '40',
+                        CopperMax: '10',
+                        SeleniumMax: '400',
+                        IodineMax: '1100',
+                        Thiamin_B1Max: '999',
+                        Riboflavin_B2Max: '999',
+                        Niacin_B3Max: '35',
+                        Pantothenic_acid_B5Max: '9999',
+                        Vitamin_B6Max: '100',
+                        Biotin_B7Max: '9999',
+                        Folate_B9Max: '1000',
+                        Vitamin_B12Max: '999',
+                        Vitamin_AMax: '3000',
+                        Vitamin_CMax: '2000',
+                        Vitamin_DMax: '9999',
+                        Vitamin_EMax: '1000',
+                        Vitamin_KMax: '9999',
+                        ManganeseMax: '11',
+                        MolybdenumMax: '9999',
+                        ChromiumMax: '9999',
+                        CholineMax: '3500',
+                        CreatineMax: '35',
+                        WeightMax: '100',
+                    },
+                    'My Food Data DV': {
+                        CostMin: '1',
+                        CaloriesMin: '2000',
+                        FatsMin: '78',
+                        MonounsaturatedMin: '1',
+                        PolyunsaturatedMin: '1',
+                        SaturatedMin: '20',
+                        CarbohydratesMin: '275',
+                        FibreMin: '28',
+                        SugarMin: '1',
+                        ProteinMin: '50',
+                        CalciumMin: '1300',
+                        PhosphorusMin: '1250',
+                        MagnesiumMin: '420',
+                        SodiumMin: '2300',
+                        PotassiumMin: '4700',
+                        IronMin: '18',
+                        ZincMin: '11',
+                        CopperMin: '0.9',
+                        SeleniumMin: '55',
+                        IodineMin: '140',
+                        Thiamin_B1Min: '0.9',
+                        Riboflavin_B2Min: '1.2',
+                        Niacin_B3Min: '17',
+                        Pantothenic_acid_B5Min: '5',
+                        Vitamin_B6Min: '1.7',
+                        Biotin_B7Min: '30',
+                        Folate_B9Min: '400',
+                        Vitamin_B12Min: '2.4',
+                        Vitamin_AMin: '900',
+                        Vitamin_CMin: '90',
+                        Vitamin_DMin: '20',
+                        Vitamin_EMin: '15',
+                        Vitamin_KMin: '120',
+                        ManganeseMin: '2.3',
+                        MolybdenumMin: '45',
+                        ChromiumMin: '35',
+                        CholineMin: '550',
+                        CreatineMin: '1',
+                        WeightMin: '1',
+                        CostMax: '100',
+                        CaloriesMax: '3200',
+                        FatsMax: '9999',
+                        MonounsaturatedMax: '9999',
+                        PolyunsaturatedMax: '9999',
+                        SaturatedMax: '9999',
+                        CarbohydratesMax: '500',
+                        FibreMax: '100',
+                        SugarMax: '50',
+                        ProteinMax: '300',
+                        CalciumMax: '2500',
+                        PhosphorusMax: '4000',
+                        MagnesiumMax: '9999',
+                        SodiumMax: '99999',
+                        PotassiumMax: '99999',
+                        IronMax: '45',
+                        ZincMax: '40',
+                        CopperMax: '10',
+                        SeleniumMax: '400',
+                        IodineMax: '1100',
+                        Thiamin_B1Max: '999',
+                        Riboflavin_B2Max: '999',
+                        Niacin_B3Max: '35',
+                        Pantothenic_acid_B5Max: '9999',
+                        Vitamin_B6Max: '100',
+                        Biotin_B7Max: '9999',
+                        Folate_B9Max: '1000',
+                        Vitamin_B12Max: '999',
+                        Vitamin_AMax: '3000',
+                        Vitamin_CMax: '2000',
+                        Vitamin_DMax: '9999',
+                        Vitamin_EMax: '1000',
+                        Vitamin_KMax: '9999',
+                        ManganeseMax: '11',
+                        MolybdenumMax: '9999',
+                        ChromiumMax: '9999',
+                        CholineMax: '3500',
+                        CreatineMax: '35',
+                        WeightMax: '100',
+                    },
+                    'strict': {
+                        CostMin: '1',
+                        CaloriesMin: '2200',
+                        FatsMin: '50',
+                        MonounsaturatedMin: '1',
+                        PolyunsaturatedMin: '1',
+                        SaturatedMin: '20',
+                        CarbohydratesMin: '75',
+                        FibreMin: '38',
+                        SugarMin: '1',
+                        ProteinMin: '70',
+                        CalciumMin: '1300',
+                        PhosphorusMin: '1250',
+                        MagnesiumMin: '420',
+                        SodiumMin: '2300',
+                        PotassiumMin: '4700',
+                        IronMin: '18',
+                        ZincMin: '11',
+                        CopperMin: '1.2',
+                        SeleniumMin: '75',
+                        IodineMin: '150',
+                        Thiamin_B1Min: '1.2',
+                        Riboflavin_B2Min: '1.3',
+                        Niacin_B3Min: '17',
+                        Pantothenic_acid_B5Min: '5',
+                        Vitamin_B6Min: '1.7',
+                        Biotin_B7Min: '30',
+                        Folate_B9Min: '400',
+                        Vitamin_B12Min: '2.4',
+                        Vitamin_AMin: '900',
+                        Vitamin_CMin: '90',
+                        Vitamin_DMin: '20',
+                        Vitamin_EMin: '15',
+                        Vitamin_KMin: '120',
+                        ManganeseMin: '2.3',
+                        MolybdenumMin: '45',
+                        ChromiumMin: '35',
+                        CholineMin: '550',
+                        CreatineMin: '1',
+                        WeightMin: '1',
+                        CostMax: '100',
+                        CaloriesMax: '2800',
+                        FatsMax: '9999',
+                        MonounsaturatedMax: '9999',
+                        PolyunsaturatedMax: '9999',
+                        SaturatedMax: '9999',
+                        CarbohydratesMax: '9999',
+                        FibreMax: '9999',
+                        SugarMax: '50',
+                        ProteinMax: '300',
+                        CalciumMax: '2500',
+                        PhosphorusMax: '4000',
+                        MagnesiumMax: '9999',
+                        SodiumMax: '99999',
+                        PotassiumMax: '99999',
+                        IronMax: '45',
+                        ZincMax: '40',
+                        CopperMax: '10',
+                        SeleniumMax: '400',
+                        IodineMax: '1100',
+                        Thiamin_B1Max: '999',
+                        Riboflavin_B2Max: '999',
+                        Niacin_B3Max: '35',
+                        Pantothenic_acid_B5Max: '9999',
+                        Vitamin_B6Max: '100',
+                        Biotin_B7Max: '9999',
+                        Folate_B9Max: '1000',
+                        Vitamin_B12Max: '999',
+                        Vitamin_AMax: '3000',
+                        Vitamin_CMax: '2000',
+                        Vitamin_DMax: '9999',
+                        Vitamin_EMax: '1000',
+                        Vitamin_KMax: '9999',
+                        ManganeseMax: '11',
+                        MolybdenumMax: '9999',
+                        ChromiumMax: '9999',
+                        CholineMax: '3500',
+                        CreatineMax: '35',
+                        WeightMax: '100',
+                    },
+
+                };
+
+                document.getElementById('preset').addEventListener('change', function () {
+                    const selectedPreset = this.value;
+                    const values = presetValues[selectedPreset];
+
+                    for (const [key, value] of Object.entries(values)) {
+                        document.getElementById(key).value = value;
+                    }
+                });
+            </script>
+
 
             <button id="solve" class="btn-solve">Solve LPP</button>
 
@@ -100,65 +1086,980 @@
                     <table id="foodData">
                         <thead>
                             <tr>
-                                <th>Food (100g)</th>
+                                <th>Nutrient</th>
                                 <th>Cost</th>
                                 <th>Calories</th>
+                                <th>Fats</th>
+                                <th>Monounsaturated</th>
+                                <th>Polyunsaturated</th>
+                                <th>Saturated</th>
+                                <th>Carbohydrates</th>
+                                <th>Fibre</th>
+                                <th>Sugar</th>
                                 <th>Protein</th>
-                                <th>Fat</th>
-                                <th>Carbohydrate</th>
+                                <th>Calcium</th>
+                                <th>Phosphorus</th>
+                                <th>Magnesium</th>
+                                <th>Sodium</th>
+                                <th>Potassium</th>
+                                <th>Iron</th>
+                                <th>Zinc</th>
+                                <th>Copper</th>
+                                <th>Selenium</th>
+                                <th>Iodine</th>
+                                <th>Thiamin_B1</th>
+                                <th>Riboflavin_B2</th>
+                                <th>Niacin_B3</th>
+                                <th>Pantothenic_acid_B5</th>
+                                <th>Vitamin_B6</th>
+                                <th>Biotin_B7</th>
+                                <th>Folate_B9</th>
+                                <th>Vitamin_B12</th>
+                                <th>Vitamin_A</th>
+                                <th>Vitamin_C</th>
+                                <th>Vitamin_D</th>
+                                <th>Vitamin_E</th>
+                                <th>Vitamin_K</th>
+                                <th>Manganese</th>
+                                <th>Molybdenum</th>
+                                <th>Chromium</th>
+                                <th>Choline</th>
+                                <th>Creatine</th>
+                                <th>Weight</th>
+
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody>                            
+                            <tr>
+                                <td>20% beef mince</td>
+                                <td>0.49</td>
+                                <td>282</td>
+                                <td>20</td>
+                                <td>8.5</td>
+                                <td>0.7</td>
+                                <td>7.9</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>23</td>
+                                <td>18</td>
+                                <td>198</td>
+                                <td>21</td>
+                                <td>66</td>
+                                <td>318</td>
+                                <td>2.2</td>
+                                <td>4.3</td>
+                                <td>0.1</td>
+                                <td>17</td>
+                                <td>0</td>
+                                <td>0.05</td>
+                                <td>0.2</td>
+                                <td>5.4</td>
+                                <td>0.6</td>
+                                <td>0.3</td>
+                                <td>0</td>
+                                <td>6</td>
+                                <td>2.4</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0.1</td>
+                                <td>0.3</td>
+                                <td>1.2</td>
+                                <td>0.01</td>
+                                <td>0</td>
+                                <td>2</td>
+                                <td>65</td>
+                                <td>0.3</td>
+                                <td>0.1</td>
+                            </tr>
+                            <tr>
+                                <td>chicken breast</td>
+                                <td>0.65</td>
+                                <td>165</td>
+                                <td>3.6</td>
+                                <td>1.24</td>
+                                <td>0.77</td>
+                                <td>1.01</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>31</td>
+                                <td>6</td>
+                                <td>241</td>
+                                <td>32</td>
+                                <td>47</td>
+                                <td>343</td>
+                                <td>0.49</td>
+                                <td>0.94</td>
+                                <td>0.04</td>
+                                <td>31.9</td>
+                                <td>23</td>
+                                <td>0.1</td>
+                                <td>0.19</td>
+                                <td>9.47</td>
+                                <td>1.59</td>
+                                <td>0.94</td>
+                                <td>1.2</td>
+                                <td>3</td>
+                                <td>0.2</td>
+                                <td>10</td>
+                                <td>0</td>
+                                <td>0.06</td>
+                                <td>0.33</td>
+                                <td>4.3</td>
+                                <td>0.01</td>
+                                <td>0</td>
+                                <td>0.5</td>
+                                <td>117</td>
+                                <td>0.4</td>
+                                <td>0.1</td>
+                            </tr>
                             <tr>
                                 <td>carrot</td>
                                 <td>0.06</td>
                                 <td>41</td>
-                                <td>0.9</td>
-                                <td>0.2</td>
-                                <td>9.6</td>
-                            </tr>
-                            <tr>
-                                <td>chicken</td>
-                                <td>0.6</td>
-                                <td>165</td>
-                                <td>31</td>
-                                <td>3.6</td>
+                                <td>0.24</td>
                                 <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>20% beef mince</td>
-                                <td>0.5</td>
-                                <td>254</td>
-                                <td>17</td>
-                                <td>20</td>
                                 <td>0</td>
-                            </tr>
-                            <tr>
-                                <td>potato</td>
-                                <td>0.15</td>
-                                <td>77</td>
-                                <td>2</td>
+                                <td>0.03</td>
+                                <td>9.58</td>
+                                <td>2.8</td>
+                                <td>4.74</td>
+                                <td>0.93</td>
+                                <td>33</td>
+                                <td>35</td>
+                                <td>12</td>
+                                <td>69</td>
+                                <td>320</td>
+                                <td>0.3</td>
+                                <td>0.24</td>
+                                <td>0.045</td>
                                 <td>0.1</td>
-                                <td>17</td>
-                            </tr>
-                            <tr>
-                                <td>sweet potato</td>
-                                <td>0.2</td>
-                                <td>86</td>
-                                <td>1.6</td>
+                                <td>1</td>
+                                <td>0.066</td>
+                                <td>0.058</td>
+                                <td>0.983</td>
+                                <td>0.273</td>
+                                <td>0.138</td>
+                                <td>0.25</td>
+                                <td>19</td>
+                                <td>0</td>
+                                <td>835</td>
+                                <td>5.9</td>
+                                <td>0</td>
+                                <td>0.66</td>
+                                <td>13.2</td>
+                                <td>0.143</td>
+                                <td>1</td>
+                                <td>1</td>
+                                <td>8.8</td>
+                                <td>0</td>
                                 <td>0.1</td>
-                                <td>20</td>
                             </tr>
                             <tr>
                                 <td>broccoli</td>
                                 <td>0.2</td>
-                                <td>34</td>
-                                <td>2.8</td>
+                                <td>31</td>
+                                <td>0.3</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>6</td>
+                                <td>2.4</td>
+                                <td>1.5</td>
+                                <td>2.5</td>
+                                <td>47</td>
+                                <td>66</td>
+                                <td>21</td>
+                                <td>30</td>
+                                <td>288</td>
+                                <td>0.7</td>
                                 <td>0.4</td>
-                                <td>6.6</td>
+                                <td>0.05</td>
+                                <td>2.5</td>
+                                <td>3</td>
+                                <td>0.07</td>
+                                <td>0.12</td>
+                                <td>0.64</td>
+                                <td>0.57</td>
+                                <td>0.18</td>
+                                <td>1.5</td>
+                                <td>57</td>
+                                <td>0</td>
+                                <td>567</td>
+                                <td>81.2</td>
+                                <td>0</td>
+                                <td>0.78</td>
+                                <td>92.5</td>
+                                <td>0.21</td>
+                                <td>10</td>
+                                <td>11.8</td>
+                                <td>19</td>
+                                <td>0</td>
+                                <td>0.1</td>
                             </tr>
+                            <tr>
+                                <td>potato</td>
+                                <td>0.08</td>
+                                <td>77</td>
+                                <td>0.1</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0.02</td>
+                                <td>21</td>
+                                <td>2</td>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>7</td>
+                                <td>57</td>
+                                <td>23</td>
+                                <td>4</td>
+                                <td>535</td>
+                                <td>1</td>
+                                <td>0.2</td>
+                                <td>0.1</td>
+                                <td>0</td>
+                                <td>30</td>
+                                <td>0.1</td>
+                                <td>0.03</td>
+                                <td>1.2</td>
+                                <td>0.35</td>
+                                <td>0.2</td>
+                                <td>4.6</td>
+                                <td>13</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>11</td>
+                                <td>0</td>
+                                <td>0.01</td>
+                                <td>2</td>
+                                <td>0</td>
+                                <td>9</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0.1</td>
+                            </tr>
+                            <tr>
+                                <td>sweet potato</td>
+                                <td>0.12</td>
+                                <td>86</td>
+                                <td>0.1</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>20.1</td>
+                                <td>3</td>
+                                <td>4.2</td>
+                                <td>1.6</td>
+                                <td>50.8</td>
+                                <td>50.8</td>
+                                <td>19.8</td>
+                                <td>306</td>
+                                <td>259</td>
+                                <td>0.7</td>
+                                <td>0.3</td>
+                                <td>0.36</td>
+                                <td>0.9</td>
+                                <td>1</td>
+                                <td>0.08</td>
+                                <td>0.06</td>
+                                <td>0.56</td>
+                                <td>0.35</td>
+                                <td>0.34</td>
+                                <td>5.7</td>
+                                <td>7.44</td>
+                                <td>0</td>
+                                <td>823</td>
+                                <td>12.8</td>
+                                <td>0</td>
+                                <td>0.26</td>
+                                <td>5.1</td>
+                                <td>0.43</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>14.4</td>
+                                <td>0</td>
+                                <td>0.1</td>
+                            </tr>
+                            <tr>
+                                <td>Chia Seeds</td>
+                                <td>0.833</td>
+                                <td>486</td>
+                                <td>30.74</td>
+                                <td>2.309</td>
+                                <td>23.665</td>
+                                <td>3.33</td>
+                                <td>42.12</td>
+                                <td>34.4</td>
+                                <td>0</td>
+                                <td>16.54</td>
+                                <td>631</td>
+                                <td>860</td>
+                                <td>335</td>
+                                <td>16</td>
+                                <td>407</td>
+                                <td>7.72</td>
+                                <td>4.58</td>
+                                <td>0.924</td>
+                                <td>55.2</td>
+                                <td>0</td>
+                                <td>0.62</td>
+                                <td>0.17</td>
+                                <td>8.83</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>49</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>1.6</td>
+                                <td>0</td>
+                                <td>0.5</td>
+                                <td>0</td>
+                                <td>2.723</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0.1</td>
+                            </tr>
+                            <tr>
+                                <td>Almonds</td>
+                                <td>1.45</td>
+                                <td>579</td>
+                                <td>49.93</td>
+                                <td>31.551</td>
+                                <td>12.329</td>
+                                <td>3.802</td>
+                                <td>21.55</td>
+                                <td>12.5</td>
+                                <td>4.35</td>
+                                <td>21.15</td>
+                                <td>269</td>
+                                <td>481</td>
+                                <td>270</td>
+                                <td>1</td>
+                                <td>733</td>
+                                <td>3.71</td>
+                                <td>3.12</td>
+                                <td>1.031</td>
+                                <td>4.1</td>
+                                <td>0</td>
+                                <td>0.205</td>
+                                <td>1.138</td>
+                                <td>3.618</td>
+                                <td>0.471</td>
+                                <td>0.137</td>
+                                <td>13.5</td>
+                                <td>44</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>25.63</td>
+                                <td>0</td>
+                                <td>2.179</td>
+                                <td>5</td>
+                                <td>8</td>
+                                <td>52.1</td>
+                                <td>0</td>
+                                <td>0.1</td>
+                            </tr>
+                            <tr>
+                                <td>Brazilnuts</td>
+                                <td>1.5</td>
+                                <td>659</td>
+                                <td>67.1</td>
+                                <td>23.879</td>
+                                <td>24.399</td>
+                                <td>16.134</td>
+                                <td>11.74</td>
+                                <td>7.5</td>
+                                <td>2.33</td>
+                                <td>14.32</td>
+                                <td>160</td>
+                                <td>725</td>
+                                <td>376</td>
+                                <td>3</td>
+                                <td>659</td>
+                                <td>2.43</td>
+                                <td>4.06</td>
+                                <td>1.743</td>
+                                <td>1917</td>
+                                <td>0</td>
+                                <td>0.617</td>
+                                <td>0.035</td>
+                                <td>0.295</td>
+                                <td>0.184</td>
+                                <td>0.101</td>
+                                <td>9.2</td>
+                                <td>22</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0.7</td>
+                                <td>0</td>
+                                <td>5.65</td>
+                                <td>0</td>
+                                <td>1.223</td>
+                                <td>5</td>
+                                <td>16</td>
+                                <td>28.8</td>
+                                <td>0</td>
+                                <td>0.1</td>
+                            </tr>
+                            <tr>
+                                <td>Dry-Roasted Cashews</td>
+                                <td>1.4</td>
+                                <td>574</td>
+                                <td>46.35</td>
+                                <td>27.317</td>
+                                <td>7.836</td>
+                                <td>9.157</td>
+                                <td>32.69</td>
+                                <td>3</td>
+                                <td>5.01</td>
+                                <td>15.31</td>
+                                <td>45</td>
+                                <td>490</td>
+                                <td>260</td>
+                                <td>16</td>
+                                <td>565</td>
+                                <td>6</td>
+                                <td>5.6</td>
+                                <td>2.22</td>
+                                <td>11.7</td>
+                                <td>0</td>
+                                <td>0.2</td>
+                                <td>0.2</td>
+                                <td>1.4</td>
+                                <td>1.217</td>
+                                <td>0.256</td>
+                                <td>0</td>
+                                <td>69</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0.92</td>
+                                <td>34.7</td>
+                                <td>0.826</td>
+                                <td>5</td>
+                                <td>0</td>
+                                <td>61</td>
+                                <td>0</td>
+                                <td>0.1</td>
+                            </tr>
+                            <tr>
+                                <td>Olive Oil</td>
+                                <td>0.4</td>
+                                <td>884</td>
+                                <td>100</td>
+                                <td>72.961</td>
+                                <td>10.523</td>
+                                <td>13.808</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>2</td>
+                                <td>1</td>
+                                <td>0.56</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>14.35</td>
+                                <td>60.2</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>6.8</td>
+                                <td>0.3</td>
+                                <td>0</td>
+                                <td>0.1</td>
+                            </tr>
+                            <tr>
+                                <td>Farmed Atlantic Salmon (Raw)</td>
+                                <td>1.786</td>
+                                <td>208</td>
+                                <td>13.42</td>
+                                <td>3.77</td>
+                                <td>3.886</td>
+                                <td>3.05</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>20.42</td>
+                                <td>9</td>
+                                <td>240</td>
+                                <td>27</td>
+                                <td>59</td>
+                                <td>363</td>
+                                <td>0.34</td>
+                                <td>0.36</td>
+                                <td>0.045</td>
+                                <td>24</td>
+                                <td>10</td>
+                                <td>0.207</td>
+                                <td>0.155</td>
+                                <td>8.672</td>
+                                <td>1.547</td>
+                                <td>0.636</td>
+                                <td>5</td>
+                                <td>26</td>
+                                <td>3.23</td>
+                                <td>58</td>
+                                <td>3.9</td>
+                                <td>11</td>
+                                <td>3.55</td>
+                                <td>0.5</td>
+                                <td>0.011</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>78.5</td>
+                                <td>0.5</td>
+                                <td>0.1</td>
+                            </tr>
+                            <tr>
+                                <td>Wild Atlantic Salmon (Raw)</td>
+                                <td>1.786</td>
+                                <td>142</td>
+                                <td>6.34</td>
+                                <td>2.103</td>
+                                <td>2.539</td>
+                                <td>0.981</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>19.84</td>
+                                <td>12</td>
+                                <td>200</td>
+                                <td>29</td>
+                                <td>44</td>
+                                <td>490</td>
+                                <td>0.8</td>
+                                <td>0.64</td>
+                                <td>0.25</td>
+                                <td>36.5</td>
+                                <td>20</td>
+                                <td>0.226</td>
+                                <td>0.38</td>
+                                <td>7.86</td>
+                                <td>1.664</td>
+                                <td>0.818</td>
+                                <td>5</td>
+                                <td>25</td>
+                                <td>3.18</td>
+                                <td>12</td>
+                                <td>0</td>
+                                <td>11</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0.016</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0.5</td>
+                                <td>0.1</td>
+                            </tr>
+                            <tr>
+                                <td>Mozzarella</td>
+                                <td>0.552</td>
+                                <td>299</td>
+                                <td>22.14</td>
+                                <td>6.573</td>
+                                <td>0.765</td>
+                                <td>13.9</td>
+                                <td>2.4</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>22.17</td>
+                                <td>505</td>
+                                <td>354</td>
+                                <td>20</td>
+                                <td>486</td>
+                                <td>76</td>
+                                <td>0.44</td>
+                                <td>2.92</td>
+                                <td>0.011</td>
+                                <td>17</td>
+                                <td>0</td>
+                                <td>0.03</td>
+                                <td>0.283</td>
+                                <td>0.104</td>
+                                <td>0.141</td>
+                                <td>0.037</td>
+                                <td>0</td>
+                                <td>7</td>
+                                <td>2.28</td>
+                                <td>179</td>
+                                <td>0</td>
+                                <td>0.4</td>
+                                <td>0.19</td>
+                                <td>2.3</td>
+                                <td>0.03</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>15.4</td>
+                                <td>1.65</td>
+                                <td>0.1</td>
+                            </tr>
+                            <tr>
+                                <td>Cheese Cheddar</td>
+                                <td>0.5</td>
+                                <td>404</td>
+                                <td>33.31</td>
+                                <td>9.246</td>
+                                <td>1.421</td>
+                                <td>18.867</td>
+                                <td>3.09</td>
+                                <td>0</td>
+                                <td>0.48</td>
+                                <td>22.87</td>
+                                <td>710</td>
+                                <td>455</td>
+                                <td>27</td>
+                                <td>653</td>
+                                <td>76</td>
+                                <td>0.14</td>
+                                <td>3.64</td>
+                                <td>0.03</td>
+                                <td>28.5</td>
+                                <td>42.9</td>
+                                <td>0.029</td>
+                                <td>0.428</td>
+                                <td>0.059</td>
+                                <td>0</td>
+                                <td>0.066</td>
+                                <td>0</td>
+                                <td>27</td>
+                                <td>1.1</td>
+                                <td>330</td>
+                                <td>0</td>
+                                <td>0.6</td>
+                                <td>0.71</td>
+                                <td>2.4</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>16.5</td>
+                                <td>1.64</td>
+                                <td>0.1</td>
+                            </tr>
+                            <tr>
+                                <td>White Rice (cooked)</td>
+                                <td>0.017</td>
+                                <td>130</td>
+                                <td>0.28</td>
+                                <td>0.088</td>
+                                <td>0.076</td>
+                                <td>0.077</td>
+                                <td>28.17</td>
+                                <td>0.4</td>
+                                <td>0.05</td>
+                                <td>2.69</td>
+                                <td>10</td>
+                                <td>43</td>
+                                <td>12</td>
+                                <td>1</td>
+                                <td>35</td>
+                                <td>1.2</td>
+                                <td>0.49</td>
+                                <td>0.069</td>
+                                <td>7.5</td>
+                                <td>0</td>
+                                <td>0.163</td>
+                                <td>0.013</td>
+                                <td>1.476</td>
+                                <td>0.39</td>
+                                <td>0.093</td>
+                                <td>0</td>
+                                <td>58</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0.04</td>
+                                <td>0</td>
+                                <td>0.472</td>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>2.1</td>
+                                <td>0</td>
+                                <td>0.1</td>
+                            </tr>
+                            <tr>
+                                <td>Rice White Long-Grain uncooked Enriched</td>
+                                <td>0.052</td>
+                                <td>365</td>
+                                <td>0.66</td>
+                                <td>0.206</td>
+                                <td>0.177</td>
+                                <td>0.18</td>
+                                <td>79.95</td>
+                                <td>1.3</td>
+                                <td>0.12</td>
+                                <td>7.13</td>
+                                <td>28</td>
+                                <td>115</td>
+                                <td>25</td>
+                                <td>5</td>
+                                <td>115</td>
+                                <td>4.31</td>
+                                <td>1.09</td>
+                                <td>0.22</td>
+                                <td>15.1</td>
+                                <td>0</td>
+                                <td>0.576</td>
+                                <td>0.049</td>
+                                <td>4.192</td>
+                                <td>1.014</td>
+                                <td>0.164</td>
+                                <td>0</td>
+                                <td>231</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>0.11</td>
+                                <td>0.1</td>
+                                <td>1.088</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>5.8</td>
+                                <td>0</td>
+                                <td>0.1</td>
+                            </tr>
+                            <tr>
+                                <td>Chickpeas Canned Drained</td>
+                                <td>0.188</td>
+                                <td>147</td>
+                                <td>3.25</td>
+                                <td>0.74</td>
+                                <td>1.468</td>
+                                <td>0.34</td>
+                                <td>22.48</td>
+                                <td>7.3</td>
+                                <td>4.32</td>
+                                <td>8.2</td>
+                                <td>58</td>
+                                <td>133</td>
+                                <td>45</td>
+                                <td>220</td>
+                                <td>240</td>
+                                <td>2.05</td>
+                                <td>1.15</td>
+                                <td>0.255</td>
+                                <td>3.3</td>
+                                <td>0</td>
+                                <td>0.051</td>
+                                <td>0.024</td>
+                                <td>0.206</td>
+                                <td>0</td>
+                                <td>0.749</td>
+                                <td>0</td>
+                                <td>40</td>
+                                <td>0</td>
+                                <td>2</td>
+                                <td>0.2</td>
+                                <td>0</td>
+                                <td>0.32</td>
+                                <td>3.7</td>
+                                <td>0</td>
+                                <td>5</td>
+                                <td>0</td>
+                                <td>38.5</td>
+                                <td>0</td>
+                                <td>0.1</td>
+                            </tr>
+                            <tr>
+                                <td>Bananas</td>
+                                <td>0.09</td>
+                                <td>89</td>
+                                <td>0.33</td>
+                                <td>0.032</td>
+                                <td>0.073</td>
+                                <td>0.112</td>
+                                <td>22.84</td>
+                                <td>2.6</td>
+                                <td>12.23</td>
+                                <td>1.09</td>
+                                <td>5</td>
+                                <td>22</td>
+                                <td>27</td>
+                                <td>1</td>
+                                <td>358</td>
+                                <td>0.26</td>
+                                <td>0.15</td>
+                                <td>0.078</td>
+                                <td>1</td>
+                                <td>2</td>
+                                <td>0.031</td>
+                                <td>0.073</td>
+                                <td>0.665</td>
+                                <td>0.334</td>
+                                <td>0.367</td>
+                                <td>0.15</td>
+                                <td>20</td>
+                                <td>0</td>
+                                <td>3</td>
+                                <td>8.7</td>
+                                <td>0</td>
+                                <td>0.1</td>
+                                <td>0.5</td>
+                                <td>0.27</td>
+                                <td>15</td>
+                                <td>0</td>
+                                <td>9.8</td>
+                                <td>0</td>
+                                <td>0.1</td>
+                            </tr>
+                            <tr>
+                                <td>Oranges</td>
+                                <td>0.25</td>
+                                <td>47</td>
+                                <td>0.12</td>
+                                <td>0.023</td>
+                                <td>0.025</td>
+                                <td>0.015</td>
+                                <td>11.75</td>
+                                <td>2.4</td>
+                                <td>9.35</td>
+                                <td>0.94</td>
+                                <td>40</td>
+                                <td>14</td>
+                                <td>10</td>
+                                <td>0</td>
+                                <td>181</td>
+                                <td>0.1</td>
+                                <td>0.07</td>
+                                <td>0.045</td>
+                                <td>0.5</td>
+                                <td>0</td>
+                                <td>0.087</td>
+                                <td>0.04</td>
+                                <td>0.282</td>
+                                <td>0.015</td>
+                                <td>0.06</td>
+                                <td>0.05</td>
+                                <td>30</td>
+                                <td>0</td>
+                                <td>11</td>
+                                <td>53.2</td>
+                                <td>0</td>
+                                <td>0.18</td>
+                                <td>0</td>
+                                <td>0.02</td>
+                                <td>0</td>
+                                <td>1</td>
+                                <td>8.4</td>
+                                <td>0</td>
+                                <td>0.1</td>
+                            </tr>
+                            <tr>
+                                <td>Tangerines</td>
+                                <td>0.25</td>
+                                <td>53</td>
+                                <td>0.31</td>
+                                <td>0.06</td>
+                                <td>0.065</td>
+                                <td>0.039</td>
+                                <td>13.34</td>
+                                <td>1.8</td>
+                                <td>10.58</td>
+                                <td>0.81</td>
+                                <td>37</td>
+                                <td>20</td>
+                                <td>12</td>
+                                <td>2</td>
+                                <td>166</td>
+                                <td>0.15</td>
+                                <td>0.07</td>
+                                <td>0.042</td>
+                                <td>0.1</td>
+                                <td>0</td>
+                                <td>0.058</td>
+                                <td>0.036</td>
+                                <td>0.376</td>
+                                <td>0.25</td>
+                                <td>0.078</td>
+                                <td>0.4</td>
+                                <td>16</td>
+                                <td>0</td>
+                                <td>34</td>
+                                <td>26.7</td>
+                                <td>0</td>
+                                <td>0.2</td>
+                                <td>0</td>
+                                <td>0.025</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>10.2</td>
+                                <td>0</td>
+                                <td>0.1</td>
+                            </tr>
+                            <tr>
+                                <td>Avocados</td>
+                                <td>1.16</td>
+                                <td>160</td>
+                                <td>14.66</td>
+                                <td>9.799</td>
+                                <td>1.816</td>
+                                <td>2.126</td>
+                                <td>8.53</td>
+                                <td>6.7</td>
+                                <td>0.66</td>
+                                <td>2</td>
+                                <td>12</td>
+                                <td>52</td>
+                                <td>29</td>
+                                <td>7</td>
+                                <td>485</td>
+                                <td>0.55</td>
+                                <td>0.64</td>
+                                <td>0.19</td>
+                                <td>0.4</td>
+                                <td>0</td>
+                                <td>0.067</td>
+                                <td>0.13</td>
+                                <td>1.738</td>
+                                <td>0.216</td>
+                                <td>0.257</td>
+                                <td>0.96</td>
+                                <td>81</td>
+                                <td>0</td>
+                                <td>7</td>
+                                <td>10</td>
+                                <td>0</td>
+                                <td>2.07</td>
+                                <td>21</td>
+                                <td>0.039</td>
+                                <td>0</td>
+                                <td>0</td>
+                                <td>14.2</td>
+                                <td>0</td>
+                                <td>0.1</td>
+                            </tr>
+
                         </tbody>
                     </table>
+
+
+
                 </div>
             </section>
 
@@ -453,7 +2354,7 @@
                     <li><a href="blog.html">Blog</a></li>
                     <!-- <li><a href="#0">Timeline</a></li>-->
                     <li><a href="Lucas Beastall ~ CV.pdf" target="_blank" rel="noopener noreferrer">CV</a></li>       <!-- change for a Now page -->
-                    <li><a href="#" id="menuContactBtn">Contact</a></li>
+                    <li><a href="#" id="menuContactBtn" class="contact-trigger">Contact</a></li>
                 </ul>
             </nav>
 
@@ -475,63 +2376,70 @@
                 window.addEventListener('resize', checkHeroVisibility);
                 checkHeroVisibility(); // Initial check
             </script>
-            <div id="contactOverlay" class="contact-overlay">
-                <div class="contact-overlay-content">
-                    <div class="image-container">
-                        <img src="contactImg.JPEG" alt="Contact Image">
-                    </div>
-                    <div class="text-container">
-                        <div class="contact-info">
-                            <p>Email: lucasmarcbeastall@gmail.com</p>
-                            <p>Address: Your Address Here</p>
-                            <p>LinkedIn: <a href="https://www.linkedin.com/in/yourprofile">Your Profile</a></p>
-                            <p>Phone: Your Phone Number</p>
-                        </div>
-                        <h1 id="getInTouch">GET IN<br>TOUCH</h1>
-                    </div>
-                    <button id="closeBtn" class="close-btn">&times;</button>
+
+
+
+
+            <button class="btn btn-primary fixed-button contact-trigger">Contact</button>
+
+            <div id="contactOverlay" class="overlay">
+                <div class="overlay-content">
+                    <img src="contactImg.JPEG" alt="Contact Image" class="contact-image">
+                    <h2>Contact</h2>
+                    <p>Email: lucasmarcbeastall@gmail.com</p>
+                    <p>Phone: 07725 715638</p>
+                    <p>LinkedIn: www.linkedin.com/in/lucas-beastall-4a3025318</p>
+                    <button class="btn btn-secondary" onclick="toggleOverlay()">Close</button>
                 </div>
             </div>
 
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
             <script>
-                document.addEventListener('DOMContentLoaded', () => {
-                    ;
-                    const menuContactBtn = document.getElementById('menuContactBtn');
-                    const footerContactBtn = document.getElementById('footerContactBtn');
-                    const contactOverlay = document.getElementById('contactOverlay');
-                    const closeBtn = document.getElementById('closeBtn');
-                    const getInTouch = document.getElementById('getInTouch');
 
-                    function showContactOverlay() {
-                        contactOverlay.classList.add('active');
+                const overlay = document.getElementById('contactOverlay');
+                const overlayContent = overlay.querySelector('.overlay-content');
+
+                function toggleOverlay() {
+                    overlay.classList.toggle('active');
+                }
+
+                // Use event delegation
+                document.body.addEventListener('click', function (event) {
+                    const target = event.target;
+                    if (target.classList.contains('contact-trigger') || target.closest('.contact-trigger')) {
+                        event.preventDefault();
+                        toggleOverlay();
                     }
+                });
 
-                    menuContactBtn.addEventListener('click', showContactOverlay);
-                    footerContactBtn.addEventListener('click', showContactOverlay);
+                overlay.addEventListener('click', function (event) {
+                    if (event.target === overlay) {
+                        toggleOverlay();
+                    }
+                });
 
-                    closeBtn.addEventListener('click', () => {
-                        contactOverlay.classList.remove('active');
-                    });
+                overlayContent.addEventListener('click', function (event) {
+                    event.stopPropagation();
+                });
 
-                    getInTouch.addEventListener('click', () => {
-                        window.location.href = 'mailto:lucasmarcbeastall@gmail.com';
-                    });
-
-                    // Animated close button
-                    closeBtn.addEventListener('mouseover', () => {
-                        closeBtn.style.transform = 'rotate(90deg)';
-                        closeBtn.style.transition = 'transform 0.3s ease-in-out';
-                    });
-
-                    closeBtn.addEventListener('mouseout', () => {
-                        closeBtn.style.transform = 'rotate(0deg)';
-                    });
+                // For debugging
+                document.addEventListener('DOMContentLoaded', function () {
+                    const footerLink = document.getElementById('footerContactBtn');
+                    if (footerLink) {
+                        console.log('Footer link found:', footerLink);
+                        footerLink.addEventListener('click', function (e) {
+                            console.log('Footer link clicked');
+                        });
+                    } else {
+                        console.log('Footer link not found');
+                    }
                 });
             </script>
+
             <footer class="slim-footer">
                 <div class="footer-content">
                     <span class="footer-name">Lucas Beastall</span>
-                    <a href="#" class="footer-contact" id="footerContactBtn">Contact Me</a>
+                    <a href="#" class="footer-contact contact-trigger" id="footerContactBtn">Contact Me</a>
                 </div>
             </footer>
         </main>
@@ -542,7 +2450,7 @@
             const boundariesSection = document.querySelector('.boundaries-section');
 
             function greyOutSelectedMetric() {
-                const selectedMetric = metricSelect.value.toLowerCase();
+                const selectedMetric = metricSelect.value; // Get the value, not the element
                 const allInputs = boundariesSection.querySelectorAll('input[type="number"]');
 
                 allInputs.forEach(input => {
@@ -550,7 +2458,9 @@
                     input.classList.remove('greyed-out');
                 });
 
+                // Use the selectedMetric value in the selector
                 const selectedInputs = boundariesSection.querySelectorAll(`#${selectedMetric}Min, #${selectedMetric}Max`);
+
                 selectedInputs.forEach(input => {
                     input.disabled = true;
                     input.classList.add('greyed-out');
@@ -568,14 +2478,29 @@
             const goal = document.getElementById('goal').value;
             const metric = document.getElementById('metric').value;
 
-            const allConstraints = [
-                'Calories',
-                'Protein',
-                'Fat',
-                'Carbohydrate',
-                'Cost',
-                'Weight'
-            ];
+            function extractConstraints() {
+                const table = document.getElementById('foodData');
+                if (!table) {
+                    console.error('Table with id "foodData" not found');
+                    return [];
+                }
+
+                const headerRow = table.querySelector('thead tr');
+                if (!headerRow) {
+                    console.error('Header row not found in the table');
+                    return [];
+                }
+
+                const headerCells = headerRow.querySelectorAll('th');
+                const allConstraints = Array.from(headerCells)
+                    .slice(1)  // Skip the first column (Food)
+                    .map(cell => cell.textContent.trim());
+
+                return allConstraints;
+            }
+
+            const allConstraints = extractConstraints();
+            console.log(allConstraints);
 
             // Create LPP problem
             const problem = {
@@ -587,8 +2512,8 @@
 
             allConstraints.forEach(constraint => {
                 if (constraint !== metric) {
-                    const minElement = document.getElementById(`${constraint.toLowerCase() }Min`);
-                    const maxElement = document.getElementById(`${constraint.toLowerCase()}Max`);
+                    const minElement = document.getElementById(`${constraint}Min`);
+                    const maxElement = document.getElementById(`${constraint}Max`);
 
                     if (minElement && maxElement) {
                         problem.constraints[constraint] = {
@@ -601,28 +2526,28 @@
                 }
             });
 
+
             // Add food variables from table
             const rows = document.querySelectorAll('#foodData tbody tr');
+
             rows.forEach(row => {
                 const cells = row.cells;
                 const foodName = cells[0].textContent;
-                problem.variables[foodName] = {
-                    'Cost': parseFloat(cells[1].textContent),
-                    'Calories': parseFloat(cells[2].textContent),
-                    'Protein': parseFloat(cells[3].textContent),
-                    'Fat': parseFloat(cells[4].textContent),
-                    'Carbohydrate': parseFloat(cells[5].textContent),
-                    'Weight': 0.1
-                };
+                problem.variables[foodName] = {};
+
+                allConstraints.forEach((constraint, index) => {
+                    // Assuming the constraints in allConstraints array are in the same order as the table columns
+                    // Add 1 to index because the first column is the food name
+                    problem.variables[foodName][constraint] = parseFloat(cells[index + 1].textContent);
+                });
             });
 
 
 
 
+            console.log('Problem object 001:', problem);
+            console.log('Problem object (stringified) 001:', JSON.stringify(problem, null, 2));
 
-
-            console.log('Problem object:', problem);
-            console.log('Problem object (stringified):', JSON.stringify(problem, null, 2));
             try {
                 // i will run function here
 
@@ -637,7 +2562,8 @@
                     throw new Error("Invalid method"); // Throw an error to skip the console.log(result)
                 }
                 
-                console.log(result,"Result: ")
+                console.log(result, "watch this one Result: ")
+                console.log('Watch this one Result (stringified):', JSON.stringify(result, null, 2));
 
 
                 // Display results
@@ -646,37 +2572,86 @@
                 if (result.feasible) {
                     output += `Optimal Value: ${result.result.toFixed(2)}\r\n\r\n`;
                     output += 'Optimal Food Selection:\r\n';
-                    // Initialize totals
-                    let totalWeight = 0;
-                    let totalCalories = 0;
-                    let totalProtein = 0;
-                    let totalFat = 0;
-                    let totalCarb = 0;
-                    let totalCost = 0;
 
+                    // Initialize totals
+                    let totals = {};
+                    allConstraints.forEach(constraint => {
+                        totals[constraint] = 0;
+                    });
+
+                    // Calculate food selection and update totals
                     for (let food in result) {
                         if (food !== 'result' && food !== 'feasible' && food !== 'bounded') {
                             const amount = result[food];
                             output += `${food}: ${amount.toFixed(2)} (100g units)\r\n`;
 
                             // Update totals
-                            totalWeight += amount;
-                            totalCalories += amount * problem.variables[food].Calories;
-                            totalProtein += amount * problem.variables[food].Protein;
-                            totalFat += amount * problem.variables[food].Fat;
-                            totalCarb += amount * problem.variables[food].Carbohydrate;
-                            totalCost += amount * problem.variables[food].Cost;
+                            allConstraints.forEach(constraint => {
+                                if (problem.variables[food][constraint] !== undefined) {
+                                    totals[constraint] += amount * problem.variables[food][constraint];
+                                }
+                            });
                         }
                     }
 
+                    const unitMap = {
+                        'Cost': '£',
+                        'Calories': 'kcal',
+                        'Weight': 'kg',
+                        'Fats': 'g',
+                        'Monounsaturated': 'g',
+                        'Polyunsaturated': 'g',
+                        'Saturated': 'g',
+                        'Carbohydrates': 'g',
+                        'Fibre': 'g',
+                        'Sugar': 'g',
+                        'Protein': 'g',
+                        'Calcium': 'mg',
+                        'Phosphorus': 'mg',
+                        'Magnesium': 'mg',
+                        'Sodium': 'mg',
+                        'Potassium': 'mg',
+                        'Iron': 'mg',
+                        'Zinc': 'mg',
+                        'Copper': 'mg',
+                        'Selenium': 'μg',
+                        'Iodine': 'μg',
+                        'Thiamin_B1': 'mg',
+                        'Riboflavin_B2': 'mg',
+                        'Niacin_B3': 'mg',
+                        'Pantothenic_acid_B5': 'mg',
+                        'Vitamin_B6': 'mg',
+                        'Biotin_B7': 'μg',
+                        'Folate_B9': 'μg',
+                        'Vitamin_B12': 'μg',
+                        'Vitamin_A': 'μg',
+                        'Vitamin_C': 'mg',
+                        'Vitamin_D': 'μg',
+                        'Vitamin_E': 'mg',
+                        'Vitamin_K': 'μg',
+                        'Manganese': 'mg',
+                        'Molybdenum': 'μg',
+                        'Chromium': 'μg',
+                        'Choline': 'mg',
+                        'Creatine': 'g'
+                    };
+
+
                     // Add total breakdown to output
                     output += '\r\nTotal Breakdown:\r\n';
-                    output += `Total Weight: ${(totalWeight / 10).toFixed(2)} kg\r\n`;
-                    output += `Total Calories: ${totalCalories.toFixed(2)} kcal\r\n`;
-                    output += `Total Protein: ${totalProtein.toFixed(2)} g\r\n`;
-                    output += `Total Fat: ${totalFat.toFixed(2)} g\r\n`;
-                    output += `Total Carbohydrates: ${totalCarb.toFixed(2)} g\r\n`;
-                    output += `Total Cost: £${totalCost.toFixed(2)}\r\n`;
+
+
+                    allConstraints.forEach(constraint => {
+                        const unit = unitMap[constraint] || 'g';
+                        let value = totals[constraint].toFixed(2);
+
+                        if (constraint === 'Cost') {
+                            output += `Total ${constraint}: ${unit}${value}\r\n`;
+                        } else {
+                            output += `Total ${constraint}: ${value} ${unit}\r\n`;
+                        }
+                    });
+
                 } else {
                     output += "No feasible solution found. Please check your constraints and try again.";
                 }
@@ -701,9 +2676,11 @@
             solverResult = solveTwoPhaseSimplexTableau(tableau);
             console.log('solverResult:', solverResult);
             console.log('solverResult (stringified):', JSON.stringify(solverResult, null, 2));
+            console.log('problem.variables (stringified):', JSON.stringify(problem.variables, null, 2));
             //step 4: use result as initial to solve
             //step 5: convert to format for output
             return formatSolutionOutput(solverResult, Object.keys(problem.variables));
+            
 
         };
 
@@ -918,7 +2895,7 @@
 
             return {
                 tableau: tableau,
-                solution: solution.slice(0, 6), // Assuming the first 6 variables are the original variables
+                solution: solution.slice(0, 22), // Assuming the first X (22) variables are the original variables i need to generalise this
                 objectiveValue: -tableau[0][tableau[0].length - 1] // Negative because we minimized
             };
         }

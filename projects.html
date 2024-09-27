@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="projectsStyle.css">
     <title>Projects</title>
     <link rel="icon" href="logoImg.png" type="image/png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <header class="header">
@@ -66,7 +67,7 @@
             <li><a href="blog.html">Blog</a></li>
             <!-- <li><a href="#0">Timeline</a></li>-->
             <li><a href="Lucas Beastall ~ CV.pdf" target="_blank" rel="noopener noreferrer">CV</a></li>       <!-- change for a Now page -->
-            <li><a href="#0" id="menuContactBtn">Contact</a></li>
+            <li><a href="#0" id="menuContactBtn"  class="contact-trigger">Contact</a></li>
         </ul>
     </nav>
 
@@ -88,63 +89,68 @@
         window.addEventListener('resize', checkHeroVisibility);
         checkHeroVisibility(); // Initial check
     </script>
-    <div id="contactOverlay" class="contact-overlay">
-        <div class="contact-overlay-content">
-            <div class="image-container">
-                <img src="contactImg.JPEG" alt="Contact Image">
-            </div>
-            <div class="text-container">
-                <div class="contact-info">
-                    <p>Email: lucasmarcbeastall@gmail.com</p>
-                    <p>Address: Your Address Here</p>
-                    <p>LinkedIn: <a href="https://www.linkedin.com/in/yourprofile">Your Profile</a></p>
-                    <p>Phone: Your Phone Number</p>
-                </div>
-                <h1 id="getInTouch">GET IN<br>TOUCH</h1>
-            </div>
-            <button id="closeBtn" class="close-btn">&times;</button>
+
+
+    <button class="btn btn-primary fixed-button contact-trigger">Contact</button>
+
+    <div id="contactOverlay" class="overlay">
+        <div class="overlay-content">
+            <img src="contactImg.JPEG" alt="Contact Image" class="contact-image">
+            <h2>Contact</h2>
+            <p>Email: lucasmarcbeastall@gmail.com</p>
+            <p>Phone: 07725 715638</p>
+            <p>LinkedIn: www.linkedin.com/in/lucas-beastall-4a3025318</p>
+            <button class="btn btn-secondary" onclick="toggleOverlay()">Close</button>
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            ;
-            const menuContactBtn = document.getElementById('menuContactBtn');
-            const footerContactBtn = document.getElementById('footerContactBtn');
-            const contactOverlay = document.getElementById('contactOverlay');
-            const closeBtn = document.getElementById('closeBtn');
-            const getInTouch = document.getElementById('getInTouch');
 
-            function showContactOverlay() {
-                contactOverlay.classList.add('active');
+        const overlay = document.getElementById('contactOverlay');
+        const overlayContent = overlay.querySelector('.overlay-content');
+
+        function toggleOverlay() {
+            overlay.classList.toggle('active');
+        }
+
+        // Use event delegation
+        document.body.addEventListener('click', function (event) {
+            const target = event.target;
+            if (target.classList.contains('contact-trigger') || target.closest('.contact-trigger')) {
+                event.preventDefault();
+                toggleOverlay();
             }
+        });
 
-            menuContactBtn.addEventListener('click', showContactOverlay);
-            footerContactBtn.addEventListener('click', showContactOverlay);
+        overlay.addEventListener('click', function (event) {
+            if (event.target === overlay) {
+                toggleOverlay();
+            }
+        });
 
-            closeBtn.addEventListener('click', () => {
-                contactOverlay.classList.remove('active');
-            });
+        overlayContent.addEventListener('click', function (event) {
+            event.stopPropagation();
+        });
 
-            getInTouch.addEventListener('click', () => {
-                window.location.href = 'mailto:lucasmarcbeastall@gmail.com';
-            });
-
-            // Animated close button
-            closeBtn.addEventListener('mouseover', () => {
-                closeBtn.style.transform = 'rotate(90deg)';
-                closeBtn.style.transition = 'transform 0.3s ease-in-out';
-            });
-
-            closeBtn.addEventListener('mouseout', () => {
-                closeBtn.style.transform = 'rotate(0deg)';
-            });
+        // For debugging
+        document.addEventListener('DOMContentLoaded', function () {
+            const footerLink = document.getElementById('footerContactBtn');
+            if (footerLink) {
+                console.log('Footer link found:', footerLink);
+                footerLink.addEventListener('click', function (e) {
+                    console.log('Footer link clicked');
+                });
+            } else {
+                console.log('Footer link not found');
+            }
         });
     </script>
+
     <footer class="slim-footer">
         <div class="footer-content">
             <span class="footer-name">Lucas Beastall</span>
-            <a href="#" class="footer-contact" id="footerContactBtn">Contact Me</a>
+            <a href="#" class="footer-contact contact-trigger" id="footerContactBtn">Contact Me</a>
         </div>
     </footer>
 </body>

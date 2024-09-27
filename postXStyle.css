@@ -1,0 +1,22 @@
+﻿.image-wrap {
+    float: right;
+    margin: 0 0 20px 20px;
+    max-width: 50%;
+}
+
+    .image-wrap img {
+        width: 100%;
+        height: auto;
+        border-radius: 8px;
+    }
+
+    .image-wrap.left {
+        float: left;
+        margin: 0 20px 20px 0;
+    }
+
+.content::after {
+    content: "";
+    display: table;
+    clear: both;
+}

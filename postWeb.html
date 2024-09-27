@@ -4,46 +4,30 @@
 <head>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="blankStyle.css">
-    <link rel="stylesheet" href="blogStyle.css">
-    <title>Blog</title>
+    <link rel="stylesheet" href="postXStyle.css">
+    <title>Making This Website</title>
     <link rel="icon" href="logoImg.png" type="image/png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <header class="header">
-        <img src="blogImg.JPEG" alt="Background image">
+        <img src="websiteImg.PNG" alt="Background image">
         <div class="header-content">
-            <h1>Blog</h1>
-            <p>Blog about things</p>
+            <h1>Making This Website</h1>
+            <p>My journey into web development and learning HTML, CSS and Java Script on the fly.</p>
         </div>
     </header>
     <div class="content">
-        <div class="blog-container">
-            <a href="postWeb.html" class="blog-post">
-                <img src="websiteImg.PNG" alt="Blog post image">
-                <div class="blog-content">
-                    <h2 class="blog-title">Making This Website</h2>
-                    <p class="blog-date">Aeptember 9, 2024</p>
-                    <p class="blog-description">My journey into web development and learning HTML, CSS and Java Script on the fly.</p>
-                </div>
-            </a>
-            <a href="/post2.html" class="blog-post">
-                <img src="/api/placeholder/400/400" alt="Blog post image">
-                <div class="blog-content">
-                    <h2 class="blog-title">Chip Sector Hit Again as Stock Market Rally Attempt Fails</h2>
-                    <p class="blog-date">August 7, 2024</p>
-                    <p class="blog-description">Exploring the recent downturn in the chip sector and its effects on the broader stock market.</p>
-                </div>
-            </a>
-            <a href="/post3.html" class="blog-post">
-                <img src="/api/placeholder/400/400" alt="Blog post image">
-                <div class="blog-content">
-                    <h2 class="blog-title">Will Fed Officials Push Back on a Half-Point Interest Rate Cut?</h2>
-                    <p class="blog-date">August 7, 2024</p>
-                    <p class="blog-description">Examining the potential for changes in interest rates and the Federal Reserve's stance on monetary policy.</p>
-                </div>
-            </a>
+        <p>In today's digital landscape, having a strong online presence is crucial for businesses and individuals alike. Recognizing this need, I embarked on a mission to create a website that not only showcases my skills but also serves as a testament to the power of fundamental web technologies. My goal was clear: to build a responsive, engaging, and functional website using the trifecta of web development - HTML, CSS, and JavaScript that can host my portfolio of projects and act as a hub for my digital presence.</p>
+        <div class="image-wrap">
+            <img src="postWebImg1.JPEG" alt="image">
         </div>
+        <p>My journey into web development began with no experience or knowledge. Despite this limited foundation, I was determined to bring my vision to life. Armed with nothing but my problem-solving skills and an internet connection, I dove into online resources, and documentation. Through self-study and a willingness to learn through trial and error, I quickly grasped the fundumentals and began experimenting with some more flashy features (some of which I ruled unprofessional or distracting from the content they are meant to present.) This process not only demonstrated my ability to rapidly acquire new skills but also showcased my initiative and resourcefulness in tackling complex challenges head-on even when lacking formal training.</p>
+        <p>The result is the website you're currently exploring - a harmonious blend of form and function. Each page is thoughtfully designed to be both aesthetically pleasing and user-friendly, with responsive layouts that adapt seamlessly to different screen sizes. Interactive elements, smooth animations, and carefully curated content work in tandem to create a compelling digital narrative that represents my skills as a web developer and adaptable professional.</p>
+        <div class="image-wrap left">
+            <img src="postWebImg3.PNG" alt="left-floating image">
+        </div>
+        <p>This project has been a journey of growth, challenges, and IMHO, success. Are you inspired to create your own website? Whether you're looking to establish an online presence for your yourself and business or want to learn the ropes of web development, I'm here to help. I offer professional web development services, and will create a bespoke website tailored to your unique needs. Additionally I offer free advice, tuition and consultation for those embarking on their own web development journey. Contact me <a href="#" class="contact-trigger">here</a> to get started on crafting your perfect website today.'</p>
     </div>
     <input id="page-nav-toggle" class="main-navigation-toggle" type="checkbox" />
     <label for="page-nav-toggle" class="menu-icon-wrapper">
@@ -69,28 +53,9 @@
             <li><a href="blog.html">Blog</a></li>
             <!-- <li><a href="#0">Timeline</a></li>-->
             <li><a href="Lucas Beastall ~ CV.pdf" target="_blank" rel="noopener noreferrer">CV</a></li>       <!-- change for a Now page -->
-            <li><a href="" id="menuContactBtn"  class="contact-trigger">Contact</a></li>
+            <li><a href="" id="menuContactBtn" class="contact-trigger">Contact</a></li>
         </ul>
     </nav>
-
-    <script>
-        const body = document.body;
-        const hero = document.querySelector('.hero');
-        const menuIcon = document.querySelector('.menu-icon-wrapper');
-
-        function checkHeroVisibility() {
-            const heroBottom = hero.offsetTop + hero.offsetHeight;
-            if (window.pageYOffset > heroBottom - menuIcon.offsetHeight) {
-                body.classList.add('past-hero');
-            } else {
-                body.classList.remove('past-hero');
-            }
-        }
-
-        window.addEventListener('scroll', checkHeroVisibility);
-        window.addEventListener('resize', checkHeroVisibility);
-        checkHeroVisibility(); // Initial check
-    </script>
 
     <button class="btn btn-primary fixed-button contact-trigger">Contact</button>
 

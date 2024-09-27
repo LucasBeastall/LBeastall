@@ -528,128 +528,58 @@ body {
     padding: 0;
 }
 
-#contactBtn {
+/*contact*/
+
+.fixed-button {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    padding: 10px 20px;
-    background-color: #3151c0;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    z-index: 1;
+    z-index: 999;
 }
 
-.contact-overlay {
+.overlay {
     position: fixed;
-    bottom: 0;
+    top: 0;
     left: 0;
-    right: 0;
-    height: 0;
-    width: 100%;
-    background-color: #3151c0;
-    overflow: hidden;
-    transition: 0.5s;
-    z-index: 10;
-}
-
-.contact-overlay-content {
-    position: relative;
     width: 100%;
     height: 100%;
-    display: flex;
-}
-
-.image-container {
-    width: 40%;
-    height: contain;
+    background-color: rgba(0, 0, 0, 0.8);
     display: flex;
     justify-content: center;
-    overflow: hidden;
-    position: relative;
-    border-radius: 5px;
+    align-items: flex-end;
+    z-index: 1000;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
-    .image-container img {
-        max-height: 100%;
-        position: absolute;
-        top: 0;
-        height: 100%;
-        width: auto;
-        object-fit: cover;
-        border-radius: 5px;
+    .overlay.active {
+        visibility: visible;
+        opacity: 1;
     }
 
-.text-container {
-    width: 60%;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    position: relative;
+.overlay-content {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px 10px 0 0;
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+    transform: translateY(100%);
+    transition: transform 0.3s ease;
 }
 
-.contact-info {
-    position: absolute;
-    top: 40%;
-    right: 20px;
-    text-align: right;
-    color: white;
-    font-size: 14px;
-    transform: translateY(-100%);
+.overlay.active .overlay-content {
+    transform: translateY(0);
 }
 
-#getInTouch {
-    font-size: 15vw;
-    font-weight: bold;
-    letter-spacing: -2px;
-    line-height: 0.9;
-    color: white;
-    cursor: pointer;
-    margin: 0;
-    height: 60%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: left;
-    transition: all 0.3s ease;
+.contact-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
 }
-    #getInTouch:hover {
-        transform: scale(1.05);
-        -webkit-text-fill-color: transparent;
-        -webkit-text-stroke: 0.6vw white;
-    }
-
-.close-btn {
-    position: absolute;
-    top: 12px;
-    right: 28px;
-    font-size: 4rem;
-    color: white;
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-
-@keyframes slideUp {
-    from {
-        transform: translateY(100%);
-    }
-
-    to {
-        transform: translateY(0);
-    }
-}
-
-.contact-overlay.active {
-    height: 100%;
-}
-
-    .contact-overlay.active .contact-overlay-content {
-        animation: slideUp 0.5s ease-out forwards;
-    }
 
 @import url('https://fonts.googleapis.com/css?family=Merriweather:900&display=swap');
 
