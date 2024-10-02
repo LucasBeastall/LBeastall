@@ -5,75 +5,89 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="blankStyle.css">
     <link rel="stylesheet" href="postXStyle.css">
-    <title>PostX</title>
+    <title>LLM History</title>
     <link rel="icon" href="logoImg.png" type="image/png">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
     <header class="header">
-        <img src="postXImg.JPEG" alt="Background image">
+        <img src="LLMImg.PNG" alt="Background image">
         <div class="header-content">
-            <h1>PostX</h1>
-            <p>About the PostX.</p>
+            <h1>History and future of LLMs</h1>
+            <p>From Neural Networks to Transformers, The Evolution of Language AI: Attention, Hallucination, and Beyond</p>
         </div>
     </header>
     <div class="content">
-        <p>What is thinking, What is language and more importantly, what is it to be human? These are all question that have been thrust upon us with the dawn and ascension of AI. But where did they come from, how do they work, what potential do they have and what were the key inflection points of their development.</p>
-        <p>Uni of bath grad, made a GPT here</p>
-        <p>Pitts McColloch 1943, Bio inspired neural net to solve high dimention functions, what is a neural net</p>
-        <p>What do we want to know about a neural net. how expressive, how expensive, depth vs width, scaling laws, phase transitions, how to design and train models that can perform useful tasks / cognitive labour, how exploitable, how handle edge cases / novel information, adversarial design, gradient decent, note on local minima (or lack thereof)</p>
-        <p>capability AGI - ASI tease</p>
-        <p>2013 word embedding, concept vectors - intuitive for some, hegals dialectic</p>
-        <p>need word order and grammar, attention is all you need 2017</p>
-        <p>attantion in detail</p>
-        <p>gpt 3 and 4 release 2022-2023, do they really think, no true scotts man, context windoes</p>
-        <p>hallucination and solving it. superfocus</p>
-        <p>frame works, and synthetic data</p>
-        <p>API level innovation</p>
-        <p>AGI</p>
-        <p>maximal race conditions, corps and us/china, domain specific vs generalist, efficientcy and size, </p>
-        <p>agentic (what soem call agi but thats dumb) plug in to things, api, robots drones, memory planning, goal setting</p>
-        <p>risks, succesor species, covenent of man</p>
-
-        <h1>The Rise of AI: From Neural Networks to Potential AGI</h1>
-        <p>What is thinking? What is language? And more importantly, what does it mean to be human? These questions have been thrust upon us with the dawn and ascension of AI. But where did AI come from, how does it work, what potential does it have, and what were the key inflection points in its development? As a University of Bath graduate who has worked on developing a GPT model, I'll explore these fascinating questions.</p>
+        <h1>The Rise of AI: From Neural Networks to AGI</h1>
+        <p>What is thinking? What is language? And more importantly, what does it mean to be human? These questions have been thrust upon us with the dawn and ascension of AI. But where did AI come from, how does it work, what potential does it have, and what were the key inflection points in its development? As a University of Bath graduate who has built my own GPT model (<a href="postGPT.html">here</a>), I'll explore these fascinating questions.</p>
         <h4>The Birth of Neural Networks</h4>
-        <p>Our journey begins in 1943 with the Pitts-McCulloch model, which introduced the concept of artificial neural networks inspired by biological brains. These networks aim to solve high-dimensional functions, mimicking the way our brains process information. But what exactly is a neural network?</p>
+        <p>1943 with the Pitts-McCulloch model, which introduced the concept of artificial neural networks inspired by biological brains. These networks aim to solve high-dimensional functions, mimicking the way our brains process information. But what exactly is a neural network?</p>
+        <div class="image-wrap">
+            <img src="LLMImg1.PNG" alt="left-floating image">
+        </div>
         <p>At its core, a neural network is a system of interconnected nodes or "neurons" that process and transmit information. When we study neural networks, we're interested in several key aspects:</p>
         <ul>
             <li>Expressiveness: How well can the network represent complex functions?</li>
             <li>Efficiency: How much data and computing power does it need?</li>
-            <li>Architecture: How does the depth vs. width of the network affect its performance?</li>
-            <li>Scaling laws: How does performance change as we increase the size of the network?</li>
-            <li>Training dynamics: How do we optimize the network's parameters?</li>
+            <li>Architecture: How does the depth (number of hidden layers) vs. width (number of nodes in each hidden layer) of the network affect its performance?</li>
+            <li>Scaling laws: How does performance change as we increase the size of the network, training data or compute? Are there phase transitions and why do they occur at those boundries?</li>
+            <li>Training dynamics: How do we optimize the network's parameters? (gradient descent)</li>
+            <li>Robustness: How well do models generalise, handle outliers and how exploitable are they by adversarial design?</li>
         </ul>
-        <p>Interestingly, early concerns about neural networks getting stuck in local minima during training have largely been debunked in high-dimensional spaces. This realization opened the door to training much larger and more powerful models.</p>
-        <h4>The Emergence of Word Embeddings</h4>
-        <p>A major breakthrough came in 2013 with the introduction of word embeddings, also known as concept vectors. This approach maps words to points in a high-dimensional space (typically around 10,000 dimensions), capturing semantic relationships between words. For some, this idea resonates with Hegel's dialectic, as it represents concepts in relation to each other.</p>
+        <p>Note: There was many early concerns about neural networks getting stuck in local minima during training but this has largely been debunked in high-dimensional spaces. It was an odd fixation that is continually mentioned in old resources but logically and empirically isn't an issue. every dimention you add makes it expenentially less likely that there exists a local minima as it is unlikely to be a local minima over multiple dimentions and many that may appear such are actually saddle points. This realization opened the door to training much larger and more powerful models.</p>
+        <h4>The Emergence of Word Embeddings: word2vec</h4>
+        <div class="image-wrap left">
+            <img src="LLMImg4.JPG" alt="left-floating image">
+        </div>
+        <p>A major breakthrough came in 2013 with the introduction of word embeddings, also known as concept vectors. This approach maps words to points in a high-dimensional space (12,288 dimensions for GPT 3), capturing semantic relationships between words. For some, this idea resonates with Hegel's dialectic, as it represents concepts in relation to each other.</p>
+        <p>Human communication, despite its complexity, is built upon a surprisingly compact foundation of core concepts. This is evident in how Chinese children can begin reading newspapers after mastering only a few thousand characters, or how simplified languages created during World War II could convey complex ideas using basic terms (e.g., "big cat" for "tiger"). This efficiency suggests our brains operate within a conceptual space of limited dimensions, skillfully combining primitive ideas to construct more intricate thoughts.</p>
+        <p>The discovery that large language models can effectively represent human language using vector spaces of around 10,000 dimensions aligns with this cognitive efficiency. These models reveal an almost mathematical structure to our thoughts, where concepts combine and transform in ways reminiscent of vector operations. For instance, in this high-dimensional space, "king" - "man" + "woman" often results in a vector close to "queen". (This, while a famous example, is a false one, as the word Queen is also associated with the rock band.) This geometric representation of meaning extends the idea of word embeddings, capturing not just individual concepts, but the complex web of relationships between them, paving the way for more sophisticated language understanding and generation.</p>
         <p>However, word embeddings alone weren't enough. We needed a way to handle word order and grammar. This leads us to the next pivotal moment in AI development.</p>
         <h4>Attention Is All You Need</h4>
         <p>In 2017, the paper "Attention Is All You Need" introduced the Transformer architecture, revolutionizing natural language processing. The key innovation was the attention mechanism, which allows the model to weigh the importance of different words in a sentence when processing language.</p>
+        <div class="image-wrap">
+            <img src="LLMImg2.JPG" alt="left-floating image">
+        </div>
         <p>This architecture forms the backbone of modern language models like GPT-3 and GPT-4, released in 2020 and 2023 respectively. These models have shown remarkable capabilities, leading some to question whether they truly "think" – though this quickly becomes a philosophical debate akin to the "No True Scotsman" fallacy.</p>
+        <h4>How Does Attention Work</h4>
+        <p>
+            This mechanism revolves around three key components: Queries, Keys, and Values.
+        </p><p>
+            Each word in an input sequence is represented by three vectors: a Query vector, a Key vector, and a Value vector. These are created by multiplying the word's embedding with learned weight matrices (Wq, Wk, Wv respectively). The attention mechanism then uses these vectors to determine which words to focus on when processing each word in the sequence.
+        </p><p>
+            The process begins by calculating attention scores. This is done by taking the dot product between each Query vector and all Key vectors, resulting in a matrix where each cell represents how much attention one word should pay to another. These scores are then masked to prevent the model from "seeing" future words when predicting the next word in a sequence using a lower triangle matrix.
+        </p><p>
+            After applying a softmax function to normalize the scores, we get attention weights. These weights are then used to create a weighted sum of the Value vectors, producing a context-aware representation for each word. This output captures the relationships between words, allowing the model to understand complex language structures.
+        </p><p>
+            This elegant mathematical dance allows transformer models to dynamically focus on relevant parts of the input, capturing long-range dependencies and nuanced relationships in text. It's this capability that has made transformers the backbone of state-of-the-art language models
+        </p>
         <h4>The Challenge of Hallucination</h4>
         <p>Despite their impressive abilities, large language models face a significant challenge: hallucination. This is when the model generates plausible-sounding but factually incorrect information. Addressing this issue is crucial for practical applications of AI.</p>
-        <p>One promising approach is the use of focused models with curated knowledge bases, such as the SuperFocus system. This combines the language understanding of large models with the accuracy of carefully vetted information.</p>
-        <h4>The Road to AGI</h4>
+        <p>One promising approach is the use of focused models with curated knowledge bases. One company have success with this approach is SuperFocus. This technique combines the language understanding of large models with the accuracy of carefully vetted information essentially using two smaller models to prime and verify all information presented comes from the Corpus of correct information. Others are attempting to teach an open-source model directly to determin fact from fiction for itself using synthetic data, finetuning and some built-in chain of thought or multiagent reasoning.</p>
+        <p>For many practical applications this is the main hurdle, likewise for many specific practical applications this hurdle has been solved already.</p>
+        <h4>The Road to ASI</h4>
         <p>As we look to the future, the development of Artificial General Intelligence (AGI) looms on the horizon. We're in a period of maximal race conditions, with corporations and nations competing to advance AI technology. This includes:</p>
+        <div class="image-wrap">
+            <img src="LLMImg3.PNG" alt="left-floating image">
+        </div>
         <ul>
             <li>Developing domain-specific vs. generalist AI systems</li>
             <li>Improving efficiency and reducing model size</li>
             <li>Creating agentic AI that can interact with external systems</li>
             <li>Incorporating long-term memory, planning, and goal-setting capabilities</li>
         </ul>
-        <p>While these advancements bring exciting possibilities, they also raise important ethical considerations and potential risks. As we move forward, we must grapple with the possibility of AI as a successor species and consider our role in shaping this future.</p>
+        <p>While these advancements bring exciting possibilities, they also raise important questions, chiefly what will we all do when AI can do out jobs: better, faster, cheaper, safer and more morally. Multi-Agent frameworks are already out performing low-level experts in nearly every domain from medicine to mathematics. As we move forward, we must grapple with the possibility of AI as a successor species and consider our role in shaping this future.</p>
         <h4>Conclusion</h4>
         <p>The development of AI from simple neural networks to potential AGI is a testament to human ingenuity. As we stand at this technological frontier, we must consider not only the capabilities we're creating but also their implications for society and our own identity as humans. The future of AI is being written now, and we all have a part to play in shaping it.</p>
 
+
+
+        <!--
         <p>the execution / approach (technical description and method) (E)</p>
         <p>the tools / methods used (EG: Python, scikit-learn, pandas, matplotlib)</p>
         <p>the result (Achieved 85% accuracy in predicting potential churners)</p>
         <p>the send off / (potential) impact, (offer targetted discounts to reduce churn by X%)  (AC)</p>
-        <!--Problem: High customer churn rate in a subscription-based service
+        Problem: High customer churn rate in a subscription-based service
     Approach: Developed a machine learning model using historical customer data
     Tools: Python, scikit-learn, pandas, matplotlib
     Results: Achieved 85% accuracy in predicting potential churners

@@ -10,6 +10,10 @@
         border-radius: 8px;
     }
 
+    .image-wrap.small img {
+        width: 85%; /* This makes images with the 'small' class 60% of their original size */
+    }
+
     .image-wrap.left {
         float: left;
         margin: 0 20px 20px 0;
