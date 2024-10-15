@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="blankStyle.css">
+    <link rel="stylesheet" href="postXStyle.css">
+    <title>Machine Learning Algorithms</title>
+    <link rel="icon" href="logoImg.png" type="image/png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <img src="postMLImg3.jpg" alt="Background image">
+        <div class="header-content">
+            <h1>Machine Learning Algorithms: A Comprehensive Guide</h1>
+            <p>Understanding the Most Important Machine Learning Algorithms and Their Applications</p>
+        </div>
+    </header>
+    <div class="content">
+        <h2>Introduction</h2>
+        <p>In the rapidly evolving field of artificial intelligence, machine learning stands out as a cornerstone technology. But with so many algorithms available, how do you choose the right one for your problem? In this blog post, we'll explore the most important machine learning algorithms, helping you understand their applications and how they relate to each other.</p>
+
+        <p>My name is Lucas Beastall, and I have a keen interest in data science. I've practically implemented many of these algorithms for fun and studied much of what I'm about to teach you during my mathematics degree.</p>
+
+        <h2>What is Machine Learning?</h2>
+        <p>Machine learning is a branch of artificial intelligence that focuses on developing algorithms that can learn from data and make predictions or decisions without explicit programming. These algorithms can generalize from seen data to unseen data, allowing them to perform tasks without specific instructions.</p>
+
+        <h2>The Two Main Branches of Machine Learning</h2>
+        <p>Machine learning is generally divided into two main categories:</p>
+        <ul>
+            <li><strong>Supervised Learning:</strong> In this approach, we have a dataset with independent (input) variables (a.k.a. features) and a known dependent (output) variable (a.k.a. target). The goal is to train an algorithm to predict the output variable for new, unseen data.</li>
+            <li><strong>Unsupervised Learning:</strong> Here, we don't have a specific target variable to predict. Instead, the algorithm tries to find patterns or structure within the data on its own.</li>
+        </ul>
+
+        <h4>Example: Cats and Dogs</h4>
+        <p>Let's say we input a series of images of cats and dogs.</p>
+        <p>In supervised learning, we would also label each image as "cat" or "dog" so the supervised algorithm is learning to distinguish cats from dogs. The algorithm would learn from these labeled examples to identify features that differentiate cats from dogs, such as ear shape, face structure, or body size. Then, when presented with a new, unlabeled image, it could predict whether it's a cat or a dog based on what it has learned.</p>
+        <div class="image-wrap">
+            <img src="postMLImg9.jpg" alt="floating image">
+        </div>
+        <p>In unsupervised learning, we would not label the images as cats or dogs. If we asked the algorithm to separate the photos into two categories, it would attempt to do so based on the patterns and similarities it finds in the data, without any prior knowledge of what cats or dogs are. The algorithm might group the images based on features like:</p>
+        <ul>
+            <li>Size of the animals in the images</li>
+            <li>Color patterns</li>
+            <li>Shape of the ears</li>
+            <li>Presence or absence of long snouts</li>
+            <li>Body posture</li>
+        </ul>
+        <p>
+            The resulting categories might roughly correspond to "cats" and "dogs," but the algorithm wouldn't label them as such. It would simply identify two distinct groups based on the visual similarities it detects.
+            Interestingly, the algorithm might even find unexpected patterns. For example, it could potentially group the images based on the background (indoor vs. outdoor photos) rather than the animals themselves, if those features are more distinctive in the dataset.
+            It's important to note that while the unsupervised algorithm can identify patterns and group similar images together into clusters, but it wouldn't be able to tell us which group represents cats and which represents dogs. That interpretation would still require human input or additional processing.
+        </p>
+
+        <h2>Supervised Learning Algorithms</h2>
+        <p>Let's start with supervised learning, arguably the bigger and more important branch of machine learning. There are two further branches: Regression and Classification.</p>
+
+        <h3>Regression</h3>
+        <h4>Linear Regression</h4>
+        <p>Linear regression is the foundation of many machine learning algorithms. It attempts to find a linear relationship between input and output variables by minimising the sum of squared errors. (Assuming Gauss-Markov assumptions). For example, it might determine that for every one-unit increase in shoe size, a person is on average 2 inches taller.</p>
+
+        <h3>Classification</h3>
+        <h4>Logistic Regression</h4>
+        <div class="image-wrap">
+            <img src="postMLImg.png" alt="floating image">
+        </div>
+        <p>Despite its name, logistic regression is used for classification tasks. It predicts the probability of an instance belonging to a particular class. Instead of a straight line, we fit a sigmoid curve between 0 and 1, correlating to the probability that entry is of that class. For example, it could predict the likelihood of an adult being male based on their height. Often used for loan approval.</p>
+
+        <h4>Naive Bayes Classifier</h4>
+        <p>This probabilistic classifier is based on Bayes' theorem. It's particularly useful for text classification tasks, such as spam detection, where it can quickly categorize emails based on the words they contain.</p>
+
+        <h3>Regression and/or Classification</h3>
+        <h4>K-Nearest Neighbours (KNN)</h4>
+        <p>KNN is a simple yet powerful algorithm used for both classification and regression. It predicts based on the 'K' nearest data points in the feature space. For instance, it might classify a person's gender based on the majority gender of the five people closest in height and weight. For regression it may predict the weight of a person based upon the five people closest in height and chest size to them.</p>
+
+        <h4>Support Vector Machine (SVM)</h4>
+        <div class="image-wrap left">
+            <img src="postMLImg1.png" alt="left-floating image">
+        </div>
+        <p>SVM finds the hyperplane (boundary) that best separates classes by maximizing the margin (distance between the different classes). It's particularly effective in high-dimensional spaces and can handle non-linear classification using kernel functions. Can also be used for regression but primarily is a classifier.</p>
+
+        <h4>Decision Trees and Ensemble Methods</h4>
+        <p>Decision trees make predictions by asking a series of yes/no questions about the data attempting to split the data into more pure groups and maximise information gain. Ensemble methods like Bagging, Random Forests and Gradient Boosting combine multiple decision trees to create more robust and accurate models that reduces overfitting compared to individual decision trees.</p>
+
+        <h4>Neural Networks and Deep Learning</h4>
+        <p>Neural networks, especially deep learning models, have revolutionized machine learning. They consist of layers of interconnected nodes, each applying a non-linear activation function to a weighted sum of inputs. Training involves minimizing a loss function, typically using backpropagation and gradient descent. They can automatically learn complex features from data, making them incredibly powerful for tasks like image recognition and natural language processing.</p>
+
+        <h2>Unsupervised Learning Algorithms</h2>
+        <h3>Clustering</h3>
+        <h4>K-means</h4>
+        <p>K-means partitions n observations into k clusters, each characterized by its centroid. The algorithm minimizes the within-cluster sum of squares. The algorithm alternates between assigning points to the nearest centroid and updating centroids until convergence. Clustering generally is useful for discovering underlying structures in data, such as customer segments in marketing data.</p>
+
+        <h4>DBSCAN (Density-Based Spatial Clustering of Applications with Noise)</h4>
+        <div class="image-wrap">
+            <img src="postMLImg7.png" alt="floating image">
+        </div>
+        <p>DBSCAN forms clusters based on point density. It requires two parameters: ε (neighborhood distance) and minPts (minimum points to form a dense region). A core point p satisfies |{q ∈ D | dist(p,q) ≤ ε}| ≥ minPts, where D is the dataset. Points are classified as core, border, or noise. Clusters are formed by connecting core points within ε distance. DBSCAN excels in finding arbitrarily shaped clusters making it particularly useful in scenarios where K-means or hierarchical clustering might fail.</p>
+
+        <h4>Hierarchical Clustering</h4>
+        <p>The two main types of hierarchical clustering are:</p>
+        <ul>
+            <li>Agglomerative (bottom-up approach, n many, group up "one" at a time)</li>
+            <li>Divisive (top-down approach, one whole, split into 2, then 3 etc)</li>
+        </ul>
+        <p>Agglomerative clustering is more commonly used. Divisive is more Computational Complex and has few use cases.</p>
+
+        <div class="image-wrap left">
+            <img src="postMLImg6.jpg" alt="left-floating image">
+        </div>
+        <h3>Dimension Reduction</h3>
+        <h4>Principal Component Analysis (PCA)</h4>
+        <p>PCA finds orthogonal axes (principal components) along which the data varies most. This is equivalent to finding the eigenvectors of the covariance matrix, (ordered by their corresponding eigenvalues). PCA and other dimensionality reduction techniques help simplify datasets by reducing the number of features while retaining most of the information. This can make other algorithms more efficient and effective.</p>
+
+        <div class="image-wrap">
+            <img src="postMLImg2.png" alt="floating image">
+        </div>
+        <h2>Conclusion</h2>
+        <p>Now all you have to do is choose the right one. Selecting the appropriate algorithm depends on various factors, including the nature of your data, the problem you're trying to solve, and computational resources.</p>
+    </div>
+    <input id="page-nav-toggle" class="main-navigation-toggle" type="checkbox" />
+    <label for="page-nav-toggle" class="menu-icon-wrapper">
+        <svg class="icon--menu-toggle" viewBox="0 0 60 30">
+            <g class="icon-group">
+                <g class="icon--menu">
+                    <path d="M 6 0 L 54 0" />
+                    <path d="M 6 15 L 54 15" />
+                    <path d="M 6 30 L 54 30" />
+                </g>
+                <g class="icon--close">
+                    <path d="M 15 0 L 45 30" />
+                    <path d="M 15 30 L 45 0" />
+                </g>
+            </g>
+        </svg>
+    </label>
+
+    <nav class="main-navigation">
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <!-- <li><a href="#0">Timeline</a></li>-->
+            <li><a href="Lucas Beastall ~ CV.pdf" target="_blank" rel="noopener noreferrer">CV</a></li>       <!-- change for a Now page -->
+            <li><a href="" id="menuContactBtn" class="contact-trigger">Contact</a></li>
+        </ul>
+    </nav>
+
+    <button class="btn btn-primary fixed-button contact-trigger">Contact</button>
+
+    <div id="contactOverlay" class="overlay">
+        <div class="overlay-content">
+            <img src="contactImg.JPEG" alt="Contact Image" class="contact-image">
+            <h2>Contact</h2>
+            <p>Email: lucasmarcbeastall@gmail.com</p>
+            <p>Phone: 07725 715638</p>
+            <p>LinkedIn: www.linkedin.com/in/lucas-beastall-4a3025318</p>
+            <button class="btn btn-secondary" onclick="toggleOverlay()">Close</button>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script>
+
+        const overlay = document.getElementById('contactOverlay');
+        const overlayContent = overlay.querySelector('.overlay-content');
+
+        function toggleOverlay() {
+            overlay.classList.toggle('active');
+        }
+
+        // Use event delegation
+        document.body.addEventListener('click', function (event) {
+            const target = event.target;
+            if (target.classList.contains('contact-trigger') || target.closest('.contact-trigger')) {
+                event.preventDefault();
+                toggleOverlay();
+            }
+        });
+
+        overlay.addEventListener('click', function (event) {
+            if (event.target === overlay) {
+                toggleOverlay();
+            }
+        });
+
+        overlayContent.addEventListener('click', function (event) {
+            event.stopPropagation();
+        });
+
+        // For debugging
+        document.addEventListener('DOMContentLoaded', function () {
+            const footerLink = document.getElementById('footerContactBtn');
+            if (footerLink) {
+                console.log('Footer link found:', footerLink);
+                footerLink.addEventListener('click', function (e) {
+                    console.log('Footer link clicked');
+                });
+            } else {
+                console.log('Footer link not found');
+            }
+        });
+    </script>
+
+    <footer class="slim-footer">
+        <div class="footer-content">
+            <span class="footer-name">Lucas Beastall</span>
+            <a href="#" class="footer-contact contact-trigger" id="footerContactBtn">Contact Me</a>
+        </div>
+    </footer>
+</body>
+</html>
